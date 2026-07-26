@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(python -m pip install pymupdf --quiet 2>&1)",
+      "PowerShell(python -c \"import fitz; print\\('ok', fitz.__doc__\\)\")",
+      "PowerShell(python \"C:\\\\Users\\\\ADNAN\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\C--Zarnex-zarnex-website\\\\bca1c941-95a1-4bb9-ba89-1ca27bf725b4\\\\scratchpad\\\\render.py\")",
+      "PowerShell(node --version)",
+      "PowerShell(npm --version)",
+      "PowerShell(\"---\")"
+    ]
+  }
+}
