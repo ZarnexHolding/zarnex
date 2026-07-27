@@ -6,7 +6,12 @@
       "PowerShell(python \"C:\\\\Users\\\\ADNAN\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\C--Zarnex-zarnex-website\\\\bca1c941-95a1-4bb9-ba89-1ca27bf725b4\\\\scratchpad\\\\render.py\")",
       "PowerShell(node --version)",
       "PowerShell(npm --version)",
-      "PowerShell(\"---\")"
+      "PowerShell(\"---\")",
+      "PowerShell(Set-Location \"C:\\\\Zarnex\\\\zarnex\\\\website\"; Start-Process -NoNewWindow -FilePath \"cmd\" -ArgumentList \"/c npx next start -p 3100\"; Start-Sleep -Seconds 10; try { \\(Invoke-WebRequest http://localhost:3100 -UseBasicParsing -TimeoutSec 10\\).StatusCode } catch { \"not up: $_\" })",
+      "PowerShell(Set-Location \"C:\\\\Zarnex\\\\zarnex\\\\website\"; Get-Process node -ErrorAction SilentlyContinue | Where-Object { $_.StartTime -gt \\(Get-Date\\).AddMinutes\\(-30\\) } | Out-Null; Start-Process -NoNewWindow -FilePath \"cmd\" -ArgumentList \"/c npx next start -p 3200\"; Start-Sleep -Seconds 9; node scripts/budget.mjs http://localhost:3200 \"/\" \"/styleguide\")",
+      "Bash(npx eslint *)",
+      "PowerShell(python \"C:\\\\Users\\\\ADNAN\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\C--Zarnex-zarnex-website\\\\bca1c941-95a1-4bb9-ba89-1ca27bf725b4\\\\scratchpad\\\\gm.py\")",
+      "PowerShell(Set-Location \"C:\\\\Zarnex\\\\zarnex\\\\website\"; Start-Process -NoNewWindow -FilePath \"cmd\" -ArgumentList \"/c npx next start -p 3700\"; Start-Sleep -Seconds 9; node scripts/budget.mjs http://localhost:3700 \"/\" \"/styleguide\" \"/lab/scene\"; $p=\\(Get-NetTCPConnection -LocalPort 3700 -State Listen -ErrorAction SilentlyContinue\\).OwningProcess; if \\($p\\) { Stop-Process -Id $p -Force -ErrorAction SilentlyContinue })"
     ]
   }
 }

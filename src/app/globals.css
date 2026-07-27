@@ -1,26 +1,575 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* ==========================================================================
+   ZARNEX — DESIGN TOKENS
+   Single source of truth. Consumed by Tailwind (@theme), raw CSS, and GSAP.
+   See docs/01-design-principles.md
+   ========================================================================== */
+
+@theme {
+  /* ---- Ground ------------------------------------------------------------
+     The site is BONE. Cinematic moments are VOID.
+     Mirrors the profile document: dark cover, light interior, black bars.  */
+  --color-bone: #faf9f6;
+  --color-bone-soft: #f2f0ea;
+  --color-void: #000000;
+  --color-ink: #0a0a0b;
+
+  /* Ink on bone */
+  --color-ink-70: rgba(10, 10, 11, 0.7);
+  --color-ink-45: rgba(10, 10, 11, 0.45);
+  --color-ink-12: rgba(10, 10, 11, 0.12);
+  --color-ink-06: rgba(10, 10, 11, 0.06);
+
+  /* Bone on void */
+  --color-paper-70: rgba(250, 249, 246, 0.7);
+  --color-paper-45: rgba(250, 249, 246, 0.45);
+  --color-paper-14: rgba(250, 249, 246, 0.14);
+  --color-paper-06: rgba(250, 249, 246, 0.06);
+
+  /* ---- Gold — the Z monogram only. Never a flat fill. ------------------- */
+  --color-gold-deep: #7a5518;
+  --color-gold: #c9922f;
+  --color-gold-light: #f0d08a;
+  --color-gold-spec: #fff3d0;
+
+  /* ---- Type ------------------------------------------------------------- */
+  --font-display: var(--font-sans-display), "Helvetica Neue", Arial, sans-serif;
+  --font-mono: var(--font-mono-meta), ui-monospace, "SF Mono", monospace;
+
+  /* Fluid scale — 7 steps. See docs/01-design-principles.md */
+  --text-display-1: clamp(2.75rem, 1.2rem + 6.4vw, 6rem);
+  --text-display-2: clamp(2rem, 1.15rem + 3.6vw, 3.5rem);
+  --text-title: clamp(1.375rem, 1.15rem + 0.95vw, 1.875rem);
+  --text-body-lg: clamp(1.0625rem, 0.98rem + 0.38vw, 1.3125rem);
+  --text-body: clamp(1rem, 0.98rem + 0.1vw, 1.0625rem);
+  --text-caption: 0.875rem;
+  --text-meta: 0.75rem;
+
+  /* ---- Space ------------------------------------------------------------ */
+  --spacing-gutter: clamp(1.25rem, 5vw, 6rem);
+  --spacing-section: clamp(7.5rem, 14vw, 12.5rem);
+  --spacing-section-sm: clamp(4.5rem, 8vw, 7rem);
+
+  /* ---- Motion — mirrored into JS via lib/motion.ts ---------------------- */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-signal: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-mass: cubic-bezier(0.33, 0, 0.15, 1);
+
+  --dur-micro: 180ms;
+  --dur-base: 500ms;
+  --dur-reveal: 700ms;
+  --dur-image: 900ms;
+  --dur-cinema: 1400ms;
+  --dur-page: 800ms;
+
+  /* ---- Radius — zero by design. The source document has none. ----------- */
+  --radius-none: 0px;
+  --radius-xs: 2px;
+  --radius-full: 9999px;
+
+  /* ---- Layout ----------------------------------------------------------- */
+  --container-shell: 105rem; /* 1680px */
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+@layer base {
+  /*
+    Company accents live here, not in @theme.
 
-@media (prefers-color-scheme: dark) {
+    Tailwind v4 tree-shakes @theme variables — it only emits the ones a utility
+    class actually references. These are referenced at runtime via
+    `var(--color-accent-<slug>)` in inline styles, which the scanner cannot see,
+    so in @theme they were silently dropped and every accent rendered
+    transparent. `npm run check:accents` keeps them in step with
+    components/scene/layout.ts, which needs the same values as numbers.
+  */
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  --color-accent-zarnex-re: #4fa86b;
+  --color-accent-neptune: #ff2e1f;
+  --color-accent-laniakea: #4fe3f5;
+  --color-accent-xlive: #e8112d;
+  --color-accent-lumen: #6c5ce7;
+  --color-accent-glitch: #c0139a;
+  --color-accent-wr1: #c4b49a;
+  --color-accent-hikma: #7b2ff7;
+  --color-accent-graymatterz: #c8ff2e;
+  --color-accent-realintelligence: #ff2d2d;
+  --color-accent-astroper: #5b8fd6;
+  --color-accent-energ: #3fb565;
+  --color-accent-rnd: #faf9f6;
+  --color-accent-ifmc: #c1ff00;
+  --color-accent-messier: #b8a88f;
+  --color-accent-nuron: #d8cfc4;
+  --color-accent-airwaves: #4fb8c9;
+
+    --accent: var(--color-gold);
+    color-scheme: light;
+  }
+
+  * {
+    min-width: 0;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: auto; /* Lenis owns scrolling */
+  }
+
+  body {
+    background-color: var(--color-bone);
+    color: var(--color-ink);
+    font-family: var(--font-display);
+    font-size: var(--text-body);
+    line-height: 1.55;
+    font-synthesis-weight: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-variant-numeric: tabular-nums;
+    overflow-x: clip;
+  }
+
+  /* Lenis */
+  html.lenis,
+  html.lenis body {
+    height: auto;
+  }
+  .lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+  }
+  .lenis.lenis-stopped {
+    overflow: clip;
+  }
+
+  /*
+    `data-ground` carries the *colour scheme*; `.ground-void` / `.ground-bone`
+    add an opaque background. Sections that sit over the fixed WebGL scene take
+    the attribute only, so the scene shows through behind them.
+  */
+  [data-ground="void"] {
+    color: var(--color-bone);
+  }
+
+  ::selection {
+    background: var(--color-ink);
+    color: var(--color-bone);
+  }
+  [data-ground="void"] ::selection {
+    background: var(--color-bone);
+    color: var(--color-ink);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-gold);
+    outline-offset: 3px;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-weight: 500;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  img,
+  video,
+  svg {
+    display: block;
+    max-width: 100%;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* ==========================================================================
+   COMPONENTS
+   Ground-aware pieces. Written as CSS rather than long arbitrary variants so
+   a single ancestor attribute flips the whole set.
+   ========================================================================== */
+
+@layer components {
+  /* ---- Header — mirrors the section beneath it (see GroundTheme.tsx) ----- */
+  .site-header {
+    color: var(--color-ink);
+    border-color: transparent;
+    transition:
+      transform var(--dur-base) var(--ease-out),
+      background-color var(--dur-base) var(--ease-out),
+      border-color var(--dur-base) var(--ease-out),
+      color var(--dur-base) var(--ease-out);
+  }
+  :root[data-header-ground="void"] .site-header {
+    color: var(--color-bone);
+  }
+
+  .site-header[data-scrolled] {
+    background-color: color-mix(in srgb, var(--color-bone) 80%, transparent);
+    border-color: var(--color-ink-12);
+    backdrop-filter: blur(12px);
+  }
+  :root[data-header-ground="void"] .site-header[data-scrolled] {
+    background-color: color-mix(in srgb, var(--color-void) 70%, transparent);
+    border-color: var(--color-paper-14);
+  }
+
+  .site-header[data-hidden] {
+    transform: translateY(-100%);
+  }
+
+  .site-header[data-open] {
+    color: var(--color-ink);
+    background-color: var(--color-bone);
+    backdrop-filter: none;
+    transform: none;
+  }
+
+  /* The header sits outside the section tree, so its buttons follow
+     :root[data-header-ground] rather than an ancestor [data-ground]. */
+  :root[data-header-ground="void"] .site-header:not([data-open]) .btn-ghost {
+    border-color: var(--color-paper-14);
+    color: var(--color-bone);
+  }
+  :root[data-header-ground="void"]
+    .site-header:not([data-open])
+    .btn-ghost:hover {
+    border-color: var(--color-paper-45);
+    background-color: var(--color-paper-06);
+  }
+
+  /* ---- Buttons ---------------------------------------------------------- */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    user-select: none;
+    transition:
+      background-color var(--dur-micro) var(--ease-out),
+      border-color var(--dur-micro) var(--ease-out),
+      color var(--dur-micro) var(--ease-out),
+      opacity var(--dur-micro) var(--ease-out);
+  }
+  .btn-sized {
+    block-size: 52px;
+    padding-inline: 2rem;
+  }
+  @media (width < 48rem) {
+    .btn-sized {
+      block-size: 48px;
+      padding-inline: 1.5rem;
+    }
+  }
+
+  .btn-primary {
+    background-color: var(--color-ink);
+    color: var(--color-bone);
+  }
+  .btn-primary:hover {
+    background-color: color-mix(in srgb, var(--color-ink) 84%, var(--color-bone));
+  }
+  [data-ground="void"] .btn-primary {
+    background-color: var(--color-bone);
+    color: var(--color-ink);
+  }
+  [data-ground="void"] .btn-primary:hover {
+    background-color: color-mix(in srgb, var(--color-bone) 84%, var(--color-ink));
+  }
+
+  .btn-ghost {
+    border: 1px solid var(--color-ink-12);
+    color: var(--color-ink);
+  }
+  .btn-ghost:hover {
+    border-color: var(--color-ink-45);
+    background-color: var(--color-ink-06);
+  }
+  [data-ground="void"] .btn-ghost {
+    border-color: var(--color-paper-14);
+    color: var(--color-bone);
+  }
+  [data-ground="void"] .btn-ghost:hover {
+    border-color: var(--color-paper-45);
+    background-color: var(--color-paper-06);
+  }
+
+  /* Underline draws in from the left — never a static underline. */
+  .btn-text {
+    position: relative;
+    color: currentColor;
+  }
+  .btn-text::after {
+    content: "";
+    position: absolute;
+    inset-inline: 0;
+    inset-block-end: -0.375rem;
+    block-size: 1px;
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform var(--dur-micro) var(--ease-out);
+  }
+  .btn-text:hover::after {
+    transform: scaleX(1);
+  }
+
+  /* ---- Cursor ----------------------------------------------------------- */
+  .cursor-ring {
+    position: fixed;
+    inset-block-start: 0;
+    inset-inline-start: 0;
+    z-index: 9999;
+    display: grid;
+    place-items: center;
+    inline-size: 10px;
+    block-size: 10px;
+    border: 1px solid var(--color-bone);
+    border-radius: var(--radius-full);
+    color: var(--color-bone);
+    pointer-events: none;
+    mix-blend-mode: difference;
+    transition:
+      inline-size var(--dur-micro) var(--ease-out),
+      block-size var(--dur-micro) var(--ease-out);
+  }
+  .cursor-ring[data-state="link"] {
+    inline-size: 32px;
+    block-size: 32px;
+  }
+  .cursor-ring[data-state="node"] {
+    inline-size: 64px;
+    block-size: 64px;
+  }
+  .cursor-ring[data-state="text"] {
+    inline-size: 2px;
+    block-size: 18px;
+    border-radius: 0;
+  }
+
+  /* ---- Company card ----------------------------------------------------- */
+  .company-card {
+    padding: 2.5rem var(--spacing-gutter) 2.75rem;
+    transition: background-color var(--dur-micro) var(--ease-out);
+  }
+  @media (width >= 48rem) {
+    .company-card {
+      padding: 2.75rem 2.5rem 3rem;
+    }
+  }
+  .company-card:hover {
+    background-color: var(--color-ink-06);
+  }
+  /* The accent is the one thing that changes hue — and only here. */
+  .company-card__link {
+    transition: color var(--dur-micro) var(--ease-out);
+  }
+  .company-card:hover .company-card__link,
+  .company-card:hover .company-card__logo {
+    color: var(--accent);
+  }
+  .company-card:hover .company-card__logo {
+    opacity: 1;
+  }
+  [data-ground="void"] .company-card:hover {
+    background-color: var(--color-paper-06);
+  }
+
+  /* ---- Input ------------------------------------------------------------ */
+  .field {
+    inline-size: 100%;
+    border: 0;
+    border-block-end: 1px solid var(--color-ink-12);
+    background: transparent;
+    padding: 0 0 0.75rem;
+    outline: none;
+    transition:
+      border-color var(--dur-micro) var(--ease-out),
+      border-width var(--dur-micro) var(--ease-out);
+  }
+  .field::placeholder {
+    color: var(--color-ink-45);
+  }
+  .field:focus {
+    border-block-end-width: 2px;
+    border-color: var(--color-gold);
+    outline: none;
+  }
+}
+
+@layer utilities {
+  /* ---- Ground inversion ------------------------------------------------- */
+  .ground-void {
+    background-color: var(--color-void);
+    color: var(--color-bone);
+  }
+  .ground-bone {
+    background-color: var(--color-bone);
+    color: var(--color-ink);
+  }
+
+  /* ---- Type roles ------------------------------------------------------- */
+  .t-display-1 {
+    font-size: var(--text-display-1);
+    line-height: 0.94;
+    letter-spacing: -0.042em;
+    font-weight: 500;
+  }
+  .t-display-2 {
+    font-size: var(--text-display-2);
+    line-height: 1.02;
+    letter-spacing: -0.034em;
+    font-weight: 500;
+  }
+  .t-title {
+    font-size: var(--text-title);
+    line-height: 1.18;
+    letter-spacing: -0.02em;
+    font-weight: 500;
+  }
+  .t-body-lg {
+    font-size: var(--text-body-lg);
+    line-height: 1.5;
+    letter-spacing: -0.006em;
+  }
+  .t-body {
+    font-size: var(--text-body);
+    line-height: 1.6;
+  }
+  .t-caption {
+    font-size: var(--text-caption);
+    line-height: 1.5;
+  }
+  .t-meta {
+    font-family: var(--font-mono);
+    font-size: var(--text-meta);
+    line-height: 1.4;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+  .t-eyebrow {
+    font-family: var(--font-mono);
+    font-size: var(--text-meta);
+    line-height: 1.4;
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+  }
+
+  /* ---- The gold monogram treatment — gradient, never flat --------------- */
+  .t-gold {
+    background: linear-gradient(
+      135deg,
+      var(--color-gold-deep) 0%,
+      var(--color-gold) 34%,
+      var(--color-gold-light) 58%,
+      var(--color-gold-spec) 70%,
+      var(--color-gold) 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  /* ---- Layout ----------------------------------------------------------- */
+  .shell {
+    width: 100%;
+    max-width: var(--container-shell);
+    margin-inline: auto;
+    padding-inline: var(--spacing-gutter);
+  }
+  .measure {
+    max-width: 58ch;
+  }
+  .measure-tight {
+    max-width: 44ch;
+  }
+
+  /* ---- The Zarnex Rule — 2px bar + hairline. The brand fingerprint. ----- */
+  .rule {
+    display: block;
+    inline-size: 100%;
+    block-size: 2px;
+    background: currentColor;
+    position: relative;
+    transform-origin: left center;
+  }
+  .rule::after {
+    content: "";
+    position: absolute;
+    inset-block-start: 6px;
+    inset-inline: 0;
+    block-size: 1px;
+    background: currentColor;
+    opacity: 0.24;
+  }
+}
+
+/* ==========================================================================
+   T3 AMBIENT MOTION PRIMITIVES
+   Five, and only five. Nothing else ships.
+   1 RISE · 2 MASK · 3 DRAW are scroll-triggered here.
+   4 CROSS (page transition) and 5 SHIFT (hover) live on their components.
+   ========================================================================== */
+
+@media (prefers-reduced-motion: no-preference) {
+  [data-reveal] {
+    will-change: transform, opacity;
+  }
+
+  /* 1 — RISE */
+  [data-reveal="rise"] {
+    opacity: 0;
+    transform: translate3d(0, 24px, 0);
+    transition:
+      opacity var(--dur-reveal) var(--ease-out),
+      transform var(--dur-reveal) var(--ease-out);
+    transition-delay: var(--reveal-delay, 0ms);
+  }
+
+  /* 2 — MASK */
+  [data-reveal="mask"] {
+    clip-path: inset(0 0 100% 0);
+    transition: clip-path var(--dur-image) var(--ease-out);
+    transition-delay: var(--reveal-delay, 0ms);
+  }
+  [data-reveal="mask"] > * {
+    transform: scale(1.06);
+    transition: transform var(--dur-image) var(--ease-out);
+    transition-delay: var(--reveal-delay, 0ms);
+  }
+
+  /* 3 — DRAW */
+  [data-reveal="draw"] {
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform var(--dur-base) var(--ease-out);
+    transition-delay: var(--reveal-delay, 0ms);
+  }
+
+  [data-reveal].is-in {
+    opacity: 1;
+    transform: none;
+    clip-path: inset(0 0 0 0);
+    will-change: auto;
+  }
+  [data-reveal="mask"].is-in > * {
+    transform: scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+    clip-path: none !important;
+  }
 }

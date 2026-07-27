@@ -1,0 +1,360 @@
+{
+  "energ": [
+    {
+      "src": "/media/energ/array-desert-dawn.webp",
+      "w": 1229,
+      "h": 820,
+      "blur": "data:image/webp;base64,UklGRowAAABXRUJQVlA4IIAAAAAwBACdASoUAA0APt1cpkyopSOiMAgBEBuJYwCdMoGv/gPG5rM8sD09m+AA9p0h2K/2cASP2kO4V3yxwMXhWCQJ1lIHt5XxfWpYxGKC1zYTL5Ba9Pw5gpTB8VSwnI4DoAD4/C29zk/FUYQgYDVND6ISytWLIL9g/e36bxrRiTxAAA==",
+      "srcset": "/media/energ/array-desert-dawn-w640.webp 640w, /media/energ/array-desert-dawn-w1200.webp 1200w, /media/energ/array-desert-dawn.webp 1229w"
+    },
+    {
+      "src": "/media/energ/battery-storage-room.webp",
+      "w": 768,
+      "h": 512,
+      "blur": "data:image/webp;base64,UklGRoYAAABXRUJQVlA4IHoAAAAQBACdASoUAA0APt1apkyopSOiMAgBEBuJYwCdMoAC26t9lLcq42em0AD9vpR9YnzWL7AeQ5X0RZP//hODM+0e59w9TpvMvTfmlCCQPkgs7H/H49M2JG9AeG/WtbZ2N19MNa6laGjOHB1Hbs1nbI4MY8sF/6qe9eoAAA==",
+      "srcset": "/media/energ/battery-storage-room-w640.webp 640w, /media/energ/battery-storage-room.webp 768w"
+    },
+    {
+      "src": "/media/energ/control-room.webp",
+      "w": 922,
+      "h": 615,
+      "blur": "data:image/webp;base64,UklGRnoAAABXRUJQVlA4IG4AAACwAwCdASoUAA0APt1cpkyopSOiMAgBEBuJZwAAV/wtl1ZlJMFBgAD32O/pQ7kLyka5JP6e1ADnQdl1VUzJmImpzqEeTQpeKbvzfN3XcX9yWf20coCHDy8eiIT8t2Tbt69pk5EISmHTK+BfjhegAA==",
+      "srcset": "/media/energ/control-room-w640.webp 640w, /media/energ/control-room.webp 922w"
+    },
+    {
+      "src": "/media/energ/engineers-array-sunset.webp",
+      "w": 768,
+      "h": 512,
+      "blur": "data:image/webp;base64,UklGRoIAAABXRUJQVlA4IHYAAAAwBACdASoUAA0APt1apkyopSOiMAgBEBuJZgCdMoHgAAdF8+xR2rrA8YAA/sX4H3WLnyeoO+MNgD/R26ZWJkkejcuzolPJq8QutwPCkfuv5WQ/70JaCEM5zcjSLjQxbVSVydPljkKPQCpxUHHq7OVKDJ5VAAAA",
+      "srcset": "/media/energ/engineers-array-sunset-w640.webp 640w, /media/energ/engineers-array-sunset.webp 768w"
+    },
+    {
+      "src": "/media/energ/ground-mount-array.webp",
+      "w": 1800,
+      "h": 754,
+      "blur": "data:image/webp;base64,UklGRnIAAABXRUJQVlA4IGYAAAAQBACdASoUAAgAPt1apkyopSOiMAgBEBuJagCdMoMYOEAAj5O7Yx8mQADNeBHLdgxasWPxGrmnpNG965sd+dg7V4yyNkRxgDN/L5xgUWiUK2SrQ5QHmOpSlENSj4YviPVvzEyYAAA=",
+      "srcset": "/media/energ/ground-mount-array-w640.webp 640w, /media/energ/ground-mount-array-w1200.webp 1200w, /media/energ/ground-mount-array-w1800.webp 1800w"
+    },
+    {
+      "src": "/media/energ/pivot-irrigation-aerial.webp",
+      "w": 1024,
+      "h": 1152,
+      "blur": "data:image/webp;base64,UklGRoYAAABXRUJQVlA4IHoAAADwBACdASoSABQAPt1gp04opaMiMBgIARAbiUATpmSW6wSZsHAK3OrlOWt5ZHIshwAA/u2NAeg5LCjObXsosV5tsTBe6pFb8EyX3WDijoPDfh4LrV4EVPSQS8BHhwygg4qmLdQ5gnXWKBOdD0CJONpgp4CyE3o/IzAAAA==",
+      "srcset": "/media/energ/pivot-irrigation-aerial-w640.webp 640w, /media/energ/pivot-irrigation-aerial.webp 1024w"
+    },
+    {
+      "src": "/media/energ/rooftop-inspection.webp",
+      "w": 1076,
+      "h": 717,
+      "blur": "data:image/webp;base64,UklGRowAAABXRUJQVlA4IIAAAACQBACdASoUAA0APt1cpkyopSOiMAgBEBuJQBOkGTdAc/+A8cTVmyPxYdVNeygA/eG/jbMTDAMncnXkjwgZVszeqxdSB/dyKGSW3BLoVyyIxGmt9iw5iXQBw0zTKBbLNDPXtAAFm9cpViumqkJmjh/u10v69EWOA6ls/J7dIiAAAA==",
+      "srcset": "/media/energ/rooftop-inspection-w640.webp 640w, /media/energ/rooftop-inspection.webp 1076w"
+    },
+    {
+      "src": "/media/energ/rooftop-mosque-array.webp",
+      "w": 1672,
+      "h": 941,
+      "blur": "data:image/webp;base64,UklGRoYAAABXRUJQVlA4IHoAAABQBACdASoUAAsAPt1apkyopSOiMAgBEBuJbACdGvAt/8B4WWQsuXLC+NvgAP1TPXuQcFE+VD96pbUyw/xLp2/9zPpMjzsWu6S9OHn1rilCNj5X8tfzqT4CjpToanAgaCRijZyVkNqt5JRbm9IhKe7xFr4OOnUUYtIAAA==",
+      "srcset": "/media/energ/rooftop-mosque-array-w640.webp 640w, /media/energ/rooftop-mosque-array-w1200.webp 1200w, /media/energ/rooftop-mosque-array.webp 1672w"
+    },
+    {
+      "src": "/media/energ/site-installation.webp",
+      "w": 935,
+      "h": 421,
+      "blur": "data:image/webp;base64,UklGRnwAAABXRUJQVlA4IHAAAADwAwCdASoUAAkAPt1cpkyopSOiMAgBEBuJQBOgA3Kyz+foZBjDzGnAAP7p1aaz7JpkPR81Rd2h+duoIlxU4dJTD7/nIqGtnc3nvE5auPKAi6GA5XLGgfQK0Pdz9zAx/Bt2vslHo1jVXPVOsGbG/0AA",
+      "srcset": "/media/energ/site-installation-w640.webp 640w, /media/energ/site-installation.webp 935w"
+    },
+    {
+      "src": "/media/energ/structure-build.webp",
+      "w": 1672,
+      "h": 941,
+      "blur": "data:image/webp;base64,UklGRoYAAABXRUJQVlA4IHoAAAAQBACdASoUAAsAPt1apkyopSOiMAgBEBuJZgC7ACPsv1tWtUCJWXuKAAD+u1bp6jvIyGYRRR/UnMj4VAktwaGD/iqammhvab5OaEK765EeelMaZZNnwCpMMljYhO+WpBxzqg+5iPL4HODG3CAis5PESL4gRZ9IXgJwAA==",
+      "srcset": "/media/energ/structure-build-w640.webp 640w, /media/energ/structure-build-w1200.webp 1200w, /media/energ/structure-build.webp 1672w"
+    }
+  ],
+  "glitch-morph": [
+    {
+      "src": "/media/glitch-morph/activation-aerial.webp",
+      "w": 1800,
+      "h": 1012,
+      "blur": "data:image/webp;base64,UklGRnoAAABXRUJQVlA4IG4AAABQAwCdASoUAAsALqVut1ujKKioiICkS0AABc1v6mpfzmfmwAD+93wQGb5V7Kd7l5IE0HizgE7Sdc1U9kYXMTGnU97gNoQdzghdVw34Uy1ZliOLTxOHYat5Eubssne1Gm/AxKB45WXhbE/ZTkAAAA==",
+      "srcset": "/media/glitch-morph/activation-aerial-w640.webp 640w, /media/glitch-morph/activation-aerial-w1200.webp 1200w, /media/glitch-morph/activation-aerial-w1800.webp 1800w"
+    },
+    {
+      "src": "/media/glitch-morph/bmw-stand.webp",
+      "w": 1104,
+      "h": 623,
+      "blur": "data:image/webp;base64,UklGRpIAAABXRUJQVlA4IIYAAADQAwCdASoUAAsAPt1cpkyopSOiMAgBEBuJYwAAV7EOjKejWcZH3AAAzaR+qR0IaRbwjnuV1Qopi9/am2UZAcNw0GKJEPwQrWlfkojTZ86xvPfnYTudUNJsR1/pjvO4rF/P0JMYLHfl/OT+PTd5QRwP/roVsF1e5Q413fAj7obqp/TbMwzgAA==",
+      "srcset": "/media/glitch-morph/bmw-stand-w640.webp 640w, /media/glitch-morph/bmw-stand.webp 1104w"
+    },
+    {
+      "src": "/media/glitch-morph/cop28-green-zone.webp",
+      "w": 1207,
+      "h": 628,
+      "blur": "data:image/webp;base64,UklGRpIAAABXRUJQVlA4IIYAAADwAwCdASoUAAoAPt1cpkyopSOiMAgBEBuJZQCdAYyKz0lihYfpgDdQANz0K1HvDO9fHUY7T1gpmkQWUxK0ZHEcGjC64USkOvg8oUH0EDWLCOPvUiBgcAgcKkA+q+d2HOp13vxCCf/EeY4YLRD+BEDA96fH+Y7wAJeZxdMnkX6vqX4UaygAAA==",
+      "srcset": "/media/glitch-morph/cop28-green-zone-w640.webp 640w, /media/glitch-morph/cop28-green-zone-w1200.webp 1200w, /media/glitch-morph/cop28-green-zone.webp 1207w"
+    },
+    {
+      "src": "/media/glitch-morph/du-activation.webp",
+      "w": 1278,
+      "h": 712,
+      "blur": "data:image/webp;base64,UklGRoIAAABXRUJQVlA4IHYAAAAQBACdASoUAAsAPt1apkyopSOiMAgBEBuJZQC7B3gAox+L2nQn07nrwADgMIN89MZ+oeFhyqOiQlETZOterLJucPeuZGAibl9QPANRBlc8gA06ErS9hySWgOKtoYXYKZfHCsr3JcGIK5nlk3sqrQ6AYdn3gAAA",
+      "srcset": "/media/glitch-morph/du-activation-w640.webp 640w, /media/glitch-morph/du-activation-w1200.webp 1200w, /media/glitch-morph/du-activation.webp 1278w"
+    },
+    {
+      "src": "/media/glitch-morph/island-masterplan.webp",
+      "w": 1270,
+      "h": 824,
+      "blur": "data:image/webp;base64,UklGRnAAAABXRUJQVlA4IGQAAADwAwCdASoUAA0APt1apkyopSOiMAgBEBuJaACdMoADTN5k17KwZAwAAP6x9sVbnaoJ+IoV0BEqYiVzeWDIGx40iZ97XyNbmKJflwVy0VUdUoBC7YI5Av/MYxRGHDnz9JsM/8AA",
+      "srcset": "/media/glitch-morph/island-masterplan-w640.webp 640w, /media/glitch-morph/island-masterplan-w1200.webp 1200w, /media/glitch-morph/island-masterplan.webp 1270w"
+    },
+    {
+      "src": "/media/glitch-morph/iwc-boutique.webp",
+      "w": 1466,
+      "h": 715,
+      "blur": "data:image/webp;base64,UklGRmAAAABXRUJQVlA4IFQAAABwAwCdASoUAAoAPt1apkyopSOiMAgBEBuJaQAAYfVvXXU8yegA/vESuJ6VwFOl4YM5EXEeKJcGxFkD6woHIVjoHk47szcAdNZ8cDqoXk/3nkEgAAA=",
+      "srcset": "/media/glitch-morph/iwc-boutique-w640.webp 640w, /media/glitch-morph/iwc-boutique-w1200.webp 1200w, /media/glitch-morph/iwc-boutique.webp 1466w"
+    },
+    {
+      "src": "/media/glitch-morph/liwa-gate.webp",
+      "w": 1536,
+      "h": 864,
+      "blur": "data:image/webp;base64,UklGRowAAABXRUJQVlA4IIAAAAAQBACdASoUAAsAPt1apkyopSOiMAgBEBuJQAXf+N4Age/b9sNdQa9NEAD+8YUt41FLPPpn6f+mNqnKzC4V3XlgOn38xUyCgcF0b82hrZ4d0XjeX6DIn7HM3kGBpm/QO2PZb5APm/ER6Pfu5e1lYBDHAQmaRl7SowmqTEi4OCQAAA==",
+      "srcset": "/media/glitch-morph/liwa-gate-w640.webp 640w, /media/glitch-morph/liwa-gate-w1200.webp 1200w, /media/glitch-morph/liwa-gate.webp 1536w"
+    },
+    {
+      "src": "/media/glitch-morph/nissan-pavilion-night.webp",
+      "w": 1800,
+      "h": 1012,
+      "blur": "data:image/webp;base64,UklGRqIAAABXRUJQVlA4IJYAAADQAwCdASoUAAsAPt1apkyopSOiMAgBEBuJYgCdFQAAcpNku4gKXgAA/sErIw3W4wmd4e7bqLFfPRVDe4Tr8zPWXS5mXkI4oO3kd/kCLh+hDsq3fSqm2PiiNxnwRiNlAO3VJZPNzmGbJp+B31qn9fHPhwttrg7gqOnmcEBo8D5j6qfm8TLpBxqvfyrFdwXSBerAz4FSkAA=",
+      "srcset": "/media/glitch-morph/nissan-pavilion-night-w640.webp 640w, /media/glitch-morph/nissan-pavilion-night-w1200.webp 1200w, /media/glitch-morph/nissan-pavilion-night-w1800.webp 1800w"
+    },
+    {
+      "src": "/media/glitch-morph/nissan-tunnel.webp",
+      "w": 1686,
+      "h": 948,
+      "blur": "data:image/webp;base64,UklGRowAAABXRUJQVlA4IIAAAACwAwCdASoUAAsAPt1apkyopSOiMAgBEBuJYwAAPpkLbjXK2TZOAAD+9XqzWWNC5BZiDnf/KleuywykLyJKzyWrZv3U1Iza92H2FZz7O2zHsq0s2P55fCyFEgCXsVmo/mDT+SuKFGRj034p17HwlXviYMOhyP5FxTMfrZz9kARwAA==",
+      "srcset": "/media/glitch-morph/nissan-tunnel-w640.webp 640w, /media/glitch-morph/nissan-tunnel-w1200.webp 1200w, /media/glitch-morph/nissan-tunnel.webp 1686w"
+    },
+    {
+      "src": "/media/glitch-morph/retail-facade.webp",
+      "w": 1327,
+      "h": 750,
+      "blur": "data:image/webp;base64,UklGRooAAABXRUJQVlA4IH4AAABQBACdASoUAAsAPt1apkyopSOiMAgBEBuJYwDE2CL5kt9g/Z+wJMgc0DWYAP6p++GJFNtu60mKjyo2pLoHX1IbNr+jyo/Lh7sloWcxTanfJSi32mobGimkhH9cHm8oClooG1/Iz6U4H77y8uf9nUDjnLLkmifki08aBZoAAAA=",
+      "srcset": "/media/glitch-morph/retail-facade-w640.webp 640w, /media/glitch-morph/retail-facade-w1200.webp 1200w, /media/glitch-morph/retail-facade.webp 1327w"
+    },
+    {
+      "src": "/media/glitch-morph/showroom-desert.webp",
+      "w": 1800,
+      "h": 1012,
+      "blur": "data:image/webp;base64,UklGRmgAAABXRUJQVlA4IFwAAADQAwCdASoUAAsAPt1cpkyopSOiMAgBEBuJQBOgA9XN8mYQaDBk3iAA/uM5XvAhMFYb8yYsn9iyVMjFJQ+eJYwaNsfINNRr4pvg7R4d4O9I1YVUbk+u/IZnz+CQAA==",
+      "srcset": "/media/glitch-morph/showroom-desert-w640.webp 640w, /media/glitch-morph/showroom-desert-w1200.webp 1200w, /media/glitch-morph/showroom-desert-w1800.webp 1800w"
+    },
+    {
+      "src": "/media/glitch-morph/vichy-installation.webp",
+      "w": 1276,
+      "h": 696,
+      "blur": "data:image/webp;base64,UklGRo4AAABXRUJQVlA4IIIAAADQAwCdASoUAAsAPt1cpkyopSOiMAgBEBuJbACdL1yBEDm0HIb1V8AA/dQ2M04ZgzKhZPpzW8fx7ac6Ic0hTNgq2JT+zC+r7SoiqOtS+CCgP37bwQBUSR9fA/XfCpz52E3I/3DpK9fU14vdZJImBoUjPvGMBnstq+zcU/5Vp4DUAAAA",
+      "srcset": "/media/glitch-morph/vichy-installation-w640.webp 640w, /media/glitch-morph/vichy-installation-w1200.webp 1200w, /media/glitch-morph/vichy-installation.webp 1276w"
+    }
+  ],
+  "ifmc": [
+    {
+      "src": "/media/ifmc/facility-floor-care.webp",
+      "w": 863,
+      "h": 650,
+      "blur": "data:image/webp;base64,UklGRpYAAABXRUJQVlA4IIoAAABwBACdASoUAA8APt1apkyopSOiMAgBEBuJZQCw7YyeqGVsM8nfJ5cAos6vAAD9K1sXe86/TqnHFU3Niowrq9kAOq0zh5dEp8JR1CvmIjo57jGdzZ6MTu2SOuLGuv+WvGowJvKAfhXovUeb3oZeGSDkzs0i1d0II35yM/f2K6W7B2Ophl7G1k0dgAA=",
+      "srcset": "/media/ifmc/facility-floor-care-w640.webp 640w, /media/ifmc/facility-floor-care.webp 863w"
+    },
+    {
+      "src": "/media/ifmc/gym-facility-care.webp",
+      "w": 768,
+      "h": 578,
+      "blur": "data:image/webp;base64,UklGRqYAAABXRUJQVlA4IJoAAACwBACdASoUAA8APt1apkyopSOiMAgBEBuJbACdMoHaACpWW45Gvyg/Em6TY87AAPXD05QuKf4EkWZIuLY6kc7jypv+v4qSFH+dv4rDYDG33zT4ZRvBreIcvVv53eWSN35r4DPxHwSSaBg0X0YcK0wcsFW6Tp63EKbjvuu+EzqQkiagV5nP/ytDyCYjUdDzFZSlGDaeOlnIAAAA",
+      "srcset": "/media/ifmc/gym-facility-care-w640.webp 640w, /media/ifmc/gym-facility-care.webp 768w"
+    },
+    {
+      "src": "/media/ifmc/industrial-plant.webp",
+      "w": 863,
+      "h": 650,
+      "blur": "data:image/webp;base64,UklGRrIAAABXRUJQVlA4IKYAAACQBACdASoUAA8APt1apkyopSOiMAgBEBuJbACdL1AVe4ykdVOcRtlurxGfbbgA/tDYThPZ9+Att84oYs+ryg2hLteh1RhjPjkPbLBClOjUK7Bbv3LN8GcAvmXxIr0fY0hVwB8bXm2CXZ4u4qDETQgvXVriasDzj/tcZp24IN5RQFarfM7W+im9GIqcF0QO23/0SPDuy8jhVEHP5Z8iUWgNANX2cAAA",
+      "srcset": "/media/ifmc/industrial-plant-w640.webp 640w, /media/ifmc/industrial-plant.webp 863w"
+    },
+    {
+      "src": "/media/ifmc/landscaping-works.webp",
+      "w": 864,
+      "h": 1152,
+      "blur": "data:image/webp;base64,UklGRngAAABXRUJQVlA4IGwAAABwAwCdASoPABQAPt1apkyopSOiMAgBEBuJZQAAVHcXA0vT0gAA/rH9yOA0onm7qBm3zxK59PQqoWUZgxDF55syYpHTUreaQ5pYy1axP5MShkQFyQbiq8vwxD2qNZFSTEKr5KYwo0C9XEg9EAA=",
+      "srcset": "/media/ifmc/landscaping-works-w640.webp 640w, /media/ifmc/landscaping-works.webp 864w"
+    },
+    {
+      "src": "/media/ifmc/paddock-club-team.webp",
+      "w": 702,
+      "h": 1248,
+      "blur": "data:image/webp;base64,UklGRoYAAABXRUJQVlA4IHoAAABQBACdASoLABQAPt1apkyopSOiMAgBEBuJZQCdMoADQugDcrxwaE9GrvngAP7aFuBx/5a+mpOLHuAl/puxUho8JsyyaQvFd3pgMEgbPybeDc66fJzg9cuueWSEgjTOftyG3WorPMk2AXCVVcGCJEZC5Jiclyjma6AAAA==",
+      "srcset": "/media/ifmc/paddock-club-team-w640.webp 640w, /media/ifmc/paddock-club-team.webp 702w"
+    },
+    {
+      "src": "/media/ifmc/perimeter-works.webp",
+      "w": 1024,
+      "h": 768,
+      "blur": "data:image/webp;base64,UklGRpAAAABXRUJQVlA4IIQAAAAQBACdASoUAA8APt1apkyopSOiMAgBEBuJZACdMoMftBxBaC6QVf52IAD+kaAOYnFl0DS1t840xdyBW0YTQ17AYkSrTT2QcOjCrxpKMjU4b22FP1KUBGNoceIVRc4itGRDa5YpINHxltnsxkRCKSP80+XSJlc4hBAMWb7CVslXNEnCAAA=",
+      "srcset": "/media/ifmc/perimeter-works-w640.webp 640w, /media/ifmc/perimeter-works.webp 1024w"
+    },
+    {
+      "src": "/media/ifmc/school-classroom.webp",
+      "w": 896,
+      "h": 672,
+      "blur": "data:image/webp;base64,UklGRpYAAABXRUJQVlA4IIoAAAAQBACdASoUAA8APt1apkyopSOiMAgBEBuJZQDCgywBpdF0mNUN5H5jwAD6eBr9O4/FCJh1X/L0V9IIKVV48UbgIqX1I/ifG7TizDgYhZAvZOoYh3xvq3tPW2aXoD6N/YDgJWHoQ1juN5IK32Y0bd+T65LlfImKKAtFCJu1GKYVB93CRse2LxwwAAA=",
+      "srcset": "/media/ifmc/school-classroom-w640.webp 640w, /media/ifmc/school-classroom.webp 896w"
+    },
+    {
+      "src": "/media/ifmc/sports-track-cleaning.webp",
+      "w": 768,
+      "h": 576,
+      "blur": "data:image/webp;base64,UklGRpQAAABXRUJQVlA4IIgAAAAQBACdASoUAA8APt1apkyopSOiMAgBEBuJYwCsIIjDE/7TZLZkjpNZAAD+3rZ7odym5yKhwrpaGOKVSp/rMYUgW9pOtlU2KMeN4ESLtUz/8GE3a0cY9JqC4RJHvVOR8VGOBQO3GrXDXZ1WCC1ByaR/x8N0rCcy/yT94kKmKsDOGN2HeDr4AAAA",
+      "srcset": "/media/ifmc/sports-track-cleaning-w640.webp 640w, /media/ifmc/sports-track-cleaning.webp 768w"
+    },
+    {
+      "src": "/media/ifmc/tanker-fleet.webp",
+      "w": 1152,
+      "h": 648,
+      "blur": "data:image/webp;base64,UklGRmgAAABXRUJQVlA4IFwAAACwAwCdASoUAAsAPt1cqUyopSQiMAgBEBuJQBOiP/wHjzf6fmRbAADeMsaK8533BE4tgAHHPqT12OqoW4huENZRMVRbkGYs+lIJTlYoKNbAlFIP4hNAm8CW+MAAAA==",
+      "srcset": "/media/ifmc/tanker-fleet-w640.webp 640w, /media/ifmc/tanker-fleet.webp 1152w"
+    },
+    {
+      "src": "/media/ifmc/water-tanker-depot.webp",
+      "w": 922,
+      "h": 692,
+      "blur": "data:image/webp;base64,UklGRoQAAABXRUJQVlA4IHgAAADwAwCdASoUAA8APt1cpkyopSOiMAgBEBuJQBOj+ABW8RrP0Lf/oRBAAP7fwOto6Vtt8YfPTBfJ2jJX3OcsDQjchWaeYoGekzBORP5QD/ouX/HyXrrsQ00YVKRrZy6KCpMmiC79qPW7QauzBfrSk1cXD4SWuMXTwAA=",
+      "srcset": "/media/ifmc/water-tanker-depot-w640.webp 640w, /media/ifmc/water-tanker-depot.webp 922w"
+    },
+    {
+      "src": "/media/ifmc/workforce-assembly.webp",
+      "w": 1024,
+      "h": 681,
+      "blur": "data:image/webp;base64,UklGRrgAAABXRUJQVlA4IKwAAACwBACdASoUAA0APt1apkyopSOiMAgBEBuJbACdMoR3IsBbGYC/G2Rbgo9x3uowAOJYmxip1r37MX5gEc1utab3j6wh0z0X600olYuqqu7tEGBRROu5Iz1aqhPxp/D94Hx03sp80v+kFayz/rQI1dVZITDeaDciNTAJd8+0a/g8AW/3i9eTMqg2JtNYOuyg1hrLQmPxyLe7oR3oApx/BCFcl186QscqrAxFRQAA",
+      "srcset": "/media/ifmc/workforce-assembly-w640.webp 640w, /media/ifmc/workforce-assembly.webp 1024w"
+    },
+    {
+      "src": "/media/ifmc/workforce-site.webp",
+      "w": 1024,
+      "h": 683,
+      "blur": "data:image/webp;base64,UklGRpQAAABXRUJQVlA4IIgAAADQBACdASoUAA0APt1cpkyopSOiMAgBEBuJbACdMoMYJn/AgNTyeb2mxhsGiw0uzAD+yUGSPtKhZoUPstCC6PZgpV5a8ZB7oN11Wxdo10dofKfCprR/LfFExL9nStfKPNdBCkbZrsgmE4lKAMWvxjj/xQ3PKSlDJZyxkhNxmZIlzUqj+qCJl0AA",
+      "srcset": "/media/ifmc/workforce-site-w640.webp 640w, /media/ifmc/workforce-site.webp 1024w"
+    }
+  ],
+  "x-live": [
+    {
+      "src": "/media/x-live/aramco-tower-wrap.webp",
+      "w": 1210,
+      "h": 1613,
+      "blur": "data:image/webp;base64,UklGRqAAAABXRUJQVlA4IJQAAADQBACdASoPABQAPt1apkyopSOiMAgBEBuJbACdMoR3N5KFzVi4B/XmldVdRMjtgAD+ued5U9SBrlutKEB5HS3d1K1U5zAczBwc8wTTkVmIbglD/z/+dNJulf/EfojNaIILsDLhdzHa775XeTUwZUhl5HwzdtitaH99qtO+Naqg3YNKtbIFDiZnl+B66/JkBfzsfcoA",
+      "srcset": "/media/x-live/aramco-tower-wrap-w640.webp 640w, /media/x-live/aramco-tower-wrap-w1200.webp 1200w, /media/x-live/aramco-tower-wrap.webp 1210w"
+    },
+    {
+      "src": "/media/x-live/circuit-barriers-night.webp",
+      "w": 1613,
+      "h": 908,
+      "blur": "data:image/webp;base64,UklGRmQAAABXRUJQVlA4IFgAAACQAwCdASoUAAsAPt1ap0yopSOiMAgBEBuJZwDE6f/gG6mUxHwAAPyB2cxSqs1eUM0sXUdfC79fj3v7RNoy4wz7AUULDjsC3Wcs+bSdk76v3y+AfIBIAAAA",
+      "srcset": "/media/x-live/circuit-barriers-night-w640.webp 640w, /media/x-live/circuit-barriers-night-w1200.webp 1200w, /media/x-live/circuit-barriers-night.webp 1613w"
+    },
+    {
+      "src": "/media/x-live/dakar-red-sea-camp.webp",
+      "w": 585,
+      "h": 1040,
+      "blur": "data:image/webp;base64,UklGRmoAAABXRUJQVlA4IF4AAACwAwCdASoLABQAPt1cpkyopSOiMAgBEBuJQBdgBDmaAwSW8L250AD+kEJYkbvIOB5bVRazpT24BXpSj0qzkh5LNxlTv72GBG9/Ra/gBduX10v2HKZplWwNGB9qAAAA",
+      "srcset": "/media/x-live/dakar-red-sea-camp.webp 585w"
+    },
+    {
+      "src": "/media/x-live/exhibition-stand-blue.webp",
+      "w": 840,
+      "h": 840,
+      "blur": "data:image/webp;base64,UklGRugAAABXRUJQVlA4INwAAACwBQCdASoUABQAPt1kplAopSMiqAqpEBuJbACxHyGlyQvLjsO8v95Vns+VhWhSwAeTAFnkqAAA/vKj4RVjPjRDsRKFmJaAsgrryU09QWUyvm5oZ+Zp1peJakDSPMUplHZZIuEj9WnZ4iE98etTcIDlm++/mxkprysOcQLPiPuFDFFfojYmHuF/AV8sDSjHzwITOg+ZSREc2XXsSkUtODd9PQlZ2ZZ2TM9OftCvH8Glup3y7mhJQMF/wvR7s7BAqP7I2f+DVnkklQnmUkgVAkmguvq4a6r0ZOc/wAAA",
+      "srcset": "/media/x-live/exhibition-stand-blue-w640.webp 640w, /media/x-live/exhibition-stand-blue.webp 840w"
+    },
+    {
+      "src": "/media/x-live/f1-lightbox-gallery.webp",
+      "w": 1613,
+      "h": 908,
+      "blur": "data:image/webp;base64,UklGRoYAAABXRUJQVlA4IHoAAADwAwCdASoUAAsAPt1apkyopSOiMAgBEBuJZwDKACBfGyn2xB8ZyBAAAPkSwbDHXnFQ3CD2dPaBB2zMz5I4zMqzESa7ParXKdy+I7ZlJkHsxlC9KXjFHTKIxQh+fnfzmven6AdNYzf7OvB30PRHnV9yQWThkGksY9pAAA==",
+      "srcset": "/media/x-live/f1-lightbox-gallery-w640.webp 640w, /media/x-live/f1-lightbox-gallery-w1200.webp 1200w, /media/x-live/f1-lightbox-gallery.webp 1613w"
+    },
+    {
+      "src": "/media/x-live/fastest-street-circuit.webp",
+      "w": 908,
+      "h": 1613,
+      "blur": "data:image/webp;base64,UklGRngAAABXRUJQVlA4IGwAAAAQBACdASoLABQAPt1cpkyopSOiMAgBEBuJZQCo9CIPdVswYZbdDDi0AAD+CZMV5F2rEtaA6HHNDfSGrt4xRzd9Kuf88KyEDJxvkwaejqqzlgiSGh5kFyR4RzbrCvWBCapwM/TQpkBMeSigAAA=",
+      "srcset": "/media/x-live/fastest-street-circuit-w640.webp 640w, /media/x-live/fastest-street-circuit.webp 908w"
+    },
+    {
+      "src": "/media/x-live/fortinet-stand.webp",
+      "w": 1440,
+      "h": 1080,
+      "blur": "data:image/webp;base64,UklGRpIAAABXRUJQVlA4IIYAAAAQBACdASoUAA8APt1apkyopSOiMAgBEBuJYwDImBo1OazKp0oGqlErAAD+5mlHAlXeT0leYW3mTYTilNeEx8PmhdQ1OV87huCbUZkDmkutqALCMq//T4krcn7GiqFiPUccTxMk1gyg965d/A6cmMrtvLpJxfGSr/8yFhSJDhw9hE8A20yAAA==",
+      "srcset": "/media/x-live/fortinet-stand-w640.webp 640w, /media/x-live/fortinet-stand-w1200.webp 1200w, /media/x-live/fortinet-stand.webp 1440w"
+    },
+    {
+      "src": "/media/x-live/jcc-bridge-day.webp",
+      "w": 1800,
+      "h": 1350,
+      "blur": "data:image/webp;base64,UklGRpgAAABXRUJQVlA4IIwAAABwBACdASoUAA8APt1apkyopSOiMAgBEBuJbACdMoRwACk22C9TsjY8s4oEXAD9Qg6yU3h10U2s7VPU/YSzrOCnfteVau3H/I6RAstaFCxS9OdEKlDDFGefPfAK6XcxREpXZZ1LAferJaOhE5P35IILBfZxB42W2w3LL+aFfEDe1yH1dfQuUl+K9/kAAA==",
+      "srcset": "/media/x-live/jcc-bridge-day-w640.webp 640w, /media/x-live/jcc-bridge-day-w1200.webp 1200w, /media/x-live/jcc-bridge-day-w1800.webp 1800w"
+    },
+    {
+      "src": "/media/x-live/jcc-facade.webp",
+      "w": 1613,
+      "h": 908,
+      "blur": "data:image/webp;base64,UklGRpAAAABXRUJQVlA4IIQAAAAQBACdASoUAAsAPt1apkyopSOiMAgBEBuJQBZwAqW77tPJnc9LidzmAAD+6ZuRNm9+PYv7ZpqOS7g3Hxy20cJNo3YIUuywBV8kAsl/D0uR3c8GNAPaG1MwEJ5PX0sDkRdlqLF9yZBELVjhzuUBN7fG7mfXrVLuQ78ZryGzCDcUaGwAAAA=",
+      "srcset": "/media/x-live/jcc-facade-w640.webp 640w, /media/x-live/jcc-facade-w1200.webp 1200w, /media/x-live/jcc-facade.webp 1613w"
+    },
+    {
+      "src": "/media/x-live/jcc-signage.webp",
+      "w": 1248,
+      "h": 702,
+      "blur": "data:image/webp;base64,UklGRmYAAABXRUJQVlA4IFoAAABQAwCdASoUAAsAPt1cpkyopSOiMAgBEBuJZQCsABlxhJ8O+AD1bIWZSCPNmeb64YPR9KRozTSdLNoWO6vL4Tk685SHg8Bb0PoBKgZ5uNSSqHq0C/R+89cAAAA=",
+      "srcset": "/media/x-live/jcc-signage-w640.webp 640w, /media/x-live/jcc-signage-w1200.webp 1200w, /media/x-live/jcc-signage.webp 1248w"
+    },
+    {
+      "src": "/media/x-live/jeddah-heart-of-racing.webp",
+      "w": 1280,
+      "h": 960,
+      "blur": "data:image/webp;base64,UklGRoIAAABXRUJQVlA4IHYAAAAwBACdASoUAA8APt1cp0yopSOiMAgBEBuJZQCdAB6RPOwDOpbtfCb2jAAA/un1XcNqR+uMiYckfxRlBvFE/YZKFeXRdwlWDe8rP54gqP7hSOICuQO6ZQroGjD8jYIuSuRhRAtCO4OOZEavMxDHKY4NIitJb4AA",
+      "srcset": "/media/x-live/jeddah-heart-of-racing-w640.webp 640w, /media/x-live/jeddah-heart-of-racing-w1200.webp 1200w, /media/x-live/jeddah-heart-of-racing.webp 1280w"
+    },
+    {
+      "src": "/media/x-live/katusha-stand-interior.webp",
+      "w": 1152,
+      "h": 648,
+      "blur": "data:image/webp;base64,UklGRnYAAABXRUJQVlA4IGoAAAAQBACdASoUAAsAPt1cpkyopSOiMAgBEBuJYwC7AB4bHsIndDkO8tKiAAD+S+h0wEmEvRUZ97C4wthD+dCQSy0fjwMGy0TAO4aUfLUwibxk9bgIoT4mWG/RTqshXuhVm0C1iFgnfHz7xYAA",
+      "srcset": "/media/x-live/katusha-stand-interior-w640.webp 640w, /media/x-live/katusha-stand-interior.webp 1152w"
+    },
+    {
+      "src": "/media/x-live/katusha-stand.webp",
+      "w": 1536,
+      "h": 864,
+      "blur": "data:image/webp;base64,UklGRmwAAABXRUJQVlA4IGAAAACwAwCdASoUAAsAPt1cpkyopSOiMAgBEBuJZwC7ABZNL/ToBTEtAAD79HySuMfqBQamR5uRrqVtCCQ3pMkcz5jp6CqSw84TpTQViNFd9Jf5gyl7c605UeCYF5czdfUvKAA=",
+      "srcset": "/media/x-live/katusha-stand-w640.webp 640w, /media/x-live/katusha-stand-w1200.webp 1200w, /media/x-live/katusha-stand.webp 1536w"
+    },
+    {
+      "src": "/media/x-live/paddock-graphics.webp",
+      "w": 1210,
+      "h": 1613,
+      "blur": "data:image/webp;base64,UklGRrQAAABXRUJQVlA4IKgAAABwBACdASoPABQAPt1apkyopSOiMAgBEBuJbACdMoRwN6Ss/8A6SycshmuBgAD8fnKfR+5dH6SNYzBY2YF/vhICQs3kPyC5J8l6PbLUz3kDoiE8s+HgMnD0S85VDyufhco00slxuCXzVrYamSOPh/nmi7jpjPwbU3sHjGkN+XJFQN1MuoAijAKHz/7WKvfk9O/G6QEelf/miE6v7iBR/x5pUo/49MAAAAA=",
+      "srcset": "/media/x-live/paddock-graphics-w640.webp 640w, /media/x-live/paddock-graphics-w1200.webp 1200w, /media/x-live/paddock-graphics.webp 1210w"
+    },
+    {
+      "src": "/media/x-live/sagp-entrance-night.webp",
+      "w": 1664,
+      "h": 936,
+      "blur": "data:image/webp;base64,UklGRpgAAABXRUJQVlA4IIwAAAAQBACdASoUAAsAPt1apkyopSOiMAgBEBuJZgCdAB6I53PJA5LaMT4MAAD4QVHnNozLRY1uan+eD0+4GqqEAQwzwWecEsJj4BrfL7rhdw2SJN8GCnCTQLoFc5RJD1aGtSM1OYYJ53Spd6yIDxhol+i14I5rxzkmbvSmdmdWBJtrMIslIaYlca5ZGsAAAA==",
+      "srcset": "/media/x-live/sagp-entrance-night-w640.webp 640w, /media/x-live/sagp-entrance-night-w1200.webp 1200w, /media/x-live/sagp-entrance-night.webp 1664w"
+    },
+    {
+      "src": "/media/x-live/wayfinding-totem.webp",
+      "w": 908,
+      "h": 1613,
+      "blur": "data:image/webp;base64,UklGRoIAAABXRUJQVlA4IHYAAAAQBACdASoLABQAPt1apkyopSOiMAgBEBuJaACdMoADQnbsqPu1Zot/AADiflzB1n5A69vdwazHBQvRC/dt0rCIL83WuVffQ2NUCsuwcXumYt7ksjZrndpJXH6vSgM0C/IZrLU/LZ+FBT5khmKDK/LT3zE3MYAA",
+      "srcset": "/media/x-live/wayfinding-totem-w640.webp 640w, /media/x-live/wayfinding-totem.webp 908w"
+    }
+  ]
+}

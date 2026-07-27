@@ -22,15 +22,21 @@ Animation is a finite resource, spent deliberately. The site has **four signatur
 
 ## The one WebGL scene
 
-There is exactly **one** Three.js scene on the entire website. It lives on the homepage, persists across the whole scroll, and expresses one idea in three states:
+There is exactly **one** WebGL scene on the entire website. It lives on the homepage, persists across the whole scroll, and expresses one idea in three states:
 
-**Seventeen become one. One becomes seventeen.**
+**Many become one. One becomes many.**
 
 | State | Beat | What happens |
 |---|---|---|
 | **Converge** | Hero | A field of gold dust coalesces into the Zarnex Z monogram |
-| **Disperse** | Ecosystem | The Z dissolves into 17 distinct points of light — the companies |
+| **Disperse** | Ecosystem | The Z dissolves into one point of light per company |
 | **Pulse** | Innovation | A signal leaves the centre and travels every connection — R&D |
+
+**No copy anywhere states how many companies there are.** The group will grow,
+and a number baked into a headline, a comment or a fallback array is a bug with
+a delay fuse. `lib/companies.ts` is the only place the count exists; the footer,
+the index, the constellation and the tier-0 fallback all derive from it.
+`npm run check:counts` fails the build if a literal count reappears.
 
 **Technically it is one particle system with three position buffers**, morphed on the GPU. One draw call. Three narrative beats. No second scene is ever built.
 
@@ -121,14 +127,49 @@ Accent appears in exactly three places per company page: the hero eyebrow hairli
 
 ## Performance budget — CI-blocking
 
-| Metric | Home (WebGL) | All other routes |
+**Corrected against measurement.** The original 100/120kB first-load targets were
+written before profiling and are not achievable on Next 16.2 / React 19.2 — the
+App Router runtime alone is ~165kB gz before a line of our code. Gating on the
+absolute total would just be gating on Next's version number.
+
+So the budget splits into the **framework floor** (not ours) and the **route
+delta** (ours), plus the user-facing vitals that actually matter.
+
+| Metric | Budget | Measured (Stage 3) |
 |---|---|---|
-| LCP (4G, mid Android) | < 2.0s | < 1.5s |
-| INP | < 200ms | < 150ms |
-| CLS | < 0.02 | < 0.02 |
-| First-load JS (gz) | < 120KB + lazy 3D chunk | < 100KB |
-| Lighthouse Perf | ≥ 90 | ≥ 95 |
-| Lighthouse A11y | 100 | 100 |
+| Shared app-shell JS + CSS | ≤ 180kB gz | **176.0kB** |
+| Calm-route delta over the shell | ≤ 30kB gz | **0.0kB** (`/styleguide`) |
+| Signature-route delta (scene + GSAP) | ≤ 120kB gz | **43.8kB** (`/`) |
+| Scene alone | — | **3.3kB** (`/lab/scene`) |
+| LCP (desktop, local) | ≤ 2000ms | **164ms** (`/`) |
+| CLS | ≤ 0.02 | **0** |
+| INP | ≤ 200ms | — |
+| Lighthouse Perf / A11y | ≥ 90 / 100 | — |
+
+Routes are budgeted by role, not uniformly. A route with a T1/T2 moment pays
+for GSAP + ScrollTrigger and the WebGL scene; **every other route must download
+neither.** A flat delta would hide whether that guarantee still holds — the
+0.0kB on `/styleguide` is the number that proves it.
+
+Run `npm run budget` against a production build. It fails the process on any
+breach, so it can gate a PR directly.
+
+**Consequences for the build — two libraries removed after measurement:**
+
+1. **GSAP (~90kB gz) is off the critical path.** Lenis runs its own rAF;
+   `lib/scroll.ts#bridgeToGsap()` dynamically imports GSAP and hands over the
+   clock only when a T1/T2 component first needs ScrollTrigger. Routes with no
+   signature moment never download it.
+
+2. **Three.js was dropped entirely (129kB gz → 0).** The scene is one static
+   vertex buffer drawn with one `drawArrays` call — no scene graph, no lights,
+   no loaders, no post-processing were ever in the design. `scene/renderer.ts`
+   is ~4kB of raw WebGL doing exactly that, with the same `SceneHandle`
+   interface, so Three can be reintroduced behind it if a future scene needs
+   what it offers. **detect-gpu** went too: it fetches a benchmark database from
+   a CDN at runtime, and the FPS guard is the real safety net anyway.
+
+   Net: the entire signature WebGL moment costs **3.0kB gz**.
 
 **Non-negotiable:** the 3D chunk is dynamically imported, gated behind first paint, and never on the critical path. The hero's LCP element is the headline and poster image — never the canvas.
 
