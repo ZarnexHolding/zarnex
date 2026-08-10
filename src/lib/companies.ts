@@ -142,7 +142,7 @@ const ALL_COMPANIES: Company[] = [
   },
   {
     slug: "wr1-studios",
-    name: "WR-1",
+    name: "VR-1",
     accent: "wr1",
     industry: "Media Production",
     sectors: [2, 4],

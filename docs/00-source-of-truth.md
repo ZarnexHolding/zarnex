@@ -71,7 +71,7 @@ Extracted verbatim from `Zarnex Holding Company Profile 2026.pdf` (26 pages).
 | 5 | **Glitch Morph** | Creative | Creative Studios & Advertising — "A cross-disciplinary creative powerhouse delivering next-level visual communication" | p15 |
 | 6 | **Neptune Studios** | Architecture | Urban Design, Architecture & Design Consultancy — "A future-forward design consultancy shaping tomorrow's cities" | p16–17 |
 | 7 | **X Live** | Production | Event Production • Event Technologies • Branding • Fabrication • Fitout — "A fully integrated event production and experience engineering company, delivering turnkey solutions for world-class events, exhibitions, fit-out projects and temporary structures across the Middle East." | p18 |
-| 8 | **WR-1 / we are one studios** | Content | Media Production & Technology / Media, Virtual Production & Emerging Tech — "A hybrid media-tech lab creating advanced visual content" | p19 |
+| 8 | **VR-1 / we are one studios** | Content | Media Production & Technology / Media, Virtual Production & Emerging Tech — "A hybrid media-tech lab creating advanced visual content" | p19 |
 | 9 | **Graymatterz** | ART | Creative Café • Art Space • Co-Working Social Hub — "A next-generation café brand blending creativity, community, culture and productivity." | p20 |
 | 10 | **Astroper Aerospace** | Aerospace | Aviation • Space Systems • Future Mobility — "The aerospace and next-gen mobility division of Zarnex, shaping the future of air, space, and planetary technologies." | p21 |
 | 11 | **RealIntelligence** | AI | Software Development • App Ecosystems • Artificial Intelligence — "The digital brain of Zarnex — building intelligent systems, platforms, and next-gen apps." | p22 |
@@ -118,7 +118,7 @@ Extracted verbatim from `Zarnex Holding Company Profile 2026.pdf` (26 pages).
 
 **X Live — Solutions (p18):** Events · Exhibitions · Fitout
 
-**WR-1 (p19):** Luxury Photography · Video Content Production · 3D content & animation · Film, TVCs, and high-end video · Immersive content technologies
+**VR-1 (p19):** Luxury Photography · Video Content Production · 3D content & animation · Film, TVCs, and high-end video · Immersive content technologies
 
 **Graymatterz (p20):** Premium café experience · Art exhibitions & creative events · Co-working & brainstorming spots · Workshops, talks, creator meet-ups · VR corners, comic corners, gaming pods · Merch & lifestyle products
 **Graymatterz — Purpose:** To be the artistic and community heart of Zarnex, connecting creators, thinkers, and innovators
