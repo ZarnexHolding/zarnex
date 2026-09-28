@@ -65,7 +65,7 @@ Extracted verbatim from `Zarnex Holding Company Profile 2026.pdf` (26 pages).
 | # | Company | Category label (from page header) | Descriptor | Source |
 |---|---|---|---|---|
 | 1 | **Zarnex Real Estate** (Developers) | Developers | Property development, land/building acquisition, project financing, residential & commercial development, leasing/selling/brokerage, asset management, rental income, facility management | p5–8 |
-| 2 | **Laniakea** | Entertainment | Events & Experience Management — "A world-class experiential agency creating impactful events, festivals, ceremonies and global-scale experiences." | p9–10 |
+| 2 | ~~**Laniakea**~~ **(REMOVED — see §Removals)** | Entertainment | Events & Experience Management — "A world-class experiential agency creating impactful events, festivals, ceremonies and global-scale experiences." | p9–10 |
 | 3 | **Lumen Arabia** | Display Technologies | Light \| Display Technologies \| Event Technologies — "The advanced visual technology arm of Zarnex Holding, delivering next-generation display, lighting and experience tech." Strapline: *illuminating possibilities* | p11–12 |
 | 4 | **Hikma Comics** (حكمة) | Entertainment / Gaming | Comics • World Building • Game Development • IP Creation. Positioning line: **ARAB INDIGENOUS FUTURISM**. "The imagination factory of the group building original IPs that expand into comics, video games, animated series, theme parks and films" | p13–14 |
 | 5 | **Glitch Morph** | Creative | Creative Studios & Advertising — "A cross-disciplinary creative powerhouse delivering next-level visual communication" | p15 |
@@ -104,7 +104,7 @@ Extracted verbatim from `Zarnex Holding Company Profile 2026.pdf` (26 pages).
 **Zarnex Real Estate — campaign line (p7):** "The City that Breathes" / *A living city breathing with every leaf.*
 **Zarnex Real Estate — sectors line (p6):** Developers • Builders • Properties
 
-**Laniakea (p9):** Mega-events & ceremonies · Brand activations · Festivals, sports, fan zones · Immersive experience design · Turnkey production & operations
+**Laniakea (p9) — REMOVED from the website, see §Removals:** Mega-events & ceremonies · Brand activations · Festivals, sports, fan zones · Immersive experience design · Turnkey production & operations
 
 **Lumen Arabia (p11):** LED display systems (indoor, outdoor, creative) · Digital media facades · Projection & holographic systems · Lighting technologies for events & architecture · Interactive digital signage · Immersive display solutions · Event technology rentals & custom builds · Smart wayfinding, kiosks & digital hardware · Creative tech integration for mega events
 
@@ -152,7 +152,8 @@ Extracted verbatim from `Zarnex Holding Company Profile 2026.pdf` (26 pages).
 
 The subsidiary names encode two coherent systems that the client may not have made explicit:
 
-**Cosmic:** Laniakea (the galaxy supercluster containing the Milky Way), Messier (the deep-sky object catalogue), Astroper, Neptune, Lumen (SI unit of luminous flux), Airwaves.
+**Cosmic:** Laniakea (the galaxy supercluster containing the Milky Way — name now
+retired from the site), Messier (the deep-sky object catalogue), Astroper, Neptune, Lumen (SI unit of luminous flux), Airwaves.
 **Neural / cognitive:** Nu-Ron (neuron), Graymatterz (grey matter), RealIntelligence, Hikma (Arabic: *wisdom*).
 
 Zarnex therefore already reads as **a mind operating at cosmic scale** — gravity holding bodies in orbit, signal travelling between them. This is the foundation of the creative direction (see `01-brand-strategy`), and it comes from the company's own naming, not from an imported concept.
@@ -173,3 +174,20 @@ Zarnex therefore already reads as **a mind operating at cosmic scale** — gravi
 10. **Correct purpose statement for RealIntelligence** (PDF has a copy-paste error, see §4).
 11. **Logo master files** (SVG) for all 17 entities + the gold Z.
 12. Legal entity structure: which are wholly owned subsidiaries vs. JVs vs. brands? Affects the "Holding Structure" page and its JSON-LD.
+
+
+---
+
+## Removals
+
+Companies that appear in the master profile PDF but have been withdrawn from the
+website by client instruction. The extraction above is left intact on purpose —
+this file records **what the source document says**, and editing that would make
+it useless as a reference. This section records what we were told to do with it.
+
+| Company | Profile pages | Instructed | Action |
+|---|---|---|---|
+| **Laniakea** | p3 (ecosystem), p9–10 (profile) | 2026-09-28, by the owner | Deleted outright — data entry, accent, route and all cross-references. Not hidden; removed. |
+
+If Laniakea ever returns, everything needed to rebuild it is still on p9–10 of
+the profile PDF, and the descriptor and service list are preserved above.

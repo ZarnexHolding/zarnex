@@ -77,6 +77,34 @@ a large hero treatment.
 
 ---
 
+## Laniakea removed from the site — 2026-09-28
+
+The owner asked for Laniakea to be taken off the website. Asked explicitly
+whether that meant *hidden* (the `hidden: true` route used for Messier, Nu-Ron
+and Airwaves, which keeps the data and can be reversed with one flag) or
+*deleted outright*. Answer: **removed completely.**
+
+So it is deleted, not hidden — the entry in `companies.ts`, its accent in both
+`globals.css` and `scene/layout.ts`, and every cross-reference:
+
+| Was | Now |
+|---|---|
+| X Live `related` | Lumen Arabia · Glitch Morph · Neptune Studios |
+| Glitch Morph `related` | VR-1 · Hikma Comics · Lumen Arabia |
+| Innovation → Entertainment technology | Lumen Arabia · X Live |
+
+The constellation, footer, index and sector filters all derive from
+`COMPANIES`, so they reflowed on their own — no count to update anywhere.
+
+`/companies/laniakea` now 404s. The site is not live yet, so no redirect was
+added. **If it launches and that URL has been shared, a redirect is needed.**
+
+The verbatim profile extraction in `00-source-of-truth.md` is deliberately
+*not* scrubbed — that file records what the source PDF says, and a §Removals
+register there now marks Laniakea's status.
+
+---
+
 ## Still outstanding
 
 1. `ener-g.sa` vs `energ.company` — which is live?

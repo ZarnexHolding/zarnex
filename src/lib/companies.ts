@@ -80,18 +80,6 @@ const ALL_COMPANIES: Company[] = [
     status: "active",
   },
   {
-    slug: "laniakea",
-    name: "Laniakea",
-    accent: "laniakea",
-    industry: "Events & Experience",
-    sectors: [3],
-    positioning: "Mega-events, ceremonies and global-scale experiences.",
-    description:
-      "A world-class experiential agency creating mega-events, ceremonies, festivals and immersive brand activations.",
-    website: null,
-    status: "active",
-  },
-  {
     slug: "lumen-arabia",
     name: "Lumen Arabia",
     accent: "lumen",

@@ -38,7 +38,7 @@ const DOMAINS: { name: string; feeds: string[] }[] = [
   { name: "Sustainability engineering", feeds: ["energ", "ifmc"] },
   {
     name: "Entertainment technology",
-    feeds: ["laniakea", "lumen-arabia", "x-live"],
+    feeds: ["lumen-arabia", "x-live"],
   },
   { name: "Future mobility", feeds: ["astroper-aerospace"] },
   { name: "Fabrication & prototyping", feeds: ["x-live", "ifmc"] },

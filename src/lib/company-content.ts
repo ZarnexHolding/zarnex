@@ -40,8 +40,8 @@ export type CompanyContent = {
   mission?: string;
   /**
    * Slugs of companies this one genuinely works with. Sector overlap alone is a
-   * weak signal — X Live shares no sector with Laniakea or Lumen, yet those are
-   * exactly who it delivers a mega-event alongside. Falls back to shared
+   * weak signal — X Live shares no sector with Lumen or Glitch Morph, yet those
+   * are exactly who it delivers a mega-event alongside. Falls back to shared
    * sectors when not set.
    */
   related?: string[];
@@ -186,7 +186,7 @@ export const COMPANY_CONTENT: Record<string, CompanyContent> = {
     ],
     clientsNote: "Client categories as stated in the company profile.",
     // The mega-event delivery stack: the show, the light, the pictures.
-    related: ["laniakea", "lumen-arabia", "glitch-morph"],
+    related: ["lumen-arabia", "glitch-morph", "neptune-studios"],
     hero: "jeddah-heart-of-racing",
     gallery: [
       "jcc-facade",
@@ -457,7 +457,7 @@ export const COMPANY_CONTENT: Record<string, CompanyContent> = {
       "Auditoire",
     ],
     // The content and experience side of the group.
-    related: ["wr1-studios", "laniakea", "hikma-comics"],
+    related: ["wr1-studios", "hikma-comics", "lumen-arabia"],
     hero: "nissan-pavilion-night",
     gallery: [
       "du-activation",

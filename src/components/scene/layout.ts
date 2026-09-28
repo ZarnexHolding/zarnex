@@ -17,7 +17,6 @@ import { COMPANIES } from "@/lib/companies";
 export const ACCENT_HEX: Record<string, string> = {
   "zarnex-re": "#4fa86b",
   neptune: "#ff2e1f",
-  laniakea: "#4fe3f5",
   xlive: "#e8112d",
   lumen: "#6c5ce7",
   glitch: "#c0139a",
