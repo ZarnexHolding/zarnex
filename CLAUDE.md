@@ -3,8 +3,9 @@
 # Zarnex Holding — website
 
 Corporate site for **Zarnex Holding Company** (Riyadh, CR 7050427413), a
-multi-sector holding group. One parent, fourteen published operating companies
-across ten sectors.
+multi-sector holding group: one parent and its operating companies across ten
+sectors. (No count here on purpose — the group grows, and `companies.ts` is the
+only place the number lives.)
 
 **Stack:** Next.js 16 (App Router) · React 19 · TypeScript strict · Tailwind CSS v4 ·
 GSAP + ScrollTrigger · Lenis · raw WebGL. No CMS yet — content lives in typed
@@ -18,7 +19,7 @@ modules under `src/lib`.
 |---|---|
 | [`docs/00-source-of-truth.md`](docs/00-source-of-truth.md) | Everything extracted from the master profile PDF, verbatim. **Nothing on the site may contradict it.** Also the open-questions register. |
 | [`docs/01-design-principles.md`](docs/01-design-principles.md) | The design constitution — motion budget, content caps, performance gates. Rules, not suggestions. |
-| [`docs/02-ifmc.md`](docs/02-ifmc.md) · [`03-glitch-morph`](docs/03-glitch-morph.md) · [`04-xlive`](docs/04-xlive.md) · [`05-energ`](docs/05-energ.md) | Per-company source data, one file per profile PDF received |
+| [`docs/02-ifmc.md`](docs/02-ifmc.md) · [`03-glitch-morph`](docs/03-glitch-morph.md) · [`04-xlive`](docs/04-xlive.md) · [`05-energ`](docs/05-energ.md) · [`08-buildx`](docs/08-buildx.md) | Per-company source data, one file per profile PDF received |
 | [`docs/06-decisions.md`](docs/06-decisions.md) | Client answers and what changed as a result |
 | [`docs/07-brand-direction-one.md`](docs/07-brand-direction-one.md) | **Brand Identity V2, Direction One** — the current identity. Palette, type, the mark, and what is still missing. |
 
@@ -76,6 +77,17 @@ rather than a screenshot pinning the pixels.
 |---|---|
 | `companies.ts` | **The single source of truth for the ecosystem.** `ALL_COMPANIES` holds everything; the exported `COMPANIES` filters out `hidden`. Index, footer, constellation, routes, sector filters and every count derive from it. |
 | `company-content.ts` | Long-form page content keyed by slug. Split out so the index and WebGL scene never pull page copy into their bundles. No entry → the page renders an honest "profile in preparation". |
+
+**The homepage's six companies are an editorial pick** — `FEATURED` in
+`components/home/CompaniesPreview.tsx`, by slug, in display order. Change that
+list, not the order of `companies.ts`, which would also reorder the index, the
+footer and the constellation. A slug that is missing or held back drops out.
+
+**Adding a company that is not in the master profile** (BuildX was the first):
+its own `docs/NN-<slug>.md` source doc, an accent in *both* `globals.css` and
+`scene/layout.ts`, and a sector assignment flagged as ours rather than the
+client's. Read the attribution section of `docs/08-buildx.md` first — a
+company's older profile can present partner companies' work as its own.
 | `media.ts` | **GENERATED — do not hand-edit.** Image manifest: dimensions, `srcset`, inline blur placeholders. |
 | `site.ts` | Company identity and the verbatim vision/mission/positioning statements. |
 | `scroll.ts` | Lenis singleton + `bridgeToGsap()`, the lazy GSAP loader. |
@@ -422,7 +434,7 @@ real inbox. It has never pretended to send.
 ```
 /                       Home — 7 sections, 3 acts (void → bone → void)
 /companies              Index, filterable by sector
-/companies/[slug]       14 pages, one template, SSG
+/companies/[slug]       one page per company, one template, SSG
 /about  /innovation     Group pages
 /contact                Working form (server action, no form library)
 /news  /careers         Honest empty states, noindex
@@ -442,7 +454,12 @@ real inbox. It has never pretended to send.
 
 **Content**
 3. `ener-g.sa` (its PDF) vs `energ.company` (the registrar) — which is live?
-4. SVG logos: 11 of 14 companies have no mark. X Live and ENER-G are raster only.
+4. SVG logos: only IFMC has a vector mark. X Live, ENER-G and BuildX are raster
+   (BuildX's artwork is just 350×96px); the rest have no mark at all.
+4a. **BuildX photography.** Its page has no hero image and no gallery: the only
+   real site photos are ~330px thumbnails cut into collages, and the large
+   images in its 2027 profile are renders. Needs the original photos. See
+   `docs/08-buildx.md` for this and its other open questions.
 5. Client logo files **+ written display clearance**.
 6. Group-level proof figures — the subsidiaries have great numbers; the parent
    has none. The homepage proof section is omitted until real ones exist.

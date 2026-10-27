@@ -2,9 +2,24 @@ import { Reveal } from "@/components/motion/Reveal";
 import { Rule } from "@/components/ui/Rule";
 import { Button } from "@/components/ui/Button";
 import { CompanyCard } from "@/components/ui/CompanyCard";
-import { publishedCompanies } from "@/lib/companies";
+import { publishedCompanies, type Company } from "@/lib/companies";
 
-const PREVIEW = 6;
+/**
+ * The homepage's companies — an editorial pick, in the order shown. Not the
+ * first few of the index: reordering `companies.ts` to change this would also
+ * reorder the index, the footer and the constellation.
+ *
+ * A slug that is missing, held back or renamed simply drops out, so this can
+ * never surface a company that is not published.
+ */
+const FEATURED = [
+  "zarnex-real-estate",
+  "lumen-arabia",
+  "x-live",
+  "buildx",
+  "glitch-morph",
+  "energ",
+];
 
 /**
  * ACT II, bone. The reading act begins — the scene rests behind it.
@@ -13,7 +28,10 @@ const PREVIEW = 6;
  * point; if this section also performed, neither moment would land.
  */
 export function CompaniesPreview() {
-  const companies = publishedCompanies().slice(0, PREVIEW);
+  const published = publishedCompanies();
+  const companies = FEATURED.map((slug) =>
+    published.find((c) => c.slug === slug),
+  ).filter((c): c is Company => Boolean(c));
 
   return (
     <section className="ground-bone py-[var(--spacing-section)]">

@@ -7,6 +7,7 @@
  *
  * Every string traces to that company's own profile documents. See:
  *   docs/02-ifmc.md · docs/03-glitch-morph.md · docs/04-xlive.md · docs/05-energ.md
+ *   docs/08-buildx.md
  */
 
 export type ServiceGroup = { group: string; items: string[] };
@@ -561,6 +562,111 @@ export const COMPANY_CONTENT: Record<string, CompanyContent> = {
       "site-installation",
       "structure-build",
     ],
+  },
+
+  /*
+    BuildX — docs/08-buildx.md. Read its attribution section before adding
+    projects: the older profile lists partner companies' pre-2019 work as
+    BuildX's own, and the client's 2027 profile corrects that. Only the four
+    projects it attributes to BuildX appear here.
+
+    No hero and no gallery, on purpose. The only real site photos are
+    ~330px thumbnails cut into collages, and the large images in the 2027
+    profile are renders — neither can stand as "BuildX project work".
+  */
+  buildx: {
+    overview:
+      "Founded in 2019, BuildX Engineering is a technical services and contracting provider in Saudi Arabia, delivering civil, structural, electrical and mechanical works for government entities and leading corporations — from foundations and power distribution to roads, infrastructure and premium interior fit-outs.",
+    stats: [
+      { value: "2019", label: "Founded" },
+      { value: "7.5 MWp", label: "Solar plant delivered for Almarai" },
+      { value: "SAR 15.35M", label: "Water pipeline for NWC, Khobar" },
+    ],
+    vision:
+      "To become a leading multi-disciplinary contracting partner in the Kingdom of Saudi Arabia.",
+    mission: "To deliver safe, reliable, and high-quality engineering solutions.",
+    services: [
+      {
+        group: "Electrical",
+        items: [
+          "Power distribution systems",
+          "Building electrical installations",
+          "Low current, MV and LV",
+          "Testing and commissioning",
+        ],
+      },
+      {
+        group: "Mechanical & HVAC",
+        items: [
+          "Chillers, package and split units",
+          "Annual HVAC maintenance contracts",
+          "Firefighting and fire suppression",
+          "Plumbing, drainage and manholes",
+        ],
+      },
+      {
+        group: "Civil & Structural",
+        items: [
+          "Foundations and structure",
+          "Block work and tiling",
+          "Gypsum board and metal framing",
+          "Aluminium composite cladding",
+        ],
+      },
+      {
+        group: "Infrastructure",
+        items: [
+          "Roads and transportation",
+          "Civil infrastructure",
+          "Water pipelines and drainage",
+          "Fencing and site works",
+          "Large-scale construction",
+        ],
+      },
+      {
+        group: "Interior Fit-Out",
+        items: [
+          "Premium fit-outs",
+          "Korean marble and kitchens",
+          "Hotels and restaurants",
+        ],
+      },
+    ],
+    // "Contractor" is printed as the source gives it; only Almarai is labelled
+    // a client there. Reverse-chronological.
+    projects: [
+      {
+        name: "Ras Al Khair Port Authority",
+        client: "Contractor: SBM",
+        year: "2025",
+        scope:
+          "Supply and installation of fence works for the port authority's site office facility. SAR 2.7M.",
+      },
+      {
+        name: "Bank Al Rajhi — Taif",
+        client: "Contractor: UTC",
+        year: "2022–24",
+        scope:
+          "Turnkey MEP — fire alarm, power, CCTV, lighting, firefighting, HVAC, water and drainage — plus aluminium cladding, across showroom and bank building. SAR 8.25M.",
+      },
+      {
+        name: "NWC water pipeline, Khobar",
+        client: "Contractor: Khorayef",
+        year: "2021–23",
+        scope:
+          "Main water distribution pipeline — excavation, ductile-iron pipe installation, welding, alignment and shoring, then staged backfill. SAR 15.35M.",
+      },
+      {
+        name: "Almarai Solar Power Plant",
+        client: "Almarai",
+        year: "2019–20",
+        scope:
+          "Supply and installation of a 7.5 MWp solar energy system — Trina 400 Wp panels with Huawei on-grid inverters.",
+      },
+    ],
+    // Editorial adjacency — who develops, designs and runs what BuildX builds.
+    // Not a partnership the source claims.
+    related: ["zarnex-real-estate", "neptune-studios", "ifmc"],
   },
 };
 

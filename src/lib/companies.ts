@@ -117,6 +117,21 @@ const ALL_COMPANIES: Company[] = [
     status: "active",
   },
   {
+    // Not in the master profile — it postdates it. Source: docs/08-buildx.md.
+    // Sector 1 is our assignment, not the client's; see that doc.
+    slug: "buildx",
+    name: "BuildX Engineering",
+    accent: "buildx",
+    industry: "Engineering & Contracting",
+    sectors: [1],
+    positioning: "Engineering excellence for a stronger tomorrow.",
+    description:
+      "Civil, structural, electrical and mechanical contracting for government entities and leading corporations across Saudi Arabia.",
+    website: "https://buildxeng.com",
+    logo: "/logos/buildx.png",
+    status: "active",
+  },
+  {
     slug: "glitch-morph",
     name: "Glitch Morph",
     accent: "glitch",

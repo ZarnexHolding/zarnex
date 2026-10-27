@@ -9,7 +9,7 @@ import ts from "typescript";
  * clear of the headline at every desktop width.
  */
 const BASE = process.argv[2] ?? "http://localhost:3000";
-const ROUTES = ["/", "/companies", "/companies/x-live", "/companies/ifmc",
+const ROUTES = ["/", "/companies", "/companies/x-live", "/companies/ifmc", "/companies/buildx",
   "/about", "/innovation", "/contact", "/careers"];
 const SIZES = [[390, 844, "mobile"], [768, 1024, "tablet"], [1440, 900, "desktop"]];
 

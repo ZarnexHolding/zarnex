@@ -105,10 +105,44 @@ register there now marks Laniakea's status.
 
 ---
 
+## BuildX added; homepage companies re-picked — 2026-10-28
+
+**BuildX Engineering** joins the group on the site, from the three PDFs in
+`company/BuildX/`. It is not in the master profile. Full extraction, the
+attribution rule and its open questions: `docs/08-buildx.md`.
+
+The decision that matters: **only four projects are shown as BuildX's** — the
+four the client's own 2027 *Partner Project Profile* attributes to it. An older
+profile listed nine more, all dated before BuildX was founded in 2019; the 2027
+document reassigns that experience to partner companies and says it is "not
+relabeled as BuildX projects". The site follows the newer document.
+
+The page has **no hero image and no gallery** — the only real BuildX site photos
+are ~330px thumbnails inside collages, and its 2027 profile's large images are
+renders. Waiting on originals.
+
+**Homepage "The group"** asked for Neptune Studios and VR-1 to be replaced by
+BuildX and ENER-G. Done as an explicit `FEATURED` slug list in
+`CompaniesPreview.tsx`, rather than by reordering `companies.ts`:
+
+| | Was | Now |
+|---|---|---|
+| 01–03 | Zarnex Real Estate · Lumen Arabia · X Live | unchanged |
+| 04 | Neptune Studios | **BuildX Engineering** |
+| 05 | Glitch Morph | unchanged |
+| 06 | VR-1 | **ENER-G** |
+
+Neptune Studios and VR-1 remain on the site — on the index, in the footer, in
+the constellation — just not among the homepage six.
+
+---
+
 ## Still outstanding
 
 1. `ener-g.sa` vs `energ.company` — which is live?
-2. SVG logos for the remaining companies (11 of 14 have no mark).
+2. SVG logos: only IFMC has a vector. X Live, ENER-G and BuildX are raster.
+2a. BuildX: original photos, a vector logo, confirmation of sector 1, and the
+   Reliance overlap — `docs/08-buildx.md`.
 3. Client logo files + display clearance.
 4. Real project references for ENER-G — its decks describe portfolio *types*
    but name no client, site or installed capacity, so its Projects section is
