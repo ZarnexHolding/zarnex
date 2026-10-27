@@ -42,6 +42,16 @@ export type Company = {
    * flatten it to a silhouette. Does not pick up the accent on hover.
    */
   logoImage?: string;
+  /**
+   * Full-colour mark for the company hero, which is always on the dark ground.
+   * Cards are always on the light ground, so a mark whose lettering is black
+   * or white needs a file per ground: Lumen pairs this with `logoImage`;
+   * RealIntelligence pairs it with a `logo` silhouette for the card. Marks
+   * that work on either ground (ENER-G) leave this unset.
+   *
+   * Hero order: logoImageOnDark → logo → logoImage. Card order: logo → logoImage.
+   */
+  logoImageOnDark?: string;
   status: CompanyStatus;
   /**
    * Excluded from the site entirely — index, footer, constellation, routes and
@@ -89,6 +99,10 @@ const ALL_COMPANIES: Company[] = [
     description:
       "LED systems, media facades, projection and lighting technology for architecture and mega-events.",
     website: "https://lumenarabia.com",
+    // The rainbow bar is the identity, so full colour, not a mask. Black type
+    // for the light card, white type for the dark hero. docs/10-lumen.md.
+    logoImage: "/logos/lumen.png",
+    logoImageOnDark: "/logos/lumen-on-dark.png",
     status: "active",
   },
   {
@@ -141,6 +155,9 @@ const ALL_COMPANIES: Company[] = [
     description:
       "3D, virtual production, VFX and immersive content. Two hundred projects for global luxury and cultural brands.",
     website: "https://glitch-morph.com",
+    // Chrome lettering keyed off the magenta ground it was supplied on; the
+    // accent restores the magenta on hover.
+    logo: "/logos/glitch-morph.png",
     status: "active",
   },
   {
@@ -180,15 +197,21 @@ const ALL_COMPANIES: Company[] = [
     status: "active",
   },
   {
+    // Slug kept from the master profile's "RealIntelligence" so no URL breaks;
+    // the name is the company's own spelling. docs/09-realintelligence.md.
     slug: "realintelligence",
-    name: "RealIntelligence",
+    name: "Real Intelligence",
     accent: "realintelligence",
     industry: "Technology & AI",
     sectors: [10],
     positioning: "The digital brain of Zarnex.",
     description:
       "AI-driven software, enterprise platforms, smart-city systems and digital twins for urban environments.",
-    website: null,
+    website: "https://real-intelligence.live",
+    // Silhouette for the light card (the red accent echoes the mark's red);
+    // full colour — chrome R, red eye — on the dark hero.
+    logo: "/logos/realintelligence.png",
+    logoImageOnDark: "/logos/realintelligence-on-dark.png",
     status: "active",
   },
   {

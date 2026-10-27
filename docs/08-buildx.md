@@ -130,20 +130,27 @@ C p6–p10, cross-checked against A p9, p19, p24, p26.
 
 ---
 
-## Imagery — why the page has none yet
+## Imagery — renders, used deliberately
 
-- **B's photography is rendered and stock** — glossy towers, a generic power
-  hall, composited Riyadh skylines. Not BuildX's work, and the gallery's alt
-  text reads "BuildX project work". Never used.
-- **Real site photos exist only on BuildX's own project pages** (A p9, p19–27;
-  C p7–9) — and only as thumbnails pre-composited into collages: ~330×200px
-  per shot; the largest single image is 593×429. C's copies are the same
-  resolution or lower.
-- The gallery displays tiles at ~475px (~950px needed on retina) and the hero
-  is full-bleed. Thumbnails would read as visibly blurry next to every other
-  company page.
-- **So: no hero image and no gallery until originals arrive.** Both sections
-  hide, per the rule. The page renders its void hero with the logo instead.
+**Revised 2026-10-28.** The page first shipped with no images, for the reasons
+below. The client then asked for images "like the other profiles", so it now
+follows that precedent — each company's own profile imagery, unattributed — with
+the honesty fixes noted.
+
+- **B's imagery is rendered, not photographed** — the client's own brochure
+  art. Now used: hero `highway-interchange-skyline` (B p7) and a gallery of
+  `switchgear-hall`, `concrete-frame-scaffold`, `marble-kitchen-interior`,
+  `glass-office-dusk`, `engineers-reviewing-plans` (helmets carry the BuildX
+  logo), `elevated-road-skyline`. Most of B's images are cut into the
+  brochure's diagonal streaks; these are the ones that crop clean to
+  landscape, each cropped deliberately rather than left to `object-cover`.
+- **Never attached to a project.** The four projects carry no image.
+- **The gallery's alt text used to read "BuildX project work"** for every
+  image — a claim renders cannot back up. It now describes the frame, derived
+  from the filename (e.g. "Switchgear hall"), on every company's gallery.
+- **Real site photos still exist only as collage thumbnails** (A p9, p19–27;
+  C p7–9): ~330×200px per shot, the largest single image 593×429. Too small and
+  too inconsistent beside the renders; not used.
 
 Aside: B p1 and p10 embed a **1817×745 transparent ZARNEX HOLDING COMPANY
 wordmark** (xref 39). A lead for the logotype question in docs/07 §3.
@@ -174,8 +181,8 @@ Raster and small: **needs a vector.**
 
 ## Open questions
 
-1. **Original, full-resolution project photos.** The only thing between this
-   page and a complete one.
+1. **Original, full-resolution project photos.** The gallery is brochure
+   renders; real photos of the four projects would replace them.
 2. **Vector logo (SVG).**
 3. **Sector assignment** — confirm sector 1.
 4. **The Reliance overlap.** Bank Al Rajhi, Almarai Solar and a Port Authority

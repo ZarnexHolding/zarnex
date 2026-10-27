@@ -128,6 +128,8 @@ Extracted verbatim from `Zarnex Holding Company Profile 2026.pdf` (26 pages).
 
 **RealIntelligence (p22):** AI-driven software development · Mobile & web app development · Enterprise platforms & SaaS products · Automation systems & smart workflows · Data analytics & machine learning models · Smart city & IoT platform development · Digital twins for urban & event environments · Custom AI agents, bots & predictive systems
 > ⚠️ p22 repeats Astroper's purpose line verbatim ("...applied aerospace research and future flight technologies"). This is a **copy-paste error in the PDF**. RealIntelligence needs its own purpose statement.
+>
+> ✅ **Resolved 2026-10-28** by the company's own 2027 profile: *"To establish Zarnex as a regional leader in applied AI, automation, and future-ready digital platforms."* See `09-realintelligence.md`. (That profile also spells the name "Real Intelligence"; the site now does too.)
 
 **Energ (p23):** Renewable energy systems (solar, wind, hybrid) · Smart energy grids & microgrid solutions · Portable power units for events & urban operations · Sustainable energy for real estate & industrial zones · Hydrogen & alternative fuel R&D · EV charging infrastructure · Energy efficiency engineering
 **Energ — Purpose:** To lead the transition toward clean, intelligent, and scalable energy systems across the entire Zarnex ecosystem and the region
@@ -171,7 +173,7 @@ Zarnex therefore already reads as **a mind operating at cosmic scale** — gravi
 7. **Project case studies** with rights-cleared imagery — the PDF imagery is CGI/AI-generated and must not be presented as delivered work.
 8. **Image rights**: p18 shows a recognisable public figure on an LED screen. This cannot ship on a live website.
 9. **Arabic copy** — is a full Arabic locale in scope? The brand is bilingual on the cover.
-10. **Correct purpose statement for RealIntelligence** (PDF has a copy-paste error, see §4).
+10. ~~**Correct purpose statement for RealIntelligence** (PDF has a copy-paste error, see §4).~~ ✅ Resolved — see `09-realintelligence.md`.
 11. **Logo master files** (SVG) for all 17 entities + the gold Z.
 12. Legal entity structure: which are wholly owned subsidiaries vs. JVs vs. brands? Affects the "Holding Structure" page and its JSON-LD.
 

@@ -10,6 +10,7 @@ import ts from "typescript";
  */
 const BASE = process.argv[2] ?? "http://localhost:3000";
 const ROUTES = ["/", "/companies", "/companies/x-live", "/companies/ifmc", "/companies/buildx",
+  "/companies/realintelligence", "/companies/lumen-arabia",
   "/about", "/innovation", "/contact", "/careers"];
 const SIZES = [[390, 844, "mobile"], [768, 1024, "tablet"], [1440, 900, "desktop"]];
 

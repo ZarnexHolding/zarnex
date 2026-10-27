@@ -33,6 +33,22 @@ export async function generateMetadata({
   };
 }
 
+// Acronyms that appear in media filenames. Lower-cased, "led" is read aloud
+// by a screen reader as the past tense of "lead".
+const ACRONYMS = new Set(["led", "oled", "mep", "hvac", "ai", "cms", "dooh", "ui", "vr", "ar", "3d"]);
+
+/** "/media/lumen-arabia/led-mesh-atrium.webp" → "LED mesh atrium". */
+function frameAlt(src: string) {
+  const words = src
+    .split("/")
+    .pop()!
+    .replace(/\.webp$/, "")
+    .split("-")
+    .map((w) => (ACRONYMS.has(w) ? w.toUpperCase() : w));
+  const text = words.join(" ");
+  return text.charAt(0).toUpperCase() + text.slice(1);
+}
+
 /**
  * Three siblings. Explicit relationships first — they encode who actually
  * works together, which sector overlap alone does not — then shared sector,
@@ -130,7 +146,20 @@ export default async function CompanyPage({
             </p>
           </Reveal>
 
-          {company.logo ? (
+          {/* The hero is always on the dark ground: a dark-ground colour mark
+              wins, then the accent mask, then the plain colour mark. */}
+          {company.logoImageOnDark ? (
+            <Reveal index={2} className="mt-12">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={company.logoImageOnDark}
+                alt={`${company.name} logo`}
+                width={352}
+                height={80}
+                className="h-20 w-auto max-w-[22rem] object-contain object-left"
+              />
+            </Reveal>
+          ) : company.logo ? (
             <Reveal index={2} className="mt-12">
               {/* Mask, so the mark takes the company's accent directly. */}
               <span
@@ -158,7 +187,7 @@ export default async function CompanyPage({
                 alt={`${company.name} logo`}
                 width={224}
                 height={112}
-                className="h-20 w-auto object-contain object-left"
+                className="h-20 w-auto max-w-[22rem] object-contain object-left"
               />
             </Reveal>
           ) : null}
@@ -319,7 +348,11 @@ export default async function CompanyPage({
                         src={m.src}
                         srcSet={m.srcset}
                         sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-                        alt={`${company.name} project work`}
+                        // Says what is in the frame, from the filename — which
+                        // by rule describes exactly that. "Project work" was a
+                        // claim some gallery images (brochure renders) cannot
+                        // back up.
+                        alt={frameAlt(m.src)}
                         width={m.w}
                         height={m.h}
                         loading="lazy"

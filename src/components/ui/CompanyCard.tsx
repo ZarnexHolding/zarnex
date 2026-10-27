@@ -72,7 +72,9 @@ export function CompanyCard({
             aria-hidden
             width={96}
             height={32}
-            className="h-8 w-auto shrink-0 object-contain opacity-80 transition-opacity duration-[var(--dur-micro)] group-hover/card:opacity-100"
+            // max-w-24: the same 96px slot the masked marks get. Without it a
+            // wide wordmark (Lumen is ~8.6:1) ran to 275px across the card.
+            className="h-8 w-auto max-w-24 shrink-0 object-contain object-right opacity-80 transition-opacity duration-[var(--dur-micro)] group-hover/card:opacity-100"
           />
         ) : null}
       </div>

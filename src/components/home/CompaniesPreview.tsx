@@ -13,7 +13,7 @@ import { publishedCompanies, type Company } from "@/lib/companies";
  * never surface a company that is not published.
  */
 const FEATURED = [
-  "zarnex-real-estate",
+  "realintelligence",
   "lumen-arabia",
   "x-live",
   "buildx",

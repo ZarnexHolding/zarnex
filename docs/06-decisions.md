@@ -137,12 +137,57 @@ the constellation — just not among the homepage six.
 
 ---
 
+## Real Intelligence and Lumen profiles, logos, images — 2026-10-28
+
+**Homepage 01** is now **Real Intelligence**, in place of Zarnex Real Estate.
+
+**Real Intelligence** gets a full profile from `company/RI/` —
+`docs/09-realintelligence.md`. Its 2027 profile spells the name **"Real
+Intelligence"** (the master profile wrote "RealIntelligence"); the site follows
+the company, slug unchanged. It also supplies RI's own purpose statement,
+**resolving master-profile open question #10**. It names no clients or
+projects, so the page has none; hero image only.
+
+**Lumen Arabia** gets a full profile from `company/Lumen/` —
+`docs/10-lumen.md`. No vision or mission (the only ones stated are about taxi
+advertising), no Key People (names and roles misaligned in the source), no
+projects named. Stats are its own technical specs.
+
+**Logos.** Lumen, Glitch Morph and Real Intelligence join IFMC, X Live, ENER-G
+and BuildX, so every homepage card now carries a mark. The cards sit on the
+light ground and the company heroes on the dark one, so colour marks with black
+or white lettering need a file per ground — a new optional `logoImageOnDark`.
+
+**Images.** Lumen gets a hero and nine-image gallery; BuildX gets a hero and six;
+Real Intelligence a hero. The client asked for BuildX images after hearing that
+its only ones are brochure renders, so it follows the existing precedent — a
+company's own profile imagery, unattributed. Lumen's profile was curated hard:
+a Getty watermark, a Xiaohongshu watermark, Nike, Ultra, Times Square, Madison
+Square Garden, Pepsi and other third-party marks are all excluded.
+
+**Gallery alt text** no longer says "{Company} project work" for every image —
+a claim brochure renders and marketing imagery cannot back up. It now describes
+the frame, from the filename, on every company's gallery.
+
+**The image pipeline is in the repo** — `scripts/build-media.py`. It had lived
+outside the repo, so `media.ts` was "generated" by nothing anyone could re-run.
+Verified to reproduce the existing manifest byte-for-byte before any new image
+went in. `npm run check:media` (Node-only) guards it in the build.
+
+---
+
 ## Still outstanding
 
 1. `ener-g.sa` vs `energ.company` — which is live?
-2. SVG logos: only IFMC has a vector. X Live, ENER-G and BuildX are raster.
+2. SVG logos: only IFMC has a vector. X Live, ENER-G, BuildX, Lumen, Glitch
+   Morph and Real Intelligence are raster; Glitch Morph and RI came as WhatsApp
+   images.
 2a. BuildX: original photos, a vector logo, confirmation of sector 1, and the
    Reliance overlap — `docs/08-buildx.md`.
+2b. Real Intelligence: confirm the name; who is behind realintelligence.ai and
+   the +91 number on the ERP flyers — `docs/09-realintelligence.md`.
+2c. Lumen: real project references, client list with clearance, its own CR —
+   `docs/10-lumen.md`.
 3. Client logo files + display clearance.
 4. Real project references for ENER-G — its decks describe portfolio *types*
    but name no client, site or installed capacity, so its Projects section is

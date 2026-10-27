@@ -7,7 +7,7 @@
  *
  * Every string traces to that company's own profile documents. See:
  *   docs/02-ifmc.md · docs/03-glitch-morph.md · docs/04-xlive.md · docs/05-energ.md
- *   docs/08-buildx.md
+ *   docs/08-buildx.md · docs/09-realintelligence.md · docs/10-lumen.md
  */
 
 export type ServiceGroup = { group: string; items: string[] };
@@ -570,9 +570,11 @@ export const COMPANY_CONTENT: Record<string, CompanyContent> = {
     BuildX's own, and the client's 2027 profile corrects that. Only the four
     projects it attributes to BuildX appear here.
 
-    No hero and no gallery, on purpose. The only real site photos are
-    ~330px thumbnails cut into collages, and the large images in the 2027
-    profile are renders — neither can stand as "BuildX project work".
+    Imagery is from the 2027 company profile and is RENDERED, not
+    photographed — chosen by the client for its own brochure. It sits in the
+    unattributed gallery, never against a project, and the gallery's alt text
+    describes the frame rather than calling it project work. The real site
+    photos exist only as ~330px collage thumbnails. docs/08-buildx.md.
   */
   buildx: {
     overview:
@@ -667,6 +669,184 @@ export const COMPANY_CONTENT: Record<string, CompanyContent> = {
     // Editorial adjacency — who develops, designs and runs what BuildX builds.
     // Not a partnership the source claims.
     related: ["zarnex-real-estate", "neptune-studios", "ifmc"],
+    hero: "highway-interchange-skyline",
+    gallery: [
+      "switchgear-hall",
+      "concrete-frame-scaffold",
+      "marble-kitchen-interior",
+      "glass-office-dusk",
+      "engineers-reviewing-plans",
+      "elevated-road-skyline",
+    ],
+  },
+
+  /*
+    Real Intelligence — docs/09-realintelligence.md. Its 2027 profile names no
+    clients and no delivered projects, so there is no Projects section and no
+    stats; the five named products appear as a service group. Hero only: the
+    rest of its imagery is generated sci-fi panel art (Japanese signage, a
+    "SKYNET" label) and ERP flyers carrying an outdated +91 / .ai contact.
+  */
+  realintelligence: {
+    overview:
+      "Real Intelligence is the digital brain of Zarnex — building intelligent systems, platforms and next-gen applications for organizations ready to operate faster, smarter and with more control, from AI agents and automation to enterprise platforms, smart-city systems and digital twins.",
+    vision:
+      "Become a trusted regional technology partner for organizations moving toward automated, data-driven operations.",
+    mission:
+      "Build intelligent digital systems that solve real operational problems through AI, automation, and software engineering.",
+    services: [
+      {
+        group: "AI & Automation",
+        items: [
+          "AI agents and chatbots",
+          "Predictive workflows",
+          "Recommendations and decision support",
+          "Business process automation",
+          "Systems integration",
+        ],
+      },
+      {
+        group: "Software & Platforms",
+        items: [
+          "Web and mobile apps",
+          "SaaS products and portals",
+          "Enterprise platform engineering",
+          "UX/UI and product strategy",
+          "Prototyping and launch support",
+        ],
+      },
+      {
+        group: "Data & Cloud",
+        items: [
+          "Analytics and BI dashboards",
+          "Machine learning models",
+          "Cloud architecture and APIs",
+          "Security and DevOps pipelines",
+        ],
+      },
+      {
+        group: "Smart City & IoT",
+        items: [
+          "Smart city platforms",
+          "IoT platform development",
+          "Digital twins",
+          "Event environment platforms",
+        ],
+      },
+      {
+        group: "Products",
+        items: [
+          "Educational ERP",
+          "Learning management (LMS) portal",
+          "Event listing and ticketing portal",
+          "AI-powered website",
+          "Intelligent workflow automation",
+        ],
+      },
+    ],
+    // Editorial adjacency — research, the cities its twins model, and the
+    // displays its platforms drive. Its sector-mates are Hikma and ENER-G.
+    related: ["rnd", "zarnex-real-estate", "lumen-arabia"],
+    hero: "red-eye-chrome-shards",
+  },
+
+  /*
+    Lumen Arabia — docs/10-lumen.md. No named projects or clients in either
+    profile, so no Projects section. No vision or mission either: the only ones
+    stated are the TaxiTop profile's, and they are about taxi advertising, not
+    the company. Stats are the profile's own technical specs.
+
+    Imagery curated hard: the profile also carries a Getty-watermarked image,
+    Ultra festival, Times Square, Madison Square Garden, a Nike Air installation,
+    a Xiaohongshu watermark and another LED firm's branding. None of it is here.
+  */
+  "lumen-arabia": {
+    overview:
+      "Lumen Arabia delivers architectural lighting, digital display and smart technology solutions — media facades, DOOH networks, event technology and immersive installations — working with architects, developers, businesses and public-sector organizations across Saudi Arabia, the UAE and China.",
+    stats: [
+      { value: "10,000 nits", label: "Peak display brightness" },
+      { value: "1.9–16 mm", label: "Pixel pitch, indoor to outdoor" },
+      { value: "3840 Hz+", label: "Refresh rate, flicker-free on camera" },
+      { value: "2K–21K", label: "Content resolutions produced" },
+    ],
+    services: [
+      {
+        group: "DOOH & Media Facades",
+        items: [
+          "Media facades",
+          "Transparent LED mesh screens",
+          "LED billboards",
+          "Indoor screens",
+          "Wayfinding and signage",
+          "Remote content management",
+        ],
+      },
+      {
+        group: "Architectural Lighting",
+        items: [
+          "Façade lighting design and consultancy",
+          "Supply and installation",
+          "Dynamic media façade systems",
+          "Smart control — DMX, DALI, IoT",
+          "3D visualisation and light simulation",
+        ],
+      },
+      {
+        group: "Event Technologies",
+        items: [
+          "Bespoke installations",
+          "Interactive systems",
+          "Robotics and techno art",
+          "Kinetic ceilings and moving elements",
+          "Immersive experiences",
+          "AR and VR",
+        ],
+      },
+      {
+        group: "Smart Solutions",
+        items: [
+          "Digital wayfinders and kiosks",
+          "OLED and holographic displays",
+          "Smart street light poles",
+          "LED arches and tunnels",
+          "Interactive games and LED floors",
+        ],
+      },
+      {
+        group: "Transit DOOH",
+        items: [
+          "LED taxi-top displays",
+          "In-car screens",
+          "Location-based targeting",
+          "Centralized content platform",
+        ],
+      },
+      {
+        group: "Content & Marketing",
+        items: [
+          "Digital content creation",
+          "Projection mapping",
+          "Media buying and planning",
+          "Media selling",
+          "Traditional and digital campaigns",
+        ],
+      },
+    ],
+    // Mirrors X Live's related list, which pairs it with Lumen and Glitch Morph
+    // for mega-events. Neptune is editorial: the architects its facades serve.
+    related: ["x-live", "glitch-morph", "neptune-studios"],
+    hero: "green-taxi-led-topper",
+    gallery: [
+      "led-mesh-atrium",
+      "led-wall-night-walk",
+      "media-facade-mesh-detail",
+      "stage-led-lighting",
+      "projection-mapping-facade",
+      "light-sculpture-tulips",
+      "in-car-headrest-screens",
+      "turntable-installation",
+      "led-module-detail",
+    ],
   },
 };
 
