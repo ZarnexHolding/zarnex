@@ -33,19 +33,6 @@ export function insideMark(px: number, py: number) {
   return inside;
 }
 
-/**
- * The mark's true extent in model units — derived, never assumed.
- */
-export const MARK_BOUNDS = MARK_CONTOURS.flat().reduce(
-  (b, [x, y]) => ({
-    minX: Math.min(b.minX, x),
-    maxX: Math.max(b.maxX, x),
-    minY: Math.min(b.minY, y),
-    maxY: Math.max(b.maxY, y),
-  }),
-  { minX: Infinity, maxX: -Infinity, minY: Infinity, maxY: -Infinity },
-);
-
 export function insidePolygon(px: number, py: number, poly: [number, number][]) {
   let inside = false;
   for (let i = 0, j = poly.length - 1; i < poly.length; j = i++) {

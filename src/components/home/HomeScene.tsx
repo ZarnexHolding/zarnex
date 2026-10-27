@@ -4,8 +4,33 @@ import { useCallback, useEffect, useRef } from "react";
 import { ZarnexScene } from "@/components/scene/ZarnexScene";
 import type { SceneHandle } from "@/components/scene/renderer";
 import { bridgeToGsap } from "@/lib/scroll";
-import { worldXAtFraction, HALF_HEIGHT } from "@/components/scene/camera";
+import {
+  worldXAtFraction,
+  HALF_HEIGHT,
+  fitScale,
+  heroMarkFraction,
+} from "@/components/scene/camera";
+import { MARK_BOUNDS } from "@/components/scene/markBounds";
 import { TUNING } from "@/components/scene/tuning";
+
+/** The mark as drawn: geometry.ts bakes it at markScale. */
+const MARK_HALF_W =
+  Math.max(-MARK_BOUNDS.minX, MARK_BOUNDS.maxX) * TUNING.markScale;
+
+/**
+ * Right edge of the widest line of hero copy, from the rendered text itself.
+ * A Range gives the tight box around the glyphs — the h1 element is wider
+ * than its text, since it is capped at 13ch rather than shrink-wrapped.
+ */
+function copyRight() {
+  let right = 0;
+  for (const el of document.querySelectorAll<HTMLElement>("[data-hero-copy]")) {
+    const range = document.createRange();
+    range.selectNodeContents(el);
+    right = Math.max(right, range.getBoundingClientRect().right);
+  }
+  return right;
+}
 
 /**
  * The site's single WebGL scene, fixed behind the homepage for its whole
@@ -27,30 +52,49 @@ export function HomeScene() {
   const pulseRaf = useRef(0);
 
   /**
-   * On wide screens the copy holds the left of the frame, so the field is
-   * parked in the right third rather than behind the headline. Expressed as a
-   * fraction of the viewport so it holds its position at any width — a fixed
-   * world offset drifted into the type as the viewport grew.
+   * On wide screens the copy holds the left of the frame and the field sits to
+   * its right — a fixed gap after wherever the copy actually ends, capped at
+   * TUNING.markX. See heroMarkFraction() for why it is not a plain fraction.
    *
    * Below `lg` the copy spans full width and the field centres under it.
    */
   const beatOffset = useCallback(() => {
-    if (typeof window === "undefined") return { x: 0, y: 0 };
+    if (typeof window === "undefined") return { x: 0, y: 0, fraction: 0.5 };
     const { innerWidth: w, innerHeight: h } = window;
     const y = -(TUNING.markY * 2 - 1) * HALF_HEIGHT;
-    if (w < TUNING.sideBySideMinWidth) return { x: 0, y };
-    return { x: worldXAtFraction(TUNING.markX, w / h), y };
+    if (w < TUNING.sideBySideMinWidth) return { x: 0, y, fraction: 0.5 };
+
+    const aspect = w / h;
+    const right = copyRight();
+    // No copy laid out yet: hold the laptop position rather than guess.
+    const fraction = right
+      ? heroMarkFraction(
+          right,
+          w,
+          h,
+          MARK_HALF_W * fitScale(TUNING.scale, MARK_HALF_W, aspect),
+          TUNING.headlineGap,
+          TUNING.markX,
+        )
+      : TUNING.markX;
+    return { x: worldXAtFraction(fraction, aspect), y, fraction };
   }, []);
+
+  /** Moves the field, and tells the static tier-0 mark where to stand too. */
+  const place = useCallback(() => {
+    const o = beatOffset();
+    handleRef.current?.setOffset(o.x, o.y);
+    wrapRef.current?.style.setProperty("--mark-x", String(o.fraction));
+  }, [beatOffset]);
 
   const onReady = useCallback(
     (h: SceneHandle | null) => {
       handleRef.current = h;
       // The arrival: dust coalesces into the mark. Everything after is scroll.
       h?.setPhase(1);
-      const o = beatOffset();
-      h?.setOffset(o.x, o.y);
+      place();
     },
-    [beatOffset],
+    [place],
   );
 
   useEffect(() => {
@@ -115,10 +159,14 @@ export function HomeScene() {
       ScrollTrigger.refresh();
     })();
 
-    const onResize = () => {
-      const o = beatOffset();
-      handleRef.current?.setOffset(o.x, o.y);
-    };
+    // The headline's width changes when Poppins replaces its fallback, so the
+    // first measurement can be a few px off. Measure again once fonts settle.
+    place();
+    document.fonts?.ready.then(() => {
+      if (!killed) place();
+    });
+
+    const onResize = () => place();
     window.addEventListener("resize", onResize);
 
     return () => {
@@ -127,7 +175,7 @@ export function HomeScene() {
       cancelAnimationFrame(pulseRaf.current);
       for (const t of triggers) t.kill();
     };
-  }, [beatOffset]);
+  }, [place]);
 
   return (
     <div

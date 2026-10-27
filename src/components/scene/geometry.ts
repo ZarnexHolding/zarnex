@@ -1,5 +1,6 @@
 import { nodeCentres } from "./layout";
-import { insideMark, MARK_BOUNDS } from "./mark";
+import { insideMark } from "./mark";
+import { MARK_BOUNDS } from "./markBounds";
 import { TUNING } from "./tuning";
 
 /**

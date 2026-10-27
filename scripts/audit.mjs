@@ -1,9 +1,12 @@
 import { chromium } from "playwright";
+import { readFileSync } from "node:fs";
+import ts from "typescript";
 
 /**
  * Responsive + a11y sweep. Reports anything that would be a visible defect:
  * horizontal overflow, touch targets under 44px, images without alt, and
- * headings that skip a level.
+ * headings that skip a level. Then, on the homepage, that the hero mark sits
+ * clear of the headline at every desktop width.
  */
 const BASE = process.argv[2] ?? "http://localhost:3000";
 const ROUTES = ["/", "/companies", "/companies/x-live", "/companies/ifmc",
@@ -77,5 +80,71 @@ for (const [w, h, label] of SIZES) {
   await ctx.close();
   console.log(`${label} done`);
 }
+
+/*
+  HERO CLEARANCE — the mark against the real headline, in a real browser.
+
+  The mark is placed from the rendered width of the copy (HomeScene), so the
+  only honest check is one that also uses rendered text: the real font, the
+  real headline, the real layout. test:camera proves the arithmetic; this
+  proves the arithmetic is fed the right numbers.
+
+  Reads the fraction HomeScene chose (--mark-x on its wrapper), turns it into a
+  left edge with the same camera maths the renderer uses, and compares that to
+  where the glyphs actually end. The modules go through the TypeScript
+  transpiler so the numbers are the shipped ones, not a copy.
+*/
+function loadTs(file, deps = {}) {
+  const js = ts.transpileModule(readFileSync(file, "utf8"), {
+    compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2020 },
+  }).outputText;
+  const mod = { exports: {} };
+  new Function("module", "exports", "require", js)(mod, mod.exports, (id) => deps[id]);
+  return mod.exports;
+}
+const { TUNING } = loadTs("src/components/scene/tuning.ts");
+const { MARK_BOUNDS } = loadTs("src/components/scene/markBounds.ts");
+const { HALF_HEIGHT, fitScale } = loadTs("src/components/scene/camera.ts");
+const MARK_HALF_W = Math.max(-MARK_BOUNDS.minX, MARK_BOUNDS.maxX) * TUNING.markScale;
+const MIN_CLEAR = 24;
+
+for (const [w, h] of [[1024, 768], [1280, 800], [1440, 900], [1920, 912], [1920, 1080], [2560, 1440]]) {
+  const ctx = await b.newContext({ viewport: { width: w, height: h }, deviceScaleFactor: 1 });
+  const p = await ctx.newPage();
+  await p.goto(BASE + "/", { waitUntil: "load" });
+  await p.evaluate(() => document.fonts.ready);
+  await p.waitForTimeout(600);
+
+  const r = await p.evaluate(() => {
+    let copyRight = 0;
+    for (const el of document.querySelectorAll("[data-hero-copy]")) {
+      const range = document.createRange();
+      range.selectNodeContents(el);
+      copyRight = Math.max(copyRight, range.getBoundingClientRect().right);
+    }
+    const wrap = [...document.querySelectorAll("div")].find((d) =>
+      d.style.getPropertyValue("--mark-x"),
+    );
+    return { copyRight, fraction: wrap ? +wrap.style.getPropertyValue("--mark-x") : null };
+  });
+
+  const tag = `${w}x${h}`.padEnd(10);
+  if (r.fraction === null) {
+    problems++;
+    console.log(`  hero     ${tag} --mark-x was never set`);
+  } else {
+    const half = MARK_HALF_W * fitScale(TUNING.scale, MARK_HALF_W, w / h) * (h / (2 * HALF_HEIGHT));
+    const left = r.fraction * w - half;
+    const clear = left - r.copyRight;
+    if (clear < MIN_CLEAR) problems++;
+    console.log(
+      `  hero     ${tag} ${clear >= MIN_CLEAR ? "ok  " : "FAIL"} ` +
+        `copy ends ${r.copyRight.toFixed(0)}px, mark starts ${left.toFixed(0)}px, ` +
+        `${clear.toFixed(0)}px clear  (at ${(r.fraction * 100).toFixed(1)}%)`,
+    );
+  }
+  await ctx.close();
+}
+
 await b.close();
 console.log(problems ? `\n${problems} route/size combos flagged\n` : "\nno issues found\n");

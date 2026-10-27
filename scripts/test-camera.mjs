@@ -21,8 +21,8 @@ const src = readFileSync("src/components/scene/camera.ts", "utf8")
   .replace(/export /g, "")
   .replace(/:\s*number/g, "");
 
-const { HALF_HEIGHT, worldXAtFraction, fitScale } = new Function(
-  `${src}; return { HALF_HEIGHT, worldXAtFraction, fitScale };`,
+const { HALF_HEIGHT, worldXAtFraction, fitScale, heroMarkFraction } = new Function(
+  `${src}; return { HALF_HEIGHT, worldXAtFraction, fitScale, heroMarkFraction };`,
 )();
 
 // The shipped tuning, so the guards below check real values not a copy.
@@ -31,13 +31,11 @@ const tuningSrc = readFileSync("src/components/scene/tuning.ts", "utf8")
   .replace(/ as const/g, "");
 const { TUNING } = new Function(`${tuningSrc}; return { TUNING };`)();
 
-// The mark's real extent, from the same polygon the particles are sampled in.
-// Hardcoding "about 1.2 wide" here once rejected a perfectly good position.
-const markSrc = readFileSync("src/components/scene/mark.ts", "utf8")
-  .replace(/export /g, "")
-  // Strip the annotations at any array depth — MARK_CONTOURS is [n,n][][].
-  .replace(/:\s*\[number, number\](?:\[\])*/g, "")
-  .replace(/:\s*number/g, "");
+// The mark's real extent, generated from the same artwork the particles are
+// sampled from. Hardcoding "about 1.2 wide" here once rejected a perfectly
+// good position. (Its own module — see markBounds.ts for why.)
+const markSrc = readFileSync("src/components/scene/markBounds.ts", "utf8")
+  .replace(/export /g, "");
 const { MARK_BOUNDS } = new Function(`${markSrc}; return { MARK_BOUNDS };`)();
 
 /** What renderer.ts does every frame, in one place. */
@@ -218,6 +216,32 @@ test("every company node stays on screen during the ecosystem beat", () => {
           `${(((x / span + 1) / 2) * 100).toFixed(0)}% across — off screen`,
       );
     }
+  }
+});
+
+test("the mark sits exactly headlineGap after the copy, when it can", () => {
+  // On a wide screen the copy ends well short of the ceiling, so the rule is
+  // free to act: the mark's left edge must land exactly one gap after it.
+  // The copy positions here are illustrative; the audit measures real ones.
+  for (const [w, h, copyRight] of [[1920, 1080, 776], [1920, 912, 776], [2560, 1440, 1097]]) {
+    const scaleNow = renderedScale(w, h);
+    const f = heroMarkFraction(copyRight, w, h, MARK_HALF_W * scaleNow, TUNING.headlineGap, TUNING.markX);
+    assert.ok(f < TUNING.markX, `${w}x${h}: expected the gap rule, got the ceiling`);
+    const pxPerWorld = h / (2 * HALF_HEIGHT);
+    const left = f * w - MARK_HALF_W * scaleNow * pxPerWorld;
+    assert.ok(
+      Math.abs(left - copyRight - TUNING.headlineGap) < 0.5,
+      `${w}x${h}: gap came out ${(left - copyRight).toFixed(1)}px, wanted ${TUNING.headlineGap}`,
+    );
+  }
+});
+
+test("the gap rule never pushes the mark past markX", () => {
+  // The ceiling is what keeps the constellation on screen. However far right
+  // the copy reaches, the mark must stop there.
+  for (const [w, h] of [[1024, 768], [1440, 900], [1920, 1080]]) {
+    const f = heroMarkFraction(w * 0.9, w, h, MARK_HALF_W, TUNING.headlineGap, TUNING.markX);
+    assert.equal(f, TUNING.markX, `${w}x${h}: went to ${f}`);
   }
 });
 

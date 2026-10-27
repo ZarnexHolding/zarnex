@@ -132,7 +132,8 @@ safety net. **The whole signature moment costs ~3.6kB gz.**
 |---|---|
 | `tuning.ts` | **Every dial worth turning.** Position, logo size, particle counts, the cloud, drift, twinkle, wave, hover. Start here. |
 | `camera.ts` | Camera distance, FOV, and the NDC↔world maths. The *only* home for these. |
-| `mark.ts` | **GENERATED.** The orbit mark's contours and true bounds — read by the sampler, the layout guard and the tests. |
+| `mark.ts` | **GENERATED.** The orbit mark's contours — read by the sampler. |
+| `markBounds.ts` | **GENERATED.** The mark's true size — read by placement, the renderer and the tests. Separate so the size never drags the contours along. |
 | `layout.ts` | Company node positions **and** the accent hexes, shared with the static fallback. |
 | `geometry.ts` | Bakes the three position buffers (dust / mark / nodes). |
 | `shaders.ts` | The one vertex+fragment pair. Tuning values are interpolated in as compile-time constants. |
@@ -176,14 +177,23 @@ Every case in that file is a regression of something that actually happened.
 
 ---
 
-## The brand mark — one master, two derivatives
+## The brand mark — one master, three derivatives
 
-`public/logos/zarnex-mark.svg` **is the master artwork.** Both of these are
+`public/logos/zarnex-mark.svg` **is the master artwork.** All of these are
 generated from it by `npm run build:mark`, and `npm run check:mark` fails the
-build if either drifts:
+build if any drifts:
 
 - `src/components/scene/mark.ts` — contours for the particle sampler
+- `src/components/scene/markBounds.ts` — the mark's size, on its own
 - `src/app/icon.svg` — the favicon
+
+⚠️ **Import `MARK_BOUNDS` from `markBounds.ts`, never from `mark.ts`.** The
+homepage scene wrapper needs the size, and the header logo prefetches that
+wrapper on every route. Importing the bounds from `mark.ts` pulled all 170
+contour points into it — +1.5kB gz on every page, over the shell budget —
+because the bundler does not drop unused exports from a module it already has
+to load. The contour coordinates were found in the prefetched chunk; the
+tree-shaking had been assumed.
 
 The mark used to live in two places: artwork in one file, hand-typed
 coordinates in another. That is the failure mode above, so now it does not.
@@ -202,9 +212,34 @@ and above 1.0 it pushes a company node off the right edge, so one company
 silently disappears from the "one light per company" beat. For a bigger logo,
 always `markScale`.
 
-`TUNING.markX` is boxed in at **0.76–0.78** (at markScale 1.2): the floor is
-the logo meeting the headline, the ceiling is the constellation leaving the
-screen. Measured by sweeping values through `test:camera`, not estimated.
+### Where the mark sits
+
+**Not at a fixed fraction of the screen.** The headline is a fixed pixel size
+(its font caps at 6rem) inside a width-capped `.shell`, so as the screen
+widens it takes up less of it — and a fixed fraction left a gap between copy
+and mark that grew with the screen: fine at 1440, a hole in the middle at 1920.
+
+So `HomeScene` measures where the hero copy's glyphs actually end (a `Range`
+over every `[data-hero-copy]` element) and puts the mark's left edge
+`TUNING.headlineGap` px after it, via `heroMarkFraction()` in `camera.ts`. It
+re-measures once fonts load, since Poppins replacing its fallback changes the
+width. **Change the headline copy and the mark follows; nothing needs
+retuning.**
+
+`TUNING.markX` is the ceiling — and on laptops the gap rule always wants to go
+past it, so below ~1500px wide `markX` *is* the position. It is boxed in at
+**0.76–0.78** (at markScale 1.2): the floor is the logo meeting the headline at
+1440, the ceiling is a company node leaving the screen in the ecosystem beat.
+Measured by sweeping values through `test:camera`, not estimated.
+
+`HomeScene` writes the chosen fraction to `--mark-x` on its wrapper, and the
+static tier-0 fallback reads it — it used to sit dead centre, up against the
+headline, for every reduced-motion visitor.
+
+`npm run audit` checks this against the real browser at six desktop sizes:
+real font, real headline, real layout. `test:camera` proves the arithmetic; the
+audit proves the arithmetic is fed the right numbers. The tightest case is
+1024px, at 37px clear.
 
 If the designer ever supplies a real master SVG, replace the artwork and
 re-run `build:mark` — nothing else should need touching. The parser accepts
@@ -286,7 +321,7 @@ architectural guarantee still holds.
 
 | | Budget | Measured |
 |---|---|---|
-| Shared app shell | ≤ 180kB gz | **178.7kB** |
+| Shared app shell | ≤ 180kB gz | **179.1kB** ← tight |
 | Calm route delta | ≤ 30kB gz | **0.0kB** |
 | Signature route delta (`/`, `/lab/scene`) | ≤ 120kB gz | 43.8kB / 3.6kB |
 | LCP | ≤ 2000ms | 108–1156ms |
@@ -295,9 +330,18 @@ architectural guarantee still holds.
 **The number that matters is 0.0kB on calm routes.** It proves GSAP and WebGL
 never leak off the homepage. If that moves, something regressed.
 
-The shell has ~1.3kB of headroom. **Check before adding a shared client
+The shell has ~0.9kB of headroom. **Check before adding a shared client
 component.** The V2 logo is a CSS mask over `/logos/zarnex-mark.svg` rather
 than inline SVG precisely because its 2.1kB path would have breached this.
+
+⚠️ **The shell includes prefetched routes.** `budget.mjs` counts every script
+loaded in the first 2.5s, and Next prefetches the routes behind visible links.
+The header logo links to `/`, so **the homepage's scene wrapper (`HomeScene` +
+`tuning` + `camera`) is in every page's shell.** Code added there costs every
+route, not just the homepage. To see what a chunk actually contains, search it
+for a distinctive *value* — minification strips names, so searching for an
+identifier proves nothing (note it also drops leading zeros: `0.0116` ships as
+`.0116`).
 
 Three decisions this budget forced, all worth preserving:
 1. **GSAP is off the critical path.** Lenis runs its own rAF; `bridgeToGsap()`

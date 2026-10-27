@@ -51,3 +51,33 @@ export function fitScale(
 ) {
   return Math.min(wanted, (HALF_HEIGHT * aspect * margin) / markHalfWidth);
 }
+
+/**
+ * Where the mark's centre sits, as a fraction of the viewport width, given
+ * where the hero copy actually ends on screen.
+ *
+ * Why not a plain fraction: the headline is a fixed pixel size (its font caps
+ * at 6rem) inside a width-capped `.shell`, so as the screen widens it takes up
+ * less and less of it. A fixed fraction left a gap between copy and mark that
+ * grew with the screen — fine at 1440, a hole in the middle at 1920. Placing
+ * the mark a set distance after the copy keeps that gap constant.
+ *
+ * `maxFraction` is the ceiling, and on laptops the formula always hits it, so
+ * nothing below ~1500px moves. It exists because the company constellation
+ * spreads around the same point and would leave the screen past it.
+ *
+ * @param copyRightPx   right edge of the widest line of hero copy, in px
+ * @param markHalfWorld the mark's half-width in world units, at render scale
+ */
+export function heroMarkFraction(
+  copyRightPx: number,
+  viewportW: number,
+  viewportH: number,
+  markHalfWorld: number,
+  gapPx: number,
+  maxFraction: number,
+) {
+  const pxPerWorld = viewportH / (2 * HALF_HEIGHT);
+  const centrePx = copyRightPx + gapPx + markHalfWorld * pxPerWorld;
+  return Math.min(maxFraction, centrePx / viewportW);
+}

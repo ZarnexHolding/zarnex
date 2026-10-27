@@ -23,10 +23,16 @@ export function Hero() {
         <Rule className="text-bone lg:max-w-[56%]" animate={false} />
         <p className="t-eyebrow mt-6 text-paper-55">{SITE.legalName}</p>
 
-        <h1 className="t-display-1 mt-10 max-w-[13ch]">{SITE.headline}</h1>
+        {/* data-hero-copy: HomeScene measures where this text ends and parks the
+            mark a fixed gap after it. */}
+        <h1 data-hero-copy className="t-display-1 mt-10 max-w-[13ch]">
+          {SITE.headline}
+        </h1>
 
         <Reveal index={1} delay={900} className="mt-8">
-          <p className="t-body-lg measure text-paper-70">{SITE.tagline}</p>
+          <p data-hero-copy className="t-body-lg measure text-paper-70">
+            {SITE.tagline}
+          </p>
         </Reveal>
       </div>
 

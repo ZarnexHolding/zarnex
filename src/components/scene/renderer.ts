@@ -2,7 +2,7 @@ import { buildBuffers } from "./geometry";
 import { VERT, FRAG } from "./shaders";
 import { createFpsGuard, TIER_PARTICLES, type Tier } from "./quality";
 import { CAMERA_Z, FOV_DEG, HALF_HEIGHT, fitScale } from "./camera";
-import { MARK_BOUNDS } from "./mark";
+import { MARK_BOUNDS } from "./markBounds";
 import { TUNING } from "./tuning";
 
 /**

@@ -16,20 +16,29 @@ export const TUNING = {
   /**
    * ---- WHERE THE MARK SITS ------------------------------------------------
    *
-   * Horizontal position as a fraction of the viewport.
-   *   0.5  = dead centre
-   *   0.78 = current, parked in the right third clear of the headline
-   *   0.85 = further right, tighter to the edge
+   * The mark sits `headlineGap` px after wherever the hero copy ends — measured
+   * on the page, so it follows the real font and the real headline. Change the
+   * headline copy and the mark moves with it; nothing here needs retuning.
    *
-   * A fraction rather than a fixed distance, so it holds its position on a
-   * laptop and on a 4K display alike.
+   * How much empty space between the end of the headline and the logo.
+   *   200 = tight
+   *   300 = current
+   *   420 = roomy — about what a fixed position used to leave at 1920px
+   */
+  headlineGap: 300,
+
+  /**
+   * The furthest right the mark ever sits, as a fraction of the viewport.
+   *
+   * On laptops the gap rule always wants to go further right than this, so in
+   * practice this IS the position below ~1500px wide. It is a ceiling because
+   * the company constellation spreads around the same point: above 0.78 a
+   * company node leaves the right edge in the ecosystem beat.
    *
    * Valid range is narrow: 0.76-0.78 at markScale 1.2, measured by sweeping
    * every value through `npm run test:camera`.
    *   below 0.76  the bigger mark runs into the headline at 1440px
-   *   above 0.78  a company node leaves the right edge in the ecosystem beat
-   * The ceiling comes from the constellation, not the mark, so it does not
-   * move if you change markScale. The test names the offending edge.
+   *   above 0.78  a company node leaves the right edge
    */
   markX: 0.78,
 
