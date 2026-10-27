@@ -1,7 +1,8 @@
 import { buildBuffers } from "./geometry";
 import { VERT, FRAG } from "./shaders";
 import { createFpsGuard, TIER_PARTICLES, type Tier } from "./quality";
-import { CAMERA_Z, FOV_DEG, HALF_HEIGHT } from "./camera";
+import { CAMERA_Z, FOV_DEG, HALF_HEIGHT, fitScale } from "./camera";
+import { MARK_BOUNDS } from "./mark";
 import { TUNING } from "./tuning";
 
 /**
@@ -135,14 +136,20 @@ export function createScene(
 
   /*
     Uniform scale on the diagonal, camera on +Z looking at the origin.
-    A point p lands at (SCALE * p + offset), so the pointer conversion below
-    has to divide by SCALE as well as subtracting the offset.
+    A point p lands at (scale * p + offset), so the pointer conversion below
+    has to divide by scale as well as subtracting the offset.
+
+    Not a constant: resize() caps it with fitScale() so the mark never runs
+    off a narrow screen. On desktop it is exactly TUNING.scale.
   */
-  const SCALE = TUNING.scale;
+  // The mark is baked at markScale in geometry.ts, so its half-width is too.
+  const MARK_HALF_W =
+    Math.max(-MARK_BOUNDS.minX, MARK_BOUNDS.maxX) * TUNING.markScale;
+  let scale: number = TUNING.scale;
   const modelView = new Float32Array([
-    SCALE, 0, 0, 0,
-    0, SCALE, 0, 0,
-    0, 0, SCALE, 0,
+    scale, 0, 0, 0,
+    0, scale, 0, 0,
+    0, 0, scale, 0,
     0, 0, -CAMERA_Z, 1,
   ]);
   const projection = new Float32Array(16);
@@ -188,6 +195,9 @@ export function createScene(
 
     perspective(projection, FOV_DEG, w / h);
     gl.uniformMatrix4fv(u.proj, false, projection);
+
+    scale = fitScale(TUNING.scale, MARK_HALF_W, w / h);
+    modelView[0] = modelView[5] = modelView[10] = scale;
     gl.uniform1f(u.scale, dpr * Math.min(1, w / 1280));
   };
 
@@ -214,8 +224,8 @@ export function createScene(
     const aspect = canvas.width / canvas.height;
     gl.uniform2f(
       u.pointer,
-      (pointer.ndcX * HALF_HEIGHT * aspect - offset.x) / SCALE,
-      (pointer.ndcY * HALF_HEIGHT - offset.y) / SCALE,
+      (pointer.ndcX * HALF_HEIGHT * aspect - offset.x) / scale,
+      (pointer.ndcY * HALF_HEIGHT - offset.y) / scale,
     );
 
     gl.uniform1f(u.time, (now - start) / 1000);

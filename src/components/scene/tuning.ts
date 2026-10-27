@@ -24,10 +24,12 @@ export const TUNING = {
    * A fraction rather than a fixed distance, so it holds its position on a
    * laptop and on a 4K display alike.
    *
-   * Valid range is roughly 0.73-0.85 at scale 1. The orbit mark is near-square
-   * and symmetric (+/-1.0) where the old Z leaned right (-0.78 to 1.19), so it
-   * needs more room on the left than the Z did. `npm run test:camera` holds
-   * both edges and will tell you the exact percentage if you overshoot.
+   * Valid range is narrow: 0.76-0.78 at markScale 1.2, measured by sweeping
+   * every value through `npm run test:camera`.
+   *   below 0.76  the bigger mark runs into the headline at 1440px
+   *   above 0.78  a company node leaves the right edge in the ecosystem beat
+   * The ceiling comes from the constellation, not the mark, so it does not
+   * move if you change markScale. The test names the offending edge.
    */
   markX: 0.78,
 
@@ -49,14 +51,28 @@ export const TUNING = {
    *
    * Overall scale of the whole field — the mark, the dust and the company
    * constellation together.
-   *   1.0 = current
-   *   1.25 = a quarter larger
-   *   0.8 = smaller, more negative space
+   *   1.0  = current
+   *   0.8  = smaller, more negative space
    *
-   * Watch the edges as you go up: past ~1.3 the mark starts running off a
-   * 16:9 viewport.
+   * ⚠️ Want a bigger LOGO? Use `markScale` below, not this. This grows the
+   * dust and the company constellation too, and above 1.0 the outermost
+   * company node runs off the right edge during the ecosystem beat — one
+   * company simply disappears from the "one light per company" moment.
    */
   scale: 1.0,
+
+  /**
+   * Size of the mark alone, leaving the dust and the constellation as they
+   * are. This is the dial for "make the logo bigger".
+   *   1.0 = the mark at its traced size
+   *   1.2 = current
+   *
+   * Scales positions, not particle size, so a bigger mark spreads the same
+   * particles thinner — raise `particles` or lower `atmosphereShare` with it.
+   * Past ~1.3 the mark runs into the headline at 1440px; `test:camera`
+   * reports the exact edge.
+   */
+  markScale: 1.2,
 
   /**
    * Size of an individual particle, in roughly CSS pixels at rest.
@@ -71,8 +87,13 @@ export const TUNING = {
    * drop to the static fallback if a device can't hold 45fps.
    *   full:    desktop with a real GPU
    *   reduced: mobile, integrated graphics, low memory
+   *
+   * Raised from 24k/8k when `markScale` went to 1.2: a bigger mark spreads the
+   * same particles over 44% more area and read visibly grainy. The extra all
+   * goes to the mark — `atmosphereShare` came down at the same time, so the
+   * cloud OUTSIDE the mark is smaller than before, not larger.
    */
-  particles: { full: 24_000, reduced: 8_000 },
+  particles: { full: 30_000, reduced: 10_000 },
 
   /**
    * ---- THE FIELD AROUND THE MARK ------------------------------------------
@@ -81,12 +102,12 @@ export const TUNING = {
    * around it instead, so the space beside the mark is alive rather than dead
    * black.
    *   0    = every particle forms the letterform; the surround is empty
-   *   0.15 = current
+   *   0.07 = current
    *   0.5  = atmospheric, the mark starts to lose density
    *
    * Raising this thins the mark — raise `particles` alongside it.
    */
-  atmosphereShare: 0.15,
+  atmosphereShare: 0.07,
 
   /** How tightly the cloud hugs the mark. Lower pulls it in, higher spreads. */
   atmosphereSpread: 0.42,
@@ -108,9 +129,13 @@ export const TUNING = {
 
   /**
    * Fraction of the cloud that reads as a distinct bright mote rather than
-   * dust — the "lights" floating around the mark.
+   * dust — the "lights" floating around the mark. These are the big ones:
+   * drawn at 3.2x size with a brightness boost, so a few go a long way.
+   *   0     = none, the surround is fine dust only
+   *   0.02  = current
+   *   0.04  = busy
    */
-  moteShare: 0.04,
+  moteShare: 0.02,
 
   /**
    * ---- HOW ALIVE IT FEELS -------------------------------------------------

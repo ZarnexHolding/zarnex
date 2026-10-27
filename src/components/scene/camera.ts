@@ -29,3 +29,25 @@ export function ndcToWorld(ndcX: number, ndcY: number, aspect: number) {
 export function worldXAtFraction(fraction: number, aspect: number) {
   return (fraction * 2 - 1) * HALF_HEIGHT * aspect;
 }
+
+/**
+ * The scale the field actually renders at.
+ *
+ * Below `sideBySideMinWidth` the field centres under the headline, and at
+ * TUNING.scale the mark can be wider than the phone it is on — a 390px
+ * portrait screen shows a world half-width of ~0.99, so a mark of half-width
+ * 1.2 was clipped on both sides. This caps the scale so the mark always fits
+ * with a margin; on any desktop the cap sits far above a sensible scale and
+ * `wanted` passes straight through.
+ *
+ * Takes the mark's half-width as an argument rather than importing it, so this
+ * module stays dependency-free and the tests can load it as-is.
+ */
+export function fitScale(
+  wanted: number,
+  markHalfWidth: number,
+  aspect: number,
+  margin = 0.9,
+) {
+  return Math.min(wanted, (HALF_HEIGHT * aspect * margin) / markHalfWidth);
+}

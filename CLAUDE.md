@@ -130,7 +130,7 @@ safety net. **The whole signature moment costs ~3.6kB gz.**
 
 | File | Owns |
 |---|---|
-| `tuning.ts` | **Every dial worth turning.** Position, scale, particle counts, the cloud, drift, twinkle, wave, hover. Start here. |
+| `tuning.ts` | **Every dial worth turning.** Position, logo size, particle counts, the cloud, drift, twinkle, wave, hover. Start here. |
 | `camera.ts` | Camera distance, FOV, and the NDC↔world maths. The *only* home for these. |
 | `mark.ts` | **GENERATED.** The orbit mark's contours and true bounds — read by the sampler, the layout guard and the tests. |
 | `layout.ts` | Company node positions **and** the accent hexes, shared with the static fallback. |
@@ -141,7 +141,7 @@ safety net. **The whole signature moment costs ~3.6kB gz.**
 
 ### Quality tiers and the dev switches
 
-Three tiers (currently 24k / 8k / 0 particles, from `tuning.ts`), chosen from the
+Three tiers (currently 30k / 10k / 0 particles, from `tuning.ts`), chosen from the
 GL renderer string plus device signals. A rolling FPS guard downgrades once and
 never oscillates. **Tier 0 is a designed state**, reviewed like any other.
 
@@ -159,7 +159,14 @@ viewport size and across a sweep of tuning values. Pixel-diffing cannot prove
 this: the disturbance only shows where particles are, so its centroid is dragged
 toward the mark's centre and gives misleading numbers. It also guards that the
 current tuning keeps the mark clear of the headline and on screen — using
-`mark.ts`'s real bounds rather than a round number.
+`mark.ts`'s real bounds rather than a round number — and that:
+
+- **the mark fits a phone.** Below `sideBySideMinWidth` the field centres, and
+  `fitScale()` in `camera.ts` caps the scale so the mark never exceeds ~90% of
+  the screen width. Even the original size overflowed a 390px phone by 1%.
+- **every company node stays on screen** in the ecosystem beat. This loads the
+  real `layout.ts` and `companies.ts` through the TypeScript transpiler rather
+  than copying the spiral formula, so it tests the layout the app ships.
 
 **`npm run test:fps`** — the guard must survive start-up, a stalled loop
 (backgrounded tab, `setPaused()`), and a one-second hitch, while still
@@ -187,8 +194,17 @@ Two things about the shape itself:
   carved OUT of the stroke, and there are four more interior holes. Use
   `insideMark()`, never `insidePolygon()` on one contour.
 - **It is near-square and symmetric (±1.0)** where the old Z leaned right
-  (−0.78 to 1.19), so it needs more left clearance. `TUNING.markX` has a valid
-  range of roughly 0.73–0.85 at scale 1; `test:camera` holds both edges.
+  (−0.78 to 1.19), so it needs more left clearance.
+
+**Two size dials, and the difference matters.** `markScale` grows the logo
+alone. `scale` grows the whole field — dust and company constellation too —
+and above 1.0 it pushes a company node off the right edge, so one company
+silently disappears from the "one light per company" beat. For a bigger logo,
+always `markScale`.
+
+`TUNING.markX` is boxed in at **0.76–0.78** (at markScale 1.2): the floor is
+the logo meeting the headline, the ceiling is the constellation leaving the
+screen. Measured by sweeping values through `test:camera`, not estimated.
 
 If the designer ever supplies a real master SVG, replace the artwork and
 re-run `build:mark` — nothing else should need touching. The parser accepts

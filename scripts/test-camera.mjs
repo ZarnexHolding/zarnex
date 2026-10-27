@@ -1,5 +1,6 @@
 import { readFileSync } from "node:fs";
 import assert from "node:assert/strict";
+import ts from "typescript";
 
 /**
  * The pointer-to-particle mapping, tested as an exact round trip.
@@ -20,8 +21,8 @@ const src = readFileSync("src/components/scene/camera.ts", "utf8")
   .replace(/export /g, "")
   .replace(/:\s*number/g, "");
 
-const { HALF_HEIGHT, worldXAtFraction } = new Function(
-  `${src}; return { HALF_HEIGHT, worldXAtFraction };`,
+const { HALF_HEIGHT, worldXAtFraction, fitScale } = new Function(
+  `${src}; return { HALF_HEIGHT, worldXAtFraction, fitScale };`,
 )();
 
 // The shipped tuning, so the guards below check real values not a copy.
@@ -121,13 +122,21 @@ test("a zero offset still round-trips (mobile, field centred)", () => {
 });
 
 /** Where the mark's edges land, as a fraction of the viewport. */
+// geometry.ts bakes the mark at markScale, so every extent below carries it.
+const MK = TUNING.markScale;
+const MARK_HALF_W = Math.max(-MARK_BOUNDS.minX, MARK_BOUNDS.maxX) * MK;
+
+/** The scale the renderer actually draws at — fitted, not just TUNING.scale. */
+const renderedScale = (w, h) => fitScale(TUNING.scale, MARK_HALF_W, w / h);
+
 function markEdges(w, h) {
   const aspect = w / h;
   const offsetX = worldXAtFraction(TUNING.markX, aspect);
   const span = HALF_HEIGHT * aspect;
+  const s = renderedScale(w, h);
   return {
-    left: ((offsetX + MARK_BOUNDS.minX * TUNING.scale) / span + 1) / 2,
-    right: ((offsetX + MARK_BOUNDS.maxX * TUNING.scale) / span + 1) / 2,
+    left: ((offsetX + MARK_BOUNDS.minX * MK * s) / span + 1) / 2,
+    right: ((offsetX + MARK_BOUNDS.maxX * MK * s) / span + 1) / 2,
   };
 }
 
@@ -140,6 +149,76 @@ test("the current tuning keeps the mark clear of the headline", () => {
     `mark starts at ${(left * 100).toFixed(0)}% of the viewport — ` +
       `raise TUNING.markX or lower TUNING.scale`,
   );
+});
+
+test("the mark fits a phone when the field centres under the headline", () => {
+  // Below sideBySideMinWidth the offset is zero, so the mark is centred and
+  // its full width has to fit. At scale 1.2 it used to be clipped both sides.
+  for (const [w, h] of [[360, 780], [390, 844], [414, 896], [768, 1024]]) {
+    const halfVisible = HALF_HEIGHT * (w / h);
+    const halfMark = MARK_HALF_W * renderedScale(w, h);
+    assert.ok(
+      halfMark <= halfVisible,
+      `at ${w}x${h} the mark is ${((halfMark / halfVisible) * 100).toFixed(0)}% ` +
+        `of the screen width — it is being clipped`,
+    );
+  }
+});
+
+test("the fit never shrinks the mark on a desktop", () => {
+  // The cap exists for phones. If it starts biting on a laptop, the mark has
+  // quietly become smaller than the tuning says and nobody will know why.
+  for (const [w, h] of [[1024, 768], [1280, 800], [1440, 900], [1920, 1080], [2560, 1440]]) {
+    assert.equal(
+      renderedScale(w, h),
+      TUNING.scale,
+      `at ${w}x${h} fitScale cut the mark to ${renderedScale(w, h).toFixed(2)}`,
+    );
+  }
+});
+
+/**
+ * The real node layout, not a copy of its formula. layout.ts imports the
+ * company list, so both go through the TypeScript transpiler and the import is
+ * satisfied by hand — the spiral under test is the one the app ships.
+ */
+function loadTs(file, deps = {}) {
+  const js = ts.transpileModule(readFileSync(file, "utf8"), {
+    compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2020 },
+  }).outputText;
+  const mod = { exports: {} };
+  new Function("module", "exports", "require", js)(mod, mod.exports, (id) => {
+    if (!(id in deps)) throw new Error(`${file} imports ${id} — add it to deps`);
+    return deps[id];
+  });
+  return mod.exports;
+}
+const companies = loadTs("src/lib/companies.ts");
+const { nodeCentres } = loadTs("src/components/scene/layout.ts", {
+  "@/lib/companies": companies,
+});
+
+test("every company node stays on screen during the ecosystem beat", () => {
+  // Raising TUNING.scale to 1.2 once pushed the outermost node clean off the
+  // right edge at every desktop width — one company just vanished from the
+  // "one light per company" beat. The logo has its own dial (markScale) now;
+  // this holds the line if someone reaches for the wrong one.
+  const nodes = nodeCentres();
+  for (const [w, h] of [[1280, 800], [1440, 900], [1920, 1080], [2560, 1440]]) {
+    const aspect = w / h;
+    const span = HALF_HEIGHT * aspect;
+    const offsetX = worldXAtFraction(TUNING.markX, aspect);
+    const s = renderedScale(w, h);
+    for (const n of nodes) {
+      const x = offsetX + n.pos[0] * s;
+      const y = n.pos[1] * s;
+      assert.ok(
+        Math.abs(x) <= span && Math.abs(y) <= HALF_HEIGHT,
+        `at ${w}x${h}, ${n.slug} sits at ` +
+          `${(((x / span + 1) / 2) * 100).toFixed(0)}% across — off screen`,
+      );
+    }
+  }
 });
 
 test("the current tuning keeps the mark on screen", () => {

@@ -1,5 +1,6 @@
 import { nodeCentres } from "./layout";
 import { insideMark, MARK_BOUNDS } from "./mark";
+import { TUNING } from "./tuning";
 
 /**
  * The three position buffers the scene morphs between.
@@ -83,8 +84,10 @@ export function buildBuffers(count: number): SceneBuffers {
       y = MARK_BOUNDS.minY + rand() * (MARK_BOUNDS.maxY - MARK_BOUNDS.minY);
       if (insideMark(x, y)) break;
     }
-    mark[i * 3] = x;
-    mark[i * 3 + 1] = y;
+    // Sized here, in the buffer, so the logo grows without dragging the
+    // dust and the constellation with it — see TUNING.markScale.
+    mark[i * 3] = x * TUNING.markScale;
+    mark[i * 3 + 1] = y * TUNING.markScale;
     mark[i * 3 + 2] = (rand() - 0.5) * 0.09;
 
     // NODES — a steep falloff so each reads as a point of light with a faint
