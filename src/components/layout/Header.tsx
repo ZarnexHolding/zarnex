@@ -150,7 +150,7 @@ export function Header() {
 
           <span className="rule mt-14 text-ink-12" aria-hidden />
 
-          <p className="t-eyebrow mt-10 text-ink-45">The ecosystem</p>
+          <p className="t-eyebrow mt-10 text-ink-65">The ecosystem</p>
           <ul className="mt-5 grid grid-cols-2 gap-x-6 gap-y-2.5 max-[480px]:grid-cols-1">
             {COMPANIES.map((c) => (
               <li key={c.slug}>

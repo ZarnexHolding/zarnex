@@ -8,7 +8,7 @@ import { Rule } from "@/components/ui/Rule";
 
 const BEATS = [
   { key: 0, label: "Converge", note: "Dust becomes the mark" },
-  { key: 1, label: "Hold", note: "The Z, breathing" },
+  { key: 1, label: "Hold", note: "The mark, breathing" },
   { key: 2, label: "Disperse", note: "The mark becomes the ecosystem" },
 ] as const;
 
@@ -74,7 +74,7 @@ export function SceneLab() {
       <div className="pointer-events-none relative z-10 flex min-h-svh flex-col justify-between p-[var(--spacing-gutter)] pt-[calc(72px+3rem)]">
         <div>
           <Rule className="text-bone" animate={false} />
-          <p className="t-eyebrow mt-6 text-paper-45">Stage 2 · Scene lab</p>
+          <p className="t-eyebrow mt-6 text-paper-55">Stage 2 · Scene lab</p>
           <h1 className="t-display-2 mt-6 max-w-[16ch]">
             Many become one. One becomes many.
           </h1>
@@ -83,19 +83,19 @@ export function SceneLab() {
         <div className="pointer-events-auto">
           {/* readout */}
           <div className="mb-8 flex flex-wrap gap-x-10 gap-y-2">
-            <p className="t-meta text-paper-45">
+            <p className="t-meta text-paper-55">
               Tier <span className="text-bone">{tier ?? "…"}</span>
             </p>
-            <p className="t-meta text-paper-45">
+            <p className="t-meta text-paper-55">
               FPS{" "}
               <span className={fps >= 55 ? "text-bone" : "text-[--color-accent-realintelligence]"}>
                 {fps}
               </span>
             </p>
-            <p className="t-meta text-paper-45">
+            <p className="t-meta text-paper-55">
               Phase <span className="text-bone">{phase.toFixed(2)}</span>
             </p>
-            <p className="t-meta text-paper-45">
+            <p className="t-meta text-paper-55">
               Particles{" "}
               <span className="text-bone">
                 {tier === 2 ? "24,000" : tier === 1 ? "8,000" : "0"}
@@ -125,7 +125,7 @@ export function SceneLab() {
 
           {/* scrub */}
           <label className="block max-w-xl">
-            <span className="t-meta text-paper-45">Scrub the morph</span>
+            <span className="t-meta text-paper-55">Scrub the morph</span>
             <input
               type="range"
               min={0}
@@ -133,9 +133,9 @@ export function SceneLab() {
               step={0.01}
               value={phase}
               onChange={(e) => setPhase(Number(e.target.value))}
-              className="mt-3 w-full accent-[--color-gold]"
+              className="mt-3 w-full accent-[--color-bronze]"
             />
-            <span className="t-caption mt-2 block text-paper-45">
+            <span className="t-caption mt-2 block text-paper-55">
               {BEATS.map((b) => b.note).join(" → ")}
             </span>
           </label>

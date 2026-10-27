@@ -3,7 +3,7 @@ import { Section } from "@/components/layout/Section";
 import { Reveal } from "@/components/motion/Reveal";
 import { Rule } from "@/components/ui/Rule";
 import { Button } from "@/components/ui/Button";
-import { ZMark } from "@/components/ui/Wordmark";
+import { BrandMark } from "@/components/ui/Wordmark";
 import { ICONS } from "@/components/ui/Icon";
 import { COMPANIES, SECTORS } from "@/lib/companies";
 import { SITE, STATEMENTS } from "@/lib/site";
@@ -32,10 +32,10 @@ const GROUND = [
 ] as const;
 
 const GOLD = [
-  { token: "gold-deep", hex: "#7A5518" },
-  { token: "gold", hex: "#C9922F" },
-  { token: "gold-light", hex: "#F0D08A" },
-  { token: "gold-spec", hex: "#FFF3D0" },
+  { token: "bronze", hex: "#B28E5E" },
+  { token: "bronze-60", hex: "#CBB28F" },
+  { token: "bronze-30", hex: "#E0D2BD" },
+  { token: "bronze-deep", hex: "#8A6C45" },
 ] as const;
 
 const SPACE = [
@@ -55,7 +55,7 @@ const MOTION = [
 function Row({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <div className="grid gap-3 border-t border-ink-12 py-6 md:grid-cols-[220px_1fr] md:gap-10">
-      <p className="t-meta text-ink-45">{label}</p>
+      <p className="t-meta text-ink-65">{label}</p>
       <div>{children}</div>
     </div>
   );
@@ -68,7 +68,7 @@ export default function StyleguidePage() {
       <Section ground="void" className="pt-[calc(72px+var(--spacing-section-sm))]">
         <Rule className="text-bone" />
         <Reveal className="mt-10">
-          <p className="t-eyebrow text-paper-45">Stage 1 · Foundation</p>
+          <p className="t-eyebrow text-paper-55">Stage 1 · Foundation</p>
         </Reveal>
         <Reveal index={1} className="mt-6">
           <h1 className="t-display-1">Design system</h1>
@@ -90,7 +90,7 @@ export default function StyleguidePage() {
         </Reveal>
         <Reveal index={1} className="mt-6 measure">
           <p className="t-body text-ink-70">
-            Bone, ink and one gold gradient. That is the parent. Each company
+            Light, dark and one flat bronze. That is the parent. Each company
             owns a single accent, rationed to three uses on its own page and the
             index — never anywhere else.
           </p>
@@ -106,31 +106,32 @@ export default function StyleguidePage() {
                     style={{ background: `var(--color-${c.token})` }}
                   />
                   <p className="t-meta">{c.token}</p>
-                  <p className="t-meta mt-1 text-ink-45">{c.hex}</p>
+                  <p className="t-meta mt-1 text-ink-65">{c.hex}</p>
                   <p className="t-caption mt-2 text-ink-70">{c.note}</p>
                 </div>
               ))}
             </div>
           </Row>
 
-          <Row label="Gold — the Z only">
+          <Row label="Bronze — the brand colour">
             <div
               className="mb-5 h-24 w-full"
               style={{
                 background:
-                  "linear-gradient(135deg, var(--color-gold-deep) 0%, var(--color-gold) 34%, var(--color-gold-light) 58%, var(--color-gold-spec) 70%, var(--color-gold) 100%)",
+                  "var(--color-bronze)",
               }}
             />
             <div className="flex flex-wrap gap-x-10 gap-y-2">
               {GOLD.map((g) => (
-                <p key={g.token} className="t-meta text-ink-45">
+                <p key={g.token} className="t-meta text-ink-65">
                   {g.token} <span className="text-ink">{g.hex}</span>
                 </p>
               ))}
             </div>
             <p className="t-caption mt-4 measure text-ink-70">
-              Always a gradient with a specular highlight. Flat gold reads cheap;
-              metal reads expensive.
+              Flat, never a gradient. V1 used a metallic gold treatment; the
+              V2 deck specifies one flat bronze with a tint ramp, so the
+              gradient is gone. Rationed to three uses per page.
             </p>
           </Row>
 
@@ -144,7 +145,7 @@ export default function StyleguidePage() {
                   />
                   <span className="min-w-0">
                     <span className="t-caption block truncate">{c.name}</span>
-                    <span className="t-meta block text-ink-45">{c.accent}</span>
+                    <span className="t-meta block text-ink-65">{c.accent}</span>
                   </span>
                 </div>
               ))}
@@ -156,13 +157,14 @@ export default function StyleguidePage() {
       {/* ---- Type ---- */}
       <Section eyebrow="02 — Typography">
         <Reveal>
-          <h2 className="t-display-2 measure-tight">Seven steps. Three faces.</h2>
+          <h2 className="t-display-2 measure-tight">Seven steps. One face.</h2>
         </Reveal>
         <Reveal index={1} className="mt-6 measure">
           <p className="t-body text-ink-70">
-            Instrument Sans and JetBrains Mono are standing in for PP Neue
-            Montreal and Söhne Mono pending licensing. Display type is tracked
-            tight — that is the clearest single signal of a designed site.
+            Poppins throughout — Semibold for headlines, Light for sub text,
+            per the V2 brand deck. The logotype face (Nebula Bold) is licensed
+            and not in the build; the wordmark is standing in. Display type is
+            tracked tight — the clearest single signal of a designed site.
           </p>
         </Reveal>
 
@@ -172,8 +174,8 @@ export default function StyleguidePage() {
               <p className={t.cls}>Where ideas become industries</p>
             </Row>
           ))}
-          <Row label="gold treatment">
-            <p className="t-display-2 t-gold">Zarnex</p>
+          <Row label="bronze treatment">
+            <p className="t-display-2 t-bronze">Zarnex</p>
           </Row>
         </div>
       </Section>
@@ -228,17 +230,17 @@ export default function StyleguidePage() {
               className="grid gap-2 border-t border-paper-14 py-6 md:grid-cols-[120px_1fr_240px] md:gap-10"
             >
               <p className="t-meta">
-                <span className="text-paper-45">{m.tier}</span> {m.name}
+                <span className="text-paper-55">{m.tier}</span> {m.name}
               </p>
               <p className="t-caption text-paper-70">{m.spec}</p>
-              <p className="t-caption text-paper-45">{m.use}</p>
+              <p className="t-caption text-paper-55">{m.use}</p>
             </div>
           ))}
         </div>
 
         <div className="mt-16 grid gap-10 md:grid-cols-3">
           <Reveal kind="rise" className="border border-paper-14 p-8">
-            <p className="t-meta text-paper-45">Rise</p>
+            <p className="t-meta text-paper-55">Rise</p>
             <p className="t-title mt-3">This block rose.</p>
           </Reveal>
           <Reveal kind="mask" className="overflow-hidden border border-paper-14">
@@ -247,7 +249,7 @@ export default function StyleguidePage() {
             </div>
           </Reveal>
           <div className="border border-paper-14 p-8">
-            <p className="t-meta text-paper-45">Draw</p>
+            <p className="t-meta text-paper-55">Draw</p>
             <Rule className="mt-3 text-bone" index={1} />
           </div>
         </div>
@@ -298,11 +300,11 @@ export default function StyleguidePage() {
             </p>
           </Row>
 
-          <Row label="Monogram">
+          <Row label="Orbit mark">
             <div className="flex items-end gap-8">
-              <ZMark className="size-16" />
-              <ZMark className="size-10" />
-              <ZMark className="size-6" />
+              <BrandMark className="size-16" />
+              <BrandMark className="size-10" />
+              <BrandMark className="size-6" />
             </div>
             <p className="t-caption mt-6 measure text-ink-70">
               Placeholder geometry — awaiting the master SVG from the client.
@@ -314,7 +316,7 @@ export default function StyleguidePage() {
               {Object.entries(ICONS).map(([name, Icon]) => (
                 <span key={name} className="flex flex-col items-center gap-2">
                   <Icon className="size-6" />
-                  <span className="t-meta text-[10px] text-ink-45">{name}</span>
+                  <span className="t-meta text-[10px] text-ink-65">{name}</span>
                 </span>
               ))}
             </div>
@@ -322,7 +324,7 @@ export default function StyleguidePage() {
 
           <Row label="Input">
             <label className="block max-w-md">
-              <span className="t-meta text-ink-45">Email</span>
+              <span className="t-meta text-ink-65">Email</span>
               <input
                 type="email"
                 placeholder="you@company.com"
@@ -376,13 +378,13 @@ export default function StyleguidePage() {
           </p>
         </Reveal>
         <Reveal index={2} className="mt-8 flex flex-wrap gap-x-10 gap-y-2">
-          <p className="t-meta text-ink-45">
+          <p className="t-meta text-ink-65">
             Companies <span className="text-ink">{COMPANIES.length}</span>
           </p>
-          <p className="t-meta text-ink-45">
+          <p className="t-meta text-ink-65">
             Sectors <span className="text-ink">{SECTORS.length}</span>
           </p>
-          <p className="t-meta text-ink-45">
+          <p className="t-meta text-ink-65">
             Awaiting content{" "}
             <span className="text-ink">
               {COMPANIES.filter((c) => c.status === "pending-content").length}
@@ -393,14 +395,14 @@ export default function StyleguidePage() {
         <div className="mt-16">
           <Row label="Statements · verbatim">
             <p className="t-body-lg measure">{STATEMENTS.positioning}</p>
-            <p className="t-meta mt-4 text-ink-45">Profile p2</p>
+            <p className="t-meta mt-4 text-ink-65">Profile p2</p>
           </Row>
 
           <Row label="Sectors">
             <ol className="grid gap-x-10 gap-y-2 sm:grid-cols-2">
               {SECTORS.map((s) => (
                 <li key={s.n} className="flex gap-4">
-                  <span className="t-meta w-8 shrink-0 text-ink-45">
+                  <span className="t-meta w-8 shrink-0 text-ink-65">
                     {String(s.n).padStart(2, "0")}
                   </span>
                   <span className="t-caption">{s.name}</span>
@@ -419,7 +421,7 @@ export default function StyleguidePage() {
                   />
                   <span className="t-caption">{c.name}</span>
                   {c.status === "pending-content" ? (
-                    <span className="t-meta text-[10px] text-ink-45">
+                    <span className="t-meta text-[10px] text-ink-65">
                       awaiting content
                     </span>
                   ) : null}
@@ -438,7 +440,7 @@ export default function StyleguidePage() {
       <Section ground="void" size="sm">
         <Rule className="text-bone" />
         <Reveal className="mt-10">
-          <p className="t-eyebrow text-paper-45">Next</p>
+          <p className="t-eyebrow text-paper-55">Next</p>
         </Reveal>
         <Reveal index={1} className="mt-6">
           <h2 className="t-display-2 measure-tight">

@@ -44,7 +44,7 @@ export function Section({
           <div className="mb-14">
             <Rule className={void_ ? "text-bone" : "text-ink"} />
             <Reveal index={1}>
-              <p className={cn("t-eyebrow mt-6", void_ ? "text-paper-45" : "text-ink-45")}>
+              <p className={cn("t-eyebrow mt-6", void_ ? "text-paper-55" : "text-ink-65")}>
                 {eyebrow}
               </p>
             </Reveal>

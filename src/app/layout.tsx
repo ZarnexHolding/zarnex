@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Instrument_Sans, JetBrains_Mono } from "next/font/google";
+import { Poppins } from "next/font/google";
 import "./globals.css";
 
 import { SmoothScroll } from "@/components/providers/SmoothScroll";
@@ -10,23 +10,19 @@ import { Footer } from "@/components/layout/Footer";
 import { SITE } from "@/lib/site";
 
 /**
- * PLACEHOLDER TYPEFACES — pending licensing.
- * Target: PP Neue Montreal (display) + Söhne Mono (meta).
- * Instrument Sans and JetBrains Mono stand in, filling the same roles.
- * See docs/01-design-principles.md.
+ * Poppins — Brand Identity V2, Direction One.
+ * Semibold for headlines, Light for sub text. 500 carries the UI weights
+ * between them. See docs/07-brand-direction-one.md.
+ *
+ * The logotype face (Nebula Bold) is deliberately NOT loaded: it is licensed,
+ * we do not have it, and a wordmark should ship as vector artwork rather than
+ * a webfont anyway.
  */
-const display = Instrument_Sans({
-  variable: "--font-sans-display",
+const poppins = Poppins({
+  variable: "--font-poppins",
   subsets: ["latin"],
   display: "swap",
-  weight: ["400", "500", "600"],
-});
-
-const mono = JetBrains_Mono({
-  variable: "--font-mono-meta",
-  subsets: ["latin"],
-  display: "swap",
-  weight: ["400", "500"],
+  weight: ["300", "400", "500", "600"],
 });
 
 export const metadata: Metadata = {
@@ -45,7 +41,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#faf9f6",
+  themeColor: "#f0f0f0",
   colorScheme: "light",
 };
 
@@ -56,7 +52,7 @@ export default function RootLayout({
     <html
       lang="en"
       data-header-ground="bone"
-      className={`${display.variable} ${mono.variable}`}
+      className={poppins.variable}
     >
       <body>
         <SmoothScroll>

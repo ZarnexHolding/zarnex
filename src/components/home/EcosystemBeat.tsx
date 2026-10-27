@@ -20,7 +20,7 @@ export function EcosystemBeat() {
         <div className="max-w-[38ch]">
           <Rule className="text-bone" />
           <Reveal index={1}>
-            <p className="t-eyebrow mt-6 text-paper-45">The ecosystem</p>
+            <p className="t-eyebrow mt-6 text-paper-55">The ecosystem</p>
           </Reveal>
           <Reveal index={2}>
             <h2 className="t-display-2 mt-8">One system. Every industry.</h2>

@@ -1,11 +1,11 @@
 import { nodeCentres } from "./layout";
-import { Z_POLY, insidePolygon } from "./mark";
+import { insideMark, MARK_BOUNDS } from "./mark";
 
 /**
  * The three position buffers the scene morphs between.
  *
  *   DUST   scattered points, the state before anything exists
- *   MARK   the Zarnex Z monogram
+ *   MARK   the Zarnex orbit mark
  *   NODES  one cluster per company, however many there are
  *
  * All three are baked once on the client and handed to the GPU as attributes.
@@ -72,13 +72,16 @@ export function buildBuffers(count: number): SceneBuffers {
     dust[i * 3 + 1] = Math.sin(a) * rr * 0.7;
     dust[i * 3 + 2] = (rand() - 0.5) * 3.4;
 
-    // MARK — rejection-sample inside the Z polygon
+    // MARK — rejection-sample inside the orbit mark.
+    // Sampling the mark's OWN bounds rather than a magic box matters now that
+    // the shape is strokes: it covers ~27% of its bounding box where the old
+    // solid Z covered far more, so a loose box would miss too often.
     let x = 0;
     let y = 0;
-    for (let tries = 0; tries < 48; tries++) {
-      x = (rand() - 0.5) * 2.4;
-      y = (rand() - 0.5) * 2.4;
-      if (insidePolygon(x, y, Z_POLY)) break;
+    for (let tries = 0; tries < 64; tries++) {
+      x = MARK_BOUNDS.minX + rand() * (MARK_BOUNDS.maxX - MARK_BOUNDS.minX);
+      y = MARK_BOUNDS.minY + rand() * (MARK_BOUNDS.maxY - MARK_BOUNDS.minY);
+      if (insideMark(x, y)) break;
     }
     mark[i * 3] = x;
     mark[i * 3 + 1] = y;

@@ -67,7 +67,7 @@ export function SectorsScroll() {
     >
       <div className="shell shrink-0 pt-[calc(72px+var(--spacing-section-sm))]">
         <Rule />
-        <p className="t-eyebrow mt-6 text-ink-45">Sectors</p>
+        <p className="t-eyebrow mt-6 text-ink-65">Sectors</p>
         <h2 className="t-display-2 mt-6 max-w-[16ch]">Ten verticals.</h2>
       </div>
 
@@ -96,7 +96,7 @@ export function SectorsScroll() {
               >
                 <div className="flex items-baseline gap-4">
                   <span className="t-display-2">{pad2(s.n)}</span>
-                  <span className="t-meta text-ink-45">
+                  <span className="t-meta text-ink-65">
                     {toArabicIndic(pad2(s.n))}
                   </span>
                 </div>
@@ -106,7 +106,7 @@ export function SectorsScroll() {
                   {inSector.length > 0 ? (
                     <ul className="mt-8 flex flex-wrap gap-x-5 gap-y-1.5">
                       {inSector.map((c) => (
-                        <li key={c.slug} className="t-caption text-ink-45">
+                        <li key={c.slug} className="t-caption text-ink-65">
                           {c.name}
                         </li>
                       ))}

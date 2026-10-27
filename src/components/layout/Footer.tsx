@@ -34,7 +34,7 @@ export function Footer() {
         <div className="mt-20 grid gap-16 lg:grid-cols-[1fr_2fr]">
           {/* Contact */}
           <Reveal index={1}>
-            <p className="t-eyebrow text-paper-45">Contact</p>
+            <p className="t-eyebrow text-paper-55">Contact</p>
             <address className="mt-6 not-italic">
               <p className="t-body-lg">{CONTACT.city}</p>
               <p className="t-body-lg text-paper-70">{CONTACT.country}</p>
@@ -61,7 +61,7 @@ export function Footer() {
 
           {/* The ecosystem index */}
           <Reveal index={2}>
-            <p className="t-eyebrow text-paper-45">The ecosystem</p>
+            <p className="t-eyebrow text-paper-55">The ecosystem</p>
             <ul className="mt-6 grid grid-cols-2 gap-x-8 gap-y-3 md:grid-cols-3">
               {COMPANIES.map((c) => (
                 <li key={c.slug}>
@@ -87,7 +87,7 @@ export function Footer() {
         <div className="mt-24 flex flex-wrap items-center justify-between gap-6 border-t border-paper-14 pt-8">
           <Wordmark className="text-bone" />
 
-          <p className="t-meta text-paper-45">
+          <p className="t-meta text-paper-55">
             CR {CONTACT.cr}
           </p>
 
@@ -99,7 +99,7 @@ export function Footer() {
                 <Link
                   href={l.href}
                   data-cursor="link"
-                  className="t-meta text-paper-45 transition-colors duration-[var(--dur-micro)] hover:text-bone"
+                  className="t-meta text-paper-55 transition-colors duration-[var(--dur-micro)] hover:text-bone"
                 >
                   {l.label}
                 </Link>

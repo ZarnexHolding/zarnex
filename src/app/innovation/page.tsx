@@ -61,7 +61,7 @@ export default function InnovationPage() {
           <div>
             <Rule />
             <Reveal index={1}>
-              <p className="t-eyebrow mt-6 text-ink-45">Core pillar</p>
+              <p className="t-eyebrow mt-6 text-ink-65">Core pillar</p>
             </Reveal>
           </div>
           <Reveal index={2}>
@@ -71,7 +71,7 @@ export default function InnovationPage() {
               collaborates, shares knowledge and builds cross-industry
               innovations.
             </p>
-            <p className="t-meta mt-10 text-ink-45">Business Profile 2026</p>
+            <p className="t-meta mt-10 text-ink-65">Business Profile 2026</p>
           </Reveal>
         </div>
       </section>
@@ -81,7 +81,7 @@ export default function InnovationPage() {
         <div className="shell">
           <Rule />
           <Reveal index={1}>
-            <p className="t-eyebrow mt-6 text-ink-45">Research domains</p>
+            <p className="t-eyebrow mt-6 text-ink-65">Research domains</p>
           </Reveal>
           <Reveal index={2} className="mt-8">
             <h2 className="t-display-2 max-w-[20ch]">Ten threads, running through everything.</h2>
@@ -97,7 +97,7 @@ export default function InnovationPage() {
                   index={Math.min(i, 3)}
                   className="grid gap-3 border-t border-ink-12 py-7 lg:grid-cols-[4rem_1fr_1.4fr] lg:gap-10"
                 >
-                  <span className="t-meta text-ink-45">{pad2(i + 1)}</span>
+                  <span className="t-meta text-ink-65">{pad2(i + 1)}</span>
                   <h3 className="t-title max-w-[20ch]">{d.name}</h3>
                   <div className="flex flex-wrap items-baseline gap-x-6 gap-y-2">
                     {companies.map((c) => (
@@ -106,7 +106,7 @@ export default function InnovationPage() {
                         href={`/companies/${c!.slug}`}
                         prefetch={false}
                         data-cursor="link"
-                        className="t-caption text-ink-45 underline-offset-4 transition-colors duration-[var(--dur-micro)] hover:text-ink hover:underline"
+                        className="t-caption text-ink-65 underline-offset-4 transition-colors duration-[var(--dur-micro)] hover:text-ink hover:underline"
                       >
                         {c!.name}
                       </Link>
@@ -118,7 +118,7 @@ export default function InnovationPage() {
           </ul>
 
           <Reveal index={4} className="mt-12">
-            <p className="t-caption measure text-ink-45">
+            <p className="t-caption measure text-ink-65">
               Links are drawn only where a company&rsquo;s own profile states the
               capability. The research division supports the whole group.
             </p>

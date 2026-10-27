@@ -65,7 +65,7 @@ export default async function CompaniesPage({
         <div className="shell">
           <Rule />
           <Reveal index={1}>
-            <p className="t-eyebrow mt-6 text-ink-45">Companies</p>
+            <p className="t-eyebrow mt-6 text-ink-65">Companies</p>
           </Reveal>
           <Reveal index={2} className="mt-8">
             <h1 className="t-display-1 max-w-[14ch]">The ecosystem.</h1>

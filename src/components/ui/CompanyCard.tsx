@@ -39,7 +39,7 @@ export function CompanyCard({
       className={cn("company-card group/card relative flex flex-col", className)}
     >
       <div className="flex h-8 items-start justify-between gap-6">
-        <p className="t-meta text-ink-45">{pad2(index + 1)}</p>
+        <p className="t-meta text-ink-65">{pad2(index + 1)}</p>
         {company.logo ? (
           // CSS mask, so the mark inherits currentColor and picks up the
           // accent on hover like the wordmark does.
@@ -93,10 +93,10 @@ export function CompanyCard({
       {description ? (
         <p className="t-caption mt-4 max-w-[34ch] text-ink-70">{description}</p>
       ) : (
-        <p className="t-caption mt-4 text-ink-45">Profile in preparation.</p>
+        <p className="t-caption mt-4 text-ink-65">Profile in preparation.</p>
       )}
 
-      <p className="t-meta mt-auto pt-10 text-ink-45">{industry}</p>
+      <p className="t-meta mt-auto pt-10 text-ink-65">{industry}</p>
 
       <div className="mt-5 flex items-center gap-6">
         <span className="t-meta inline-flex items-center gap-2">
@@ -111,7 +111,7 @@ export function CompanyCard({
             rel="noopener noreferrer"
             data-cursor="link"
             // Above the card-wide overlay link, so it stays independently clickable.
-            className="t-meta relative z-10 inline-flex items-center gap-2 text-ink-45 transition-colors duration-[var(--dur-micro)] hover:text-ink"
+            className="t-meta relative z-10 inline-flex items-center gap-2 text-ink-65 transition-colors duration-[var(--dur-micro)] hover:text-ink"
           >
             Visit site
             <ArrowDiagonal className="size-3.5" />

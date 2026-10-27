@@ -67,7 +67,7 @@ export function CompaniesIndex({ initialSector }: { initialSector: number | null
           </div>
         </Reveal>
 
-        <p aria-live="polite" className="t-meta mt-8 text-ink-45">
+        <p aria-live="polite" className="t-meta mt-8 text-ink-65">
           {visible.length} {visible.length === 1 ? "company" : "companies"}
           {sector === null ? "" : " in this sector"}
         </p>

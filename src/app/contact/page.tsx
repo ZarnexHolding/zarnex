@@ -26,7 +26,7 @@ export default function ContactPage() {
           <div>
             <Rule />
             <Reveal index={1}>
-              <p className="t-eyebrow mt-6 text-ink-45">{SITE.legalName}</p>
+              <p className="t-eyebrow mt-6 text-ink-65">{SITE.legalName}</p>
             </Reveal>
 
             <Reveal index={2}>
@@ -58,11 +58,11 @@ export default function ContactPage() {
             <Reveal index={3}>
               <dl className="mt-14 grid gap-4">
                 <div className="flex gap-6 border-t border-ink-12 pt-4">
-                  <dt className="t-meta w-24 shrink-0 text-ink-45">CR</dt>
+                  <dt className="t-meta w-24 shrink-0 text-ink-65">CR</dt>
                   <dd className="t-caption">{CONTACT.cr}</dd>
                 </div>
                 <div className="flex gap-6 border-t border-ink-12 pt-4">
-                  <dt className="t-meta w-24 shrink-0 text-ink-45">Coords</dt>
+                  <dt className="t-meta w-24 shrink-0 text-ink-65">Coords</dt>
                   <dd className="t-caption">{CONTACT.coords}</dd>
                 </div>
               </dl>

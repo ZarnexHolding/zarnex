@@ -11,7 +11,7 @@ export function VisionMission() {
       <div className="shell">
         <Rule />
         <Reveal index={1}>
-          <p className="t-eyebrow mt-6 text-ink-45">Vision &amp; Mission</p>
+          <p className="t-eyebrow mt-6 text-ink-65">Vision &amp; Mission</p>
         </Reveal>
 
         <div className="mt-20 grid gap-16 lg:grid-cols-2 lg:gap-24">

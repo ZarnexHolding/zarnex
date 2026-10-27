@@ -8,34 +8,49 @@
 
 @theme {
   /* ---- Ground ------------------------------------------------------------
-     The site is BONE. Cinematic moments are VOID.
-     Mirrors the profile document: dark cover, light interior, black bars.  */
-  --color-bone: #faf9f6;
-  --color-bone-soft: #f2f0ea;
-  --color-void: #000000;
-  --color-ink: #0a0a0b;
+     Brand Identity V2, Direction One. The light is #F0F0F0 and the dark is
+     #272727 — both straight off the palette slide. Neither is warm and
+     neither is pure: the old bone was cream and the old void was true black.
+     docs/07-brand-direction-one.md                                         */
+  --color-bone: #f0f0f0;
+  --color-bone-soft: #e3e3e3;
+  --color-void: #272727;
+  --color-ink: #272727;
 
-  /* Ink on bone */
-  --color-ink-70: rgba(10, 10, 11, 0.7);
-  --color-ink-45: rgba(10, 10, 11, 0.45);
-  --color-ink-12: rgba(10, 10, 11, 0.12);
-  --color-ink-06: rgba(10, 10, 11, 0.06);
+  /* Ink on bone.
+     The muted step is 65%, not the 45% V1 used. #F0F0F0 is a lighter ground
+     than the old cream bone, so 45% ink lands at 2.6:1 — under AA for the
+     small letterspaced labels it styles. 65% is the lowest that clears 4.5:1.
+     Measured, not guessed: npm run check:contrast. */
+  --color-ink-70: rgba(39, 39, 39, 0.7);
+  --color-ink-65: rgba(39, 39, 39, 0.65);
+  --color-ink-12: rgba(39, 39, 39, 0.12);
+  --color-ink-06: rgba(39, 39, 39, 0.06);
 
-  /* Bone on void */
-  --color-paper-70: rgba(250, 249, 246, 0.7);
-  --color-paper-45: rgba(250, 249, 246, 0.45);
-  --color-paper-14: rgba(250, 249, 246, 0.14);
-  --color-paper-06: rgba(250, 249, 246, 0.06);
+  /* Bone on void. 55% is the AA floor against #272727. */
+  --color-paper-70: rgba(240, 240, 240, 0.7);
+  --color-paper-55: rgba(240, 240, 240, 0.55);
+  --color-paper-14: rgba(240, 240, 240, 0.14);
+  --color-paper-06: rgba(240, 240, 240, 0.06);
 
-  /* ---- Gold — the Z monogram only. Never a flat fill. ------------------- */
-  --color-gold-deep: #7a5518;
-  --color-gold: #c9922f;
-  --color-gold-light: #f0d08a;
-  --color-gold-spec: #fff3d0;
+  /* ---- Bronze — the brand colour. FLAT, not a gradient. -----------------
+     V1 used a metallic gold gradient; that was our decision, not the
+     client's. The V2 deck specifies one flat bronze with a tint ramp, so the
+     gradient treatment is gone. The ramp steps below are mixes toward the
+     light ground — the deck shows four swatches but gives no hexes for them,
+     so these are derived, not quoted.                                      */
+  --color-bronze: #b28e5e;
+  --color-bronze-60: #cbb28f;
+  --color-bronze-30: #e0d2bd;
+  --color-bronze-deep: #8a6c45;
 
   /* ---- Type ------------------------------------------------------------- */
-  --font-display: var(--font-sans-display), "Helvetica Neue", Arial, sans-serif;
-  --font-mono: var(--font-mono-meta), ui-monospace, "SF Mono", monospace;
+  /* Poppins Semibold for headlines, Poppins Light for everything else.
+     The deck specifies exactly two faces plus Nebula for the logotype, so
+     the old JetBrains Mono meta face is gone: small labels are letterspaced
+     Poppins caps, which is how the deck itself sets HOLDING and VISITOR. */
+  --font-display: var(--font-poppins), "Helvetica Neue", Arial, sans-serif;
+  --font-mono: var(--font-poppins), "Helvetica Neue", Arial, sans-serif;
 
   /* Fluid scale — 7 steps. See docs/01-design-principles.md */
   --text-display-1: clamp(2.75rem, 1.2rem + 6.4vw, 6rem);
@@ -101,7 +116,8 @@
   --color-accent-nuron: #d8cfc4;
   --color-accent-airwaves: #4fb8c9;
 
-    --accent: var(--color-gold);
+    --accent: var(--color-bronze);
+    --focus-ring: var(--color-bronze-deep);
     color-scheme: light;
   }
 
@@ -147,6 +163,10 @@
   */
   [data-ground="void"] {
     color: var(--color-bone);
+    /* Flat bronze clears 3:1 against the dark ground but only manages 2.66:1
+       against #F0F0F0, so the focus ring darkens on light. A logotype is
+       exempt from contrast rules; a focus indicator is not. */
+    --focus-ring: var(--color-bronze);
   }
 
   ::selection {
@@ -159,7 +179,7 @@
   }
 
   :focus-visible {
-    outline: 2px solid var(--color-gold);
+    outline: 2px solid var(--focus-ring, var(--color-bronze-deep));
     outline-offset: 3px;
   }
 
@@ -234,7 +254,7 @@
   :root[data-header-ground="void"]
     .site-header:not([data-open])
     .btn-ghost:hover {
-    border-color: var(--color-paper-45);
+    border-color: var(--color-paper-55);
     background-color: var(--color-paper-06);
   }
 
@@ -282,7 +302,7 @@
     color: var(--color-ink);
   }
   .btn-ghost:hover {
-    border-color: var(--color-ink-45);
+    border-color: var(--color-ink-65);
     background-color: var(--color-ink-06);
   }
   [data-ground="void"] .btn-ghost {
@@ -290,7 +310,7 @@
     color: var(--color-bone);
   }
   [data-ground="void"] .btn-ghost:hover {
-    border-color: var(--color-paper-45);
+    border-color: var(--color-paper-55);
     background-color: var(--color-paper-06);
   }
 
@@ -388,11 +408,11 @@
       border-width var(--dur-micro) var(--ease-out);
   }
   .field::placeholder {
-    color: var(--color-ink-45);
+    color: var(--color-ink-65);
   }
   .field:focus {
     border-block-end-width: 2px;
-    border-color: var(--color-gold);
+    border-color: var(--color-bronze);
     outline: none;
   }
 }
@@ -455,19 +475,9 @@
     text-transform: uppercase;
   }
 
-  /* ---- The gold monogram treatment — gradient, never flat --------------- */
-  .t-gold {
-    background: linear-gradient(
-      135deg,
-      var(--color-gold-deep) 0%,
-      var(--color-gold) 34%,
-      var(--color-gold-light) 58%,
-      var(--color-gold-spec) 70%,
-      var(--color-gold) 100%
-    );
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
+  /* ---- The brand colour on type. Flat — see the token note above. ------- */
+  .t-bronze {
+    color: var(--color-bronze);
   }
 
   /* ---- Layout ----------------------------------------------------------- */

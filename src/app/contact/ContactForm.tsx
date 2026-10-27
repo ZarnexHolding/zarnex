@@ -43,7 +43,7 @@ function Field({
 
   return (
     <div>
-      <label htmlFor={id} className="t-meta block text-ink-45">
+      <label htmlFor={id} className="t-meta block text-ink-65">
         {label}
         {required ? <span aria-hidden> *</span> : null}
       </label>

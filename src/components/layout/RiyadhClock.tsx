@@ -23,7 +23,7 @@ export function RiyadhClock() {
   }, []);
 
   return (
-    <p className="t-meta text-paper-45 tabular-nums">
+    <p className="t-meta text-paper-55 tabular-nums">
       Riyadh {time ?? "--:--"}
     </p>
   );

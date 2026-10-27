@@ -34,8 +34,8 @@ const { TUNING } = new Function(`${tuningSrc}; return { TUNING };`)();
 // Hardcoding "about 1.2 wide" here once rejected a perfectly good position.
 const markSrc = readFileSync("src/components/scene/mark.ts", "utf8")
   .replace(/export /g, "")
-  .replace(/:\s*\[number, number\]\[\]/g, "")
-  .replace(/:\s*\[number, number\]/g, "")
+  // Strip the annotations at any array depth — MARK_CONTOURS is [n,n][][].
+  .replace(/:\s*\[number, number\](?:\[\])*/g, "")
   .replace(/:\s*number/g, "");
 const { MARK_BOUNDS } = new Function(`${markSrc}; return { MARK_BOUNDS };`)();
 

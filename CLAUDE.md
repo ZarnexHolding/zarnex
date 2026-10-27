@@ -20,6 +20,7 @@ modules under `src/lib`.
 | [`docs/01-design-principles.md`](docs/01-design-principles.md) | The design constitution — motion budget, content caps, performance gates. Rules, not suggestions. |
 | [`docs/02-ifmc.md`](docs/02-ifmc.md) · [`03-glitch-morph`](docs/03-glitch-morph.md) · [`04-xlive`](docs/04-xlive.md) · [`05-energ`](docs/05-energ.md) | Per-company source data, one file per profile PDF received |
 | [`docs/06-decisions.md`](docs/06-decisions.md) | Client answers and what changed as a result |
+| [`docs/07-brand-direction-one.md`](docs/07-brand-direction-one.md) | **Brand Identity V2, Direction One** — the current identity. Palette, type, the mark, and what is still missing. |
 
 ---
 
@@ -114,9 +115,9 @@ library on the critical path, and reduced-motion is handled entirely in CSS.
 ## The WebGL scene — `src/components/scene`
 
 One scene, one `drawArrays` call, on the homepage and nowhere else. It says one
-thing: *many become one, one becomes many.* Dust converges into the Zarnex Z,
-the Z disperses into one point of light per company, then an R&D pulse travels
-the network.
+thing: *many become one, one becomes many.* Dust converges into the Zarnex
+orbit mark, the mark disperses into one point of light per company, then an
+R&D pulse travels the network.
 
 **Raw WebGL, deliberately — not Three.js.** Three brought 129kB gz of scene
 graph, materials, loaders and raycasting to serve a single static vertex buffer.
@@ -131,7 +132,7 @@ safety net. **The whole signature moment costs ~3.6kB gz.**
 |---|---|
 | `tuning.ts` | **Every dial worth turning.** Position, scale, particle counts, the cloud, drift, twinkle, wave, hover. Start here. |
 | `camera.ts` | Camera distance, FOV, and the NDC↔world maths. The *only* home for these. |
-| `mark.ts` | The Z polygon and its true bounds — read by the sampler, the layout guard and the tests. |
+| `mark.ts` | **GENERATED.** The orbit mark's contours and true bounds — read by the sampler, the layout guard and the tests. |
 | `layout.ts` | Company node positions **and** the accent hexes, shared with the static fallback. |
 | `geometry.ts` | Bakes the three position buffers (dust / mark / nodes). |
 | `shaders.ts` | The one vertex+fragment pair. Tuning values are interpolated in as compile-time constants. |
@@ -158,7 +159,7 @@ viewport size and across a sweep of tuning values. Pixel-diffing cannot prove
 this: the disturbance only shows where particles are, so its centroid is dragged
 toward the mark's centre and gives misleading numbers. It also guards that the
 current tuning keeps the mark clear of the headline and on screen — using
-`mark.ts`'s real, asymmetric bounds rather than a round number.
+`mark.ts`'s real bounds rather than a round number.
 
 **`npm run test:fps`** — the guard must survive start-up, a stalled loop
 (backgrounded tab, `setPaused()`), and a one-second hitch, while still
@@ -168,10 +169,38 @@ Every case in that file is a regression of something that actually happened.
 
 ---
 
+## The brand mark — one master, two derivatives
+
+`public/logos/zarnex-mark.svg` **is the master artwork.** Both of these are
+generated from it by `npm run build:mark`, and `npm run check:mark` fails the
+build if either drifts:
+
+- `src/components/scene/mark.ts` — contours for the particle sampler
+- `src/app/icon.svg` — the favicon
+
+The mark used to live in two places: artwork in one file, hand-typed
+coordinates in another. That is the failure mode above, so now it does not.
+
+Two things about the shape itself:
+
+- **It is strokes, not a solid letterform.** Fill is even-odd — the star is
+  carved OUT of the stroke, and there are four more interior holes. Use
+  `insideMark()`, never `insidePolygon()` on one contour.
+- **It is near-square and symmetric (±1.0)** where the old Z leaned right
+  (−0.78 to 1.19), so it needs more left clearance. `TUNING.markX` has a valid
+  range of roughly 0.73–0.85 at scale 1; `test:camera` holds both edges.
+
+If the designer ever supplies a real master SVG, replace the artwork and
+re-run `build:mark` — nothing else should need touching. The parser accepts
+absolute `M`/`L`/`Z` only and will tell you if the new file has curves.
+
+---
+
 ## Ground system — the dark/light rhythm
 
-The site is **bone**; cinematic moments are **void**. Mirrors the profile
-document: dark cover, light interior, black bars.
+The site is **bone** (`#F0F0F0`); cinematic moments are **void** (`#272727`).
+Both straight off the V2 palette slide — neither is warm and neither is pure.
+The names predate the rebrand and were kept to avoid a rename across 22 files.
 
 - `data-ground="void"` carries the **colour scheme** only (transparent).
 - `.ground-void` / `.ground-bone` add an **opaque background**.
@@ -195,6 +224,12 @@ One per company, **rationed to three uses on its own page** plus the index card.
 Nowhere else. That rationing is the only reason a many-accent system doesn't
 become noise.
 
+⚠️ **The V2 brand deck does not mention subsidiary accents at all.** It gives
+three brand colours and is silent on the companies. The accent system is
+therefore untouched and may not survive client review — see
+`docs/07-brand-direction-one.md` §6. Do not treat the current 16 accents as
+blessed by the new identity.
+
 ⚠️ **Accents live in `:root`, NOT in `@theme`.** Tailwind v4 tree-shakes theme
 variables — it only emits those a utility class references. These are read at
 runtime via `var(--color-accent-<slug>)` in inline styles, which the scanner
@@ -207,8 +242,9 @@ step **and** fails if anyone moves them back.
 
 ```bash
 npm run dev          # dev server
+npm run build:mark   # regenerate mark.ts + icon.svg from the master SVG
 npm run build        # all guards + tests, then next build
-npm run check        # check:counts · check:accents · test:fps · test:camera
+npm run check        # counts · accents · mark · contrast · fps · camera
 npm run test:fps     # FPS guard logic, synthetic clocks
 npm run test:camera  # pointer-to-particle mapping, exact round trip
 npm run budget       # per-route perf gate — needs a running server
@@ -219,6 +255,14 @@ npm run shots        # screenshot helper (see scripts/screenshot.mjs)
 `npm run audit` checks horizontal overflow (and names the offending element),
 missing `alt`, `h1` count, and heading-level skips at 390 / 768 / 1440.
 
+`npm run check:contrast` measures every text token against its ground. It
+exists because the V2 palette moved the light ground from a cream `#FAF9F6` to
+a brighter `#F0F0F0`, which silently pushed the muted text tone from 3.1:1 to
+2.6:1 — under AA, and the responsive audit does not look at contrast. The
+muted steps are now `ink-65` and `paper-55`, which are the lowest alphas that
+clear 4.5:1. Logotypes are exempt from contrast rules; focus rings are not, so
+the ring darkens to `bronze-deep` on light grounds.
+
 ### Performance gates — CI-blocking
 
 Budgeted **by role**, not uniformly. A flat delta would hide whether the
@@ -226,7 +270,7 @@ architectural guarantee still holds.
 
 | | Budget | Measured |
 |---|---|---|
-| Shared app shell | ≤ 180kB gz | **179.2kB** ← tight |
+| Shared app shell | ≤ 180kB gz | **178.7kB** |
 | Calm route delta | ≤ 30kB gz | **0.0kB** |
 | Signature route delta (`/`, `/lab/scene`) | ≤ 120kB gz | 43.8kB / 3.6kB |
 | LCP | ≤ 2000ms | 108–1156ms |
@@ -235,8 +279,9 @@ architectural guarantee still holds.
 **The number that matters is 0.0kB on calm routes.** It proves GSAP and WebGL
 never leak off the homepage. If that moves, something regressed.
 
-The shell is within 1kB of its gate. **Any new shared client component will
-breach it** — check before adding one.
+The shell has ~1.3kB of headroom. **Check before adding a shared client
+component.** The V2 logo is a CSS mask over `/logos/zarnex-mark.svg` rather
+than inline SVG precisely because its 2.1kB path would have breached this.
 
 Three decisions this budget forced, all worth preserving:
 1. **GSAP is off the critical path.** Lenis runs its own rAF; `bridgeToGsap()`

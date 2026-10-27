@@ -1,4 +1,4 @@
-import { ZMark } from "@/components/ui/Wordmark";
+import { BrandMark } from "@/components/ui/Wordmark";
 import { nodeCentres } from "./layout";
 
 /**
@@ -45,7 +45,7 @@ export function SceneFallback({ phase = 1 }: { phase?: number }) {
           ))}
         </div>
       ) : (
-        <ZMark className="relative size-40 opacity-90 md:size-56" />
+        <BrandMark className="relative size-40 opacity-90 md:size-56" />
       )}
     </div>
   );

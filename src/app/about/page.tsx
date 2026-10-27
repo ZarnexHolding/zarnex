@@ -65,7 +65,7 @@ export default function AboutPage() {
         <div className="shell">
           <Rule />
           <Reveal index={1}>
-            <p className="t-eyebrow mt-6 text-ink-45">Vision &amp; Mission</p>
+            <p className="t-eyebrow mt-6 text-ink-65">Vision &amp; Mission</p>
           </Reveal>
 
           <div className="mt-20 grid gap-16 lg:grid-cols-2 lg:gap-24">
@@ -86,7 +86,7 @@ export default function AboutPage() {
         <div className="shell">
           <Rule />
           <Reveal index={1}>
-            <p className="t-eyebrow mt-6 text-ink-45">Values</p>
+            <p className="t-eyebrow mt-6 text-ink-65">Values</p>
           </Reveal>
         </div>
 
@@ -98,7 +98,7 @@ export default function AboutPage() {
                 index={i % 3}
                 className="bg-bone px-[var(--spacing-gutter)] py-12 md:px-10"
               >
-                <p className="t-meta text-ink-45">{pad2(i + 1)}</p>
+                <p className="t-meta text-ink-65">{pad2(i + 1)}</p>
                 <h3 className="t-title mt-8 max-w-[16ch]">{v.title}</h3>
                 <p className="t-caption mt-5 max-w-[34ch] text-ink-70">{v.body}</p>
               </Reveal>
@@ -112,7 +112,7 @@ export default function AboutPage() {
         <div className="shell">
           <Rule />
           <Reveal index={1}>
-            <p className="t-eyebrow mt-6 text-ink-45">Sectors</p>
+            <p className="t-eyebrow mt-6 text-ink-65">Sectors</p>
           </Reveal>
           <Reveal index={2} className="mt-8">
             <h2 className="t-display-2 max-w-[18ch]">Ten verticals, one system.</h2>
@@ -126,9 +126,9 @@ export default function AboutPage() {
                 index={Math.min(i, 3)}
                 className="flex items-baseline gap-6 border-t border-ink-12 py-5"
               >
-                <span className="t-meta w-10 shrink-0 text-ink-45">{pad2(s.n)}</span>
+                <span className="t-meta w-10 shrink-0 text-ink-65">{pad2(s.n)}</span>
                 <span className="t-body-lg flex-1">{s.name}</span>
-                <span className="t-meta text-ink-45">{toArabicIndic(pad2(s.n))}</span>
+                <span className="t-meta text-ink-65">{toArabicIndic(pad2(s.n))}</span>
               </Reveal>
             ))}
           </ol>
@@ -140,7 +140,7 @@ export default function AboutPage() {
         <div className="shell">
           <Rule className="text-bone" />
           <Reveal index={1}>
-            <p className="t-eyebrow mt-6 text-paper-45">Why {SITE.name}</p>
+            <p className="t-eyebrow mt-6 text-paper-55">Why {SITE.name}</p>
           </Reveal>
 
           <ul className="mt-16 max-w-[62rem]">
@@ -151,7 +151,7 @@ export default function AboutPage() {
                 index={Math.min(i, 3)}
                 className="flex items-baseline gap-8 border-t border-paper-14 py-7"
               >
-                <span className="t-meta shrink-0 text-paper-45">{pad2(i + 1)}</span>
+                <span className="t-meta shrink-0 text-paper-55">{pad2(i + 1)}</span>
                 <span className="t-body-lg">{w}</span>
               </Reveal>
             ))}
@@ -164,7 +164,7 @@ export default function AboutPage() {
         <div className="shell">
           <Rule className="text-bone" />
           <Reveal index={1}>
-            <p className="t-eyebrow mt-6 text-paper-45">Saudi Arabia</p>
+            <p className="t-eyebrow mt-6 text-paper-55">Saudi Arabia</p>
           </Reveal>
           <Reveal index={2} className="mt-12">
             <p lang="ar" dir="rtl" className="t-display-2 max-w-[18ch]">

@@ -4,17 +4,20 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "node scripts/check-counts.mjs && node scripts/check-accents.mjs && node scripts/test-fps-guard.mjs && node scripts/test-camera.mjs && next build",
+    "build": "node scripts/check-counts.mjs && node scripts/check-accents.mjs && node scripts/build-mark.mjs --check && node scripts/check-contrast.mjs && node scripts/test-fps-guard.mjs && node scripts/test-camera.mjs && next build",
     "start": "next start",
     "lint": "eslint",
     "budget": "node scripts/budget.mjs http://localhost:3000 / /companies /companies/x-live /about /innovation /contact /styleguide /lab/scene",
     "shots": "node scripts/screenshot.mjs",
     "check:counts": "node scripts/check-counts.mjs",
     "check:accents": "node scripts/check-accents.mjs",
-    "check": "npm run check:counts && npm run check:accents && npm run test:fps && npm run test:camera",
+    "check": "npm run check:counts && npm run check:accents && npm run check:mark && npm run check:contrast && npm run test:fps && npm run test:camera",
     "test:fps": "node scripts/test-fps-guard.mjs",
     "test:camera": "node scripts/test-camera.mjs",
-    "audit": "node scripts/audit.mjs"
+    "audit": "node scripts/audit.mjs",
+    "build:mark": "node scripts/build-mark.mjs",
+    "check:mark": "node scripts/build-mark.mjs --check",
+    "check:contrast": "node scripts/check-contrast.mjs"
   },
   "dependencies": {
     "clsx": "^2.1.1",

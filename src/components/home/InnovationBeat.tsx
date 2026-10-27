@@ -34,7 +34,7 @@ export function InnovationBeat() {
       <div className="shell">
         <Rule className="text-bone" />
         <Reveal index={1}>
-          <p className="t-eyebrow mt-6 text-paper-45">Innovation</p>
+          <p className="t-eyebrow mt-6 text-paper-55">Innovation</p>
         </Reveal>
 
         {/* Type holds the left half; the scene has the right. Same rule as the

@@ -2,41 +2,57 @@ import Link from "next/link";
 import { cn } from "@/lib/cn";
 
 /**
- * PLACEHOLDER — awaiting the master SVG from the client.
- * See docs/00-source-of-truth.md §7.11.
+ * The Zarnex orbit mark — Brand Identity V2, Direction One.
+ * See docs/07-brand-direction-one.md.
  *
- * This approximates the chamfered, machined Z from the profile cover.
- * The gold is always a gradient with a specular highlight, never a flat fill —
- * flat gold reads cheap; metal reads expensive.
+ * Rendered as a CSS mask over /logos/zarnex-mark.svg rather than inline SVG,
+ * for two reasons:
+ *   1. the traced path is ~2.1kB and the shared chunk has under 1kB of
+ *      headroom, so inlining it would breach the shell budget on every route;
+ *   2. a mask takes its colour from the box, so one component serves the
+ *      bronze and the mono lockups without duplicating the artwork.
+ *
+ * Same mechanism CompanyCard already uses for monochrome subsidiary marks.
  */
-export function ZMark({ className }: { className?: string }) {
+export function BrandMark({
+  className,
+  tone = "bronze",
+}: {
+  className?: string;
+  /** bronze = lockups 1 and 2. current = lockups 3 and 5, inherits the ground. */
+  tone?: "bronze" | "current";
+}) {
   return (
-    <svg
-      viewBox="0 0 48 48"
-      className={cn("size-6", className)}
+    <span
       aria-hidden
       role="presentation"
-    >
-      <defs>
-        <linearGradient id="zx-gold" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stopColor="var(--color-gold-deep)" />
-          <stop offset="34%" stopColor="var(--color-gold)" />
-          <stop offset="58%" stopColor="var(--color-gold-light)" />
-          <stop offset="70%" stopColor="var(--color-gold-spec)" />
-          <stop offset="100%" stopColor="var(--color-gold)" />
-        </linearGradient>
-      </defs>
-      {/* Bold Z, slanted. Bars 8u deep, diagonal 12u wide, hard corners. */}
-      <g transform="translate(5 0) skewX(-8)">
-        <path
-          fill="url(#zx-gold)"
-          d="M6 5H38V13L18 35H38V43H6V35L26 13H6Z"
-        />
-      </g>
-    </svg>
+      className={cn(
+        "inline-block shrink-0 size-6",
+        tone === "bronze" ? "bg-bronze" : "bg-current",
+        className,
+      )}
+      style={{
+        maskImage: "url(/logos/zarnex-mark.svg)",
+        WebkitMaskImage: "url(/logos/zarnex-mark.svg)",
+        maskRepeat: "no-repeat",
+        WebkitMaskRepeat: "no-repeat",
+        maskSize: "contain",
+        WebkitMaskSize: "contain",
+        maskPosition: "center",
+        WebkitMaskPosition: "center",
+      }}
+    />
   );
 }
 
+/**
+ * Lockup 1 — bronze symbol beside the ZARNEX logotype.
+ *
+ * ⚠️ The logotype is Nebula Bold in the brand deck. We do not have it, and it
+ * should arrive as vector artwork rather than a webfont (it is only ever used
+ * for this one word). Until then this is letterspaced display caps standing in
+ * — close in weight and rhythm, wrong in letterform. Not final.
+ */
 export function Wordmark({
   className,
   href = "/",
@@ -48,11 +64,11 @@ export function Wordmark({
     <span
       className={cn(
         "inline-flex items-center gap-2.5",
-        "text-[0.9375rem] font-medium uppercase tracking-[0.34em] leading-none",
+        "text-[0.9375rem] font-semibold uppercase tracking-[0.3em] leading-none",
         className,
       )}
     >
-      <ZMark className="size-[18px]" />
+      <BrandMark className="size-[22px]" />
       <span className="pt-px">Zarnex</span>
     </span>
   );

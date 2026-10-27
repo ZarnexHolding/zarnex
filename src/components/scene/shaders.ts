@@ -5,7 +5,7 @@ import { TUNING } from "./tuning";
  *
  * Position is a two-stage mix across three baked buffers, driven by a single
  * `uPhase` uniform in [0,2]:
- *   0 -> DUST      1 -> MARK (the Z)      2 -> NODES (one per company)
+ *   0 -> DUST      1 -> MARK (the orbit)  2 -> NODES (one per company)
  *
  * Everything else — pointer repulsion, idle drift, the R&D pulse — is added on
  * top per-vertex. No CPU work per frame.
@@ -35,8 +35,10 @@ export const VERT = /* glsl */ `
   varying vec3  vColor;
   varying float vGlow;
 
-  const vec3 GOLD_CORE = vec3(0.573, 0.278, 0.024);   // #C9922F, linearised
-  const vec3 GOLD_SPEC = vec3(1.000, 0.879, 0.617);   // #FFF3D0, linearised
+  // Brand bronze and its lightest tint, linearised with the same sRGB
+  // transform geometry.ts uses so the shader and the CSS tokens agree.
+  const vec3 BRONZE_CORE = vec3(0.445, 0.270, 0.112);  // #B28E5E
+  const vec3 BRONZE_SPEC = vec3(0.745, 0.644, 0.509);  // #E0D2BD
 
   // expo.out — matches --ease-out so the scene and the DOM feel like one system
   float easeOut(float t) {
@@ -96,7 +98,7 @@ export const VERT = /* glsl */ `
 
     /*
       A ripple travelling diagonally across the letterform. Mostly in depth, a
-      little vertically — displacing sideways would shear the Z out of shape.
+      little vertically — displacing sideways would shear the mark out of shape.
       The mark only; the cloud already has its own swirl.
     */
     float wavePhase = (pos.x + pos.y * 0.6) * ${TUNING.waveScale.toFixed(2)}
@@ -126,11 +128,11 @@ export const VERT = /* glsl */ `
     }
 
     // Gold while it is the mark; the company's own accent once it separates.
-    vec3 gold = mix(GOLD_CORE, GOLD_SPEC, aSeed * 0.85);
-    vColor = mix(mix(gold * 0.55, gold, t1), aColor, t2);
+    vec3 bronze = mix(BRONZE_CORE, BRONZE_SPEC, aSeed * 0.85);
+    vColor = mix(mix(bronze * 0.55, bronze, t1), aColor, t2);
 
     /*
-      Twinkle. This is the thing that actually reads as alive — gold dust
+      Twinkle. This is the thing that actually reads as alive — bronze dust
       catching the light rather than a frozen render. Seeded per particle at a
       high multiplier so neighbours are never in phase with each other.
     */

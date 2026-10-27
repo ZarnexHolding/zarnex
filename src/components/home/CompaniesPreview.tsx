@@ -20,7 +20,7 @@ export function CompaniesPreview() {
       <div className="shell">
         <Rule />
         <Reveal index={1}>
-          <p className="t-eyebrow mt-6 text-ink-45">Companies</p>
+          <p className="t-eyebrow mt-6 text-ink-65">Companies</p>
         </Reveal>
         <div className="mt-8 flex flex-wrap items-end justify-between gap-8">
           <Reveal index={2}>

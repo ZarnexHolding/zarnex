@@ -18,7 +18,7 @@ import { TUNING } from "./tuning";
  */
 
 export type SceneHandle = {
-  /** 0 = dust, 1 = the Z, 2 = the ecosystem. Lerped toward internally. */
+  /** 0 = dust, 1 = the mark, 2 = the ecosystem. Lerped toward internally. */
   setPhase(phase: number): void;
   /** 0..1 — the R&D pulse travelling outward. 0 disables it. */
   setPulse(p: number): void;

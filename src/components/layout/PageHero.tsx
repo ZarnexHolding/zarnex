@@ -26,7 +26,7 @@ export function PageHero({
       <div className="shell">
         <Rule className="text-bone" animate={false} />
         <Reveal index={1}>
-          <p className="t-eyebrow mt-6 text-paper-45">{eyebrow}</p>
+          <p className="t-eyebrow mt-6 text-paper-55">{eyebrow}</p>
         </Reveal>
         <Reveal index={2} className="mt-10">
           <h1 className="t-display-1 max-w-[15ch]">{title}</h1>

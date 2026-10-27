@@ -23,8 +23,13 @@ export const TUNING = {
    *
    * A fraction rather than a fixed distance, so it holds its position on a
    * laptop and on a 4K display alike.
+   *
+   * Valid range is roughly 0.73-0.85 at scale 1. The orbit mark is near-square
+   * and symmetric (+/-1.0) where the old Z leaned right (-0.78 to 1.19), so it
+   * needs more room on the left than the Z did. `npm run test:camera` holds
+   * both edges and will tell you the exact percentage if you overshoot.
    */
-  markX: 0.72,
+  markX: 0.78,
 
   /**
    * Vertical position, same idea. 0.5 is centre; lower numbers move it up.
@@ -72,12 +77,12 @@ export const TUNING = {
   /**
    * ---- THE FIELD AROUND THE MARK ------------------------------------------
    *
-   * Fraction of particles that never join the Z. They hold a loose cloud
+   * Fraction of particles that never join the mark. They hold a loose cloud
    * around it instead, so the space beside the mark is alive rather than dead
    * black.
    *   0    = every particle forms the letterform; the surround is empty
    *   0.15 = current
-   *   0.5  = atmospheric, the Z starts to lose density
+   *   0.5  = atmospheric, the mark starts to lose density
    *
    * Raising this thins the mark — raise `particles` alongside it.
    */
@@ -115,7 +120,7 @@ export const TUNING = {
    *   0.032 = current — it breathes without losing the letterform
    *   0.06  = restless, the edges start to soften
    *
-   * The mark needs less than the loose dust does, or the Z stops being legible.
+   * The mark needs less than the loose dust does, or it stops being legible.
    */
   driftMark: 0.032,
   driftDust: 0.06,
@@ -130,7 +135,7 @@ export const TUNING = {
 
   /**
    * Per-particle brightness shimmer. This is what actually reads as "alive" —
-   * gold dust catching the light rather than a frozen render.
+   * bronze dust catching the light rather than a frozen render.
    *   0    = flat
    *   0.34 = current
    *   0.6  = glittery, close to noisy
@@ -144,11 +149,11 @@ export const TUNING = {
    * ---- THE WAVE -----------------------------------------------------------
    *
    * A ripple travelling across the letterform, displacing particles in depth
-   * and a little vertically — so the Z undulates gently instead of sitting
+   * and a little vertically — so the mark undulates gently instead of sitting
    * flat. Applies to the mark only; the surrounding cloud has its own swirl.
    *
    * How far particles are displaced, in world units.
-   *   0     = off, the Z is rigid
+   *   0     = off, the mark is rigid
    *   0.055 = current — visible, still clearly a Z
    *   0.12  = the letterform starts to wobble out of shape
    */

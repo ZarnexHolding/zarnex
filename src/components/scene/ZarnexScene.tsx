@@ -6,7 +6,7 @@ import { detectTier, guardDisabled, type Tier } from "./quality";
 import { TUNING } from "./tuning";
 import type { SceneHandle } from "./renderer";
 
-export type ScenePhase = number; // 0 dust · 1 the Z · 2 the ecosystem
+export type ScenePhase = number; // 0 dust · 1 the mark · 2 the ecosystem
 
 type Props = {
   phase: ScenePhase;

@@ -125,7 +125,7 @@ export default async function CompanyPage({
             style={{ background: accent }}
           />
           <Reveal index={1}>
-            <p className="t-eyebrow mt-6 text-paper-45">
+            <p className="t-eyebrow mt-6 text-paper-55">
               {sectorNames.map((s) => s.name).join(" · ")}
             </p>
           </Reveal>
@@ -183,7 +183,7 @@ export default async function CompanyPage({
               <div>
                 <Rule />
                 <Reveal index={1}>
-                  <p className="t-eyebrow mt-6 text-ink-45">Overview</p>
+                  <p className="t-eyebrow mt-6 text-ink-65">Overview</p>
                 </Reveal>
               </div>
               <Reveal index={2}>
@@ -210,7 +210,7 @@ export default async function CompanyPage({
             <div className="shell">
               <Rule />
               <Reveal index={1}>
-                <p className="t-eyebrow mt-6 text-ink-45">Services</p>
+                <p className="t-eyebrow mt-6 text-ink-65">Services</p>
               </Reveal>
             </div>
 
@@ -245,7 +245,7 @@ export default async function CompanyPage({
               <div className="shell">
                 <Rule />
                 <Reveal index={1}>
-                  <p className="t-eyebrow mt-6 text-ink-45">Selected projects</p>
+                  <p className="t-eyebrow mt-6 text-ink-65">Selected projects</p>
                 </Reveal>
 
                 <ul className="mt-16">
@@ -258,7 +258,7 @@ export default async function CompanyPage({
                       index={Math.min(i, 3)}
                       className="grid gap-4 border-t border-ink-12 py-8 lg:grid-cols-[4rem_1fr_1.2fr_8rem] lg:gap-10"
                     >
-                      <span className="t-meta text-ink-45">{pad2(i + 1)}</span>
+                      <span className="t-meta text-ink-65">{pad2(i + 1)}</span>
                       <div>
                         <h3 className="t-title max-w-[20ch]">{p.name}</h3>
                         {shot ? (
@@ -283,7 +283,7 @@ export default async function CompanyPage({
                         ) : null}
                       </div>
                       <p className="t-caption max-w-[52ch] text-ink-70">{p.scope}</p>
-                      <span className="t-meta text-ink-45 lg:text-right">
+                      <span className="t-meta text-ink-65 lg:text-right">
                         {p.client ? <span className="block">{p.client}</span> : null}
                         {p.year ? <span className="block mt-1">{p.year}</span> : null}
                       </span>
@@ -301,7 +301,7 @@ export default async function CompanyPage({
               <div className="shell">
                 <Rule />
                 <Reveal index={1}>
-                  <p className="t-eyebrow mt-6 text-ink-45">Gallery</p>
+                  <p className="t-eyebrow mt-6 text-ink-65">Gallery</p>
                 </Reveal>
               </div>
 
@@ -343,7 +343,7 @@ export default async function CompanyPage({
               <div className="shell">
                 <Rule />
                 <Reveal index={1}>
-                  <p className="t-eyebrow mt-6 text-ink-45">Clients</p>
+                  <p className="t-eyebrow mt-6 text-ink-65">Clients</p>
                 </Reveal>
                 <Reveal index={2}>
                   <ul className="mt-12 flex flex-wrap gap-x-8 gap-y-3">
@@ -355,7 +355,7 @@ export default async function CompanyPage({
                   </ul>
                 </Reveal>
                 <Reveal index={3}>
-                  <p className="t-meta mt-10 text-ink-45">
+                  <p className="t-meta mt-10 text-ink-65">
                     {content.clientsNote ??
                       "Marks shown as names pending logo files and display clearance."}
                   </p>
@@ -370,7 +370,7 @@ export default async function CompanyPage({
           <div className="shell">
             <Rule />
             <Reveal index={1}>
-              <p className="t-eyebrow mt-6 text-ink-45">Overview</p>
+              <p className="t-eyebrow mt-6 text-ink-65">Overview</p>
             </Reveal>
             <Reveal index={2} className="mt-10">
               <p className="t-display-2 max-w-[20ch]">Profile in preparation.</p>
@@ -434,7 +434,7 @@ export default async function CompanyPage({
         <div className="shell">
           <Rule />
           <Reveal index={1}>
-            <p className="t-eyebrow mt-6 text-ink-45">Elsewhere in the group</p>
+            <p className="t-eyebrow mt-6 text-ink-65">Elsewhere in the group</p>
           </Reveal>
         </div>
 
@@ -452,7 +452,7 @@ export default async function CompanyPage({
           <Link
             href="/companies"
             data-cursor="link"
-            className="t-meta group/back inline-flex items-center gap-3 text-ink-45 transition-colors duration-[var(--dur-micro)] hover:text-ink"
+            className="t-meta group/back inline-flex items-center gap-3 text-ink-65 transition-colors duration-[var(--dur-micro)] hover:text-ink"
           >
             <ArrowLeft className="size-3.5 transition-transform duration-[var(--dur-micro)] group-hover/back:-translate-x-1" />
             Back to the ecosystem

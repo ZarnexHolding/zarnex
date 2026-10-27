@@ -21,7 +21,7 @@ export function Hero() {
           which is what it should have been doing anyway.
         */}
         <Rule className="text-bone lg:max-w-[56%]" animate={false} />
-        <p className="t-eyebrow mt-6 text-paper-45">{SITE.legalName}</p>
+        <p className="t-eyebrow mt-6 text-paper-55">{SITE.legalName}</p>
 
         <h1 className="t-display-1 mt-10 max-w-[13ch]">{SITE.headline}</h1>
 
@@ -33,10 +33,10 @@ export function Hero() {
       {/* The Frame — persistent meta at the viewport edge. */}
       <div className="shell flex flex-wrap items-end justify-between gap-6">
         <Reveal index={2} delay={1200}>
-          <p className="t-meta text-paper-45">Scroll</p>
+          <p className="t-meta text-paper-55">Scroll</p>
         </Reveal>
         <Reveal index={3} delay={1200}>
-          <p className="t-meta text-paper-45">
+          <p className="t-meta text-paper-55">
             {CONTACT.city} · {CONTACT.coords}
           </p>
         </Reveal>

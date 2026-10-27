@@ -30,7 +30,7 @@ export function Button({
 }: Props) {
   const Arrow = external ? ArrowDiagonal : ArrowRight;
   const cls = cn(
-    "btn group/btn t-meta focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-gold",
+    "btn group/btn t-meta focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-bronze",
     variants[variant],
     className,
   );
