@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Reveal } from "@/components/motion/Reveal";
 import { Rule } from "@/components/ui/Rule";
 import { Wordmark } from "@/components/ui/Wordmark";
-import { COMPANIES } from "@/lib/companies";
+import { COMPANIES, companyLink } from "@/lib/companies";
 import { CONTACT } from "@/lib/site";
 import { RiyadhClock } from "@/components/layout/RiyadhClock";
 
@@ -65,10 +65,10 @@ export function Footer() {
             <ul className="mt-6 grid grid-cols-2 gap-x-8 gap-y-3 md:grid-cols-3">
               {COMPANIES.map((c) => (
                 <li key={c.slug}>
-                  {/* Each company's own site; no site, no link. */}
-                  {c.website ? (
+                  {/* Its own site, or its profile here — see companyLink(). */}
+                  {companyLink(c).external ? (
                     <a
-                      href={c.website}
+                      href={companyLink(c).href}
                       target="_blank"
                       rel="noopener noreferrer"
                       data-cursor="link"
@@ -77,7 +77,17 @@ export function Footer() {
                       {c.name}
                     </a>
                   ) : (
-                    <span className="t-caption text-paper-55">{c.name}</span>
+                    <Link
+                      href={companyLink(c).href}
+                      // A directory on every page. Prefetching all of it costs
+                      // an RSC payload per link for navigation that rarely
+                      // happens; Next still prefetches on hover.
+                      prefetch={false}
+                      data-cursor="link"
+                      className="t-caption text-paper-70 transition-colors duration-[var(--dur-micro)] hover:text-bone"
+                    >
+                      {c.name}
+                    </Link>
                   )}
                 </li>
               ))}

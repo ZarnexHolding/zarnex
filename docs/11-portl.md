@@ -18,8 +18,9 @@ site. The card uses only how the deck describes what PORT-L *is*.
 - **Taglines:** *Revive. Reuse. Reignite.* (p1, p19) · *Designed for moments.
   Reborn for legacies.* (p2) · *Events don't end. They evolve.* (p5)
 - **Website named in the deck:** www.port-l.live — **does not resolve** (no DNS
-  record, checked 2026-10-28). The card therefore has no link and reads
-  "Profile in preparation". Set `website` in `companies.ts` once it is live.
+  record, checked 2026-10-28). So PORT-L has a profile page here, and its card
+  opens that. Set `website` in `companies.ts` once the site is live and the
+  card will link out instead; the profile page then stops being built.
 
 ## What it is — verbatim
 
@@ -52,6 +53,9 @@ program (RSMP™).
 | `description` | A tech-enabled circular marketplace that refurbishes dormant event assets and rents them out: barriers, furniture, fencing and signage. (18 words) | p3, both quotes above |
 | `sectors` | 5 Logistics & Asset Management, 3 Events & Entertainment | **Ours, not the client's.** What it does is asset management and logistics; who it serves is events. |
 | `accent` | `#0DFF44` | The logo's dominant green, sampled |
+| profile overview | "...a circular marketplace connecting the vendors who own idle items, the warehouses that store them and the organizers who rent them." | p2 opening sentence, p3 three parties |
+| services | Core pillars (six) · What it rents (barriers, furniture, fencing, signage, other idle materials) | p6 · p3 |
+| hero image | none | Its only photograph (p2) is stock |
 
 ## Not used, and why
 

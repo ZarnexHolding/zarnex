@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { PageHero } from "@/components/layout/PageHero";
 import { Reveal } from "@/components/motion/Reveal";
 import { Rule } from "@/components/ui/Rule";
 import { Button } from "@/components/ui/Button";
-import { COMPANIES } from "@/lib/companies";
+import { COMPANIES, companyLink } from "@/lib/companies";
 import { pad2 } from "@/lib/format";
 
 export const metadata: Metadata = {
@@ -100,10 +101,10 @@ export default function InnovationPage() {
                   <h3 className="t-title max-w-[20ch]">{d.name}</h3>
                   <div className="flex flex-wrap items-baseline gap-x-6 gap-y-2">
                     {companies.map((c) =>
-                      c!.website ? (
+                      companyLink(c!).external ? (
                         <a
                           key={c!.slug}
-                          href={c!.website}
+                          href={companyLink(c!).href}
                           target="_blank"
                           rel="noopener noreferrer"
                           data-cursor="link"
@@ -112,9 +113,15 @@ export default function InnovationPage() {
                           {c!.name}
                         </a>
                       ) : (
-                        <span key={c!.slug} className="t-caption text-ink-65">
+                        <Link
+                          key={c!.slug}
+                          href={companyLink(c!).href}
+                          prefetch={false}
+                          data-cursor="link"
+                          className="t-caption text-ink-65 underline-offset-4 transition-colors duration-[var(--dur-micro)] hover:text-ink hover:underline"
+                        >
                           {c!.name}
-                        </span>
+                        </Link>
                       ),
                     )}
                   </div>

@@ -7,7 +7,7 @@
     "build": "node scripts/check-counts.mjs && node scripts/check-dashes.mjs && node scripts/check-accents.mjs && node scripts/build-mark.mjs --check && node scripts/check-media.mjs && node scripts/check-contrast.mjs && node scripts/test-fps-guard.mjs && node scripts/test-camera.mjs && next build",
     "start": "next start",
     "lint": "eslint",
-    "budget": "node scripts/budget.mjs http://localhost:3000 / /companies /companies/x-live /about /innovation /contact /styleguide /lab/scene",
+    "budget": "node scripts/budget.mjs http://localhost:3000 / /companies /companies/zarnex-real-estate /about /innovation /contact /styleguide /lab/scene",
     "shots": "node scripts/screenshot.mjs",
     "check:counts": "node scripts/check-counts.mjs",
     "check:accents": "node scripts/check-accents.mjs",

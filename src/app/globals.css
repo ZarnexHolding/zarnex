@@ -379,23 +379,21 @@
       padding: 2.75rem 2.5rem 3rem;
     }
   }
-  /* Hover only where the card is a link: a company with no website is not
-     clickable, so it must not look it. */
-  .company-card[data-linked]:hover {
+  .company-card:hover {
     background-color: var(--color-ink-06);
   }
   /* The accent is the one thing that changes hue — and only here. */
   .company-card__link {
     transition: color var(--dur-micro) var(--ease-out);
   }
-  .company-card[data-linked]:hover .company-card__link,
-  .company-card[data-linked]:hover .company-card__logo {
+  .company-card:hover .company-card__link,
+  .company-card:hover .company-card__logo {
     color: var(--accent);
   }
-  .company-card[data-linked]:hover .company-card__logo {
+  .company-card:hover .company-card__logo {
     opacity: 1;
   }
-  [data-ground="void"] .company-card[data-linked]:hover {
+  [data-ground="void"] .company-card:hover {
     background-color: var(--color-paper-06);
   }
 

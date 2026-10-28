@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Reveal } from "@/components/motion/Reveal";
 import { Rule } from "@/components/ui/Rule";
 import { CompaniesIndex } from "@/components/companies/CompaniesIndex";
-import { COMPANIES } from "@/lib/companies";
+import { COMPANIES, companyLink } from "@/lib/companies";
 import { SITE } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -36,7 +36,7 @@ function structuredData() {
     subOrganization: COMPANIES.map((c) => ({
       "@type": "Organization",
       name: c.name,
-      ...(c.website ? { url: c.website } : {}),
+      url: new URL(companyLink(c).href, SITE.url).toString(),
       ...(c.description ? { description: c.description } : {}),
       parentOrganization: { "@id": `${SITE.url}#organization` },
     })),

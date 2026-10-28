@@ -45,22 +45,49 @@ export type NodeCentre = {
 };
 
 /**
- * Where the spiral starts. Not cosmetic: the field sits right of centre, so
- * there is far less room on the right than the left, and which side the
- * outermost node lands on decides whether the constellation fits.
+ * The owner's arrangement, from his hand sketch (2026-10-28): Lumen across the
+ * top, Real Intelligence far left, BuildX upper right with IFMC beneath it,
+ * Glitch Morph bottom right, ENERG and PORT-L along the bottom, X Live left of
+ * centre. Model units, before the field scale. Logos sit at depth 0 so they
+ * all draw at the same size.
  *
- * Adding a company moves every node. Adding PORT-L put the fifteenth node at
- * ~347°, hard right, and at 0° every test:camera layout check failed for any
- * company order. Swept in 1° steps: 231–238° passes everything; 234° has the
- * most clearance (0.078) and keeps logos at ≥74% from tablet landscape up.
- * When test:camera fails after the next company, re-sweep this.
+ * A spiral used to place everyone, and it put whichever company came last
+ * wherever the angle fell — IFMC ended up crowning the group. This is an
+ * editorial layout now, like the homepage's FEATURED list.
+ *
+ * test:camera holds it honest: every node on screen at its full logo extent,
+ * no two touching, logos at >=70% from tablet landscape up, no shrink on 16:9.
  */
-const SPIRAL_TURN = (234 * Math.PI) / 180;
+const PLACED: Record<string, [number, number]> = {
+  "lumen-arabia": [-0.39, 0.85],
+  realintelligence: [-1.4, 0.35],
+  buildx: [0.75, 0.45],
+  ifmc: [0.85, 0.02],
+  "x-live": [-0.68, -0.08],
+  "glitch-morph": [1.15, -0.42],
+  energ: [-0.37, -0.68],
+  "port-l": [0.38, -0.72],
+};
 
 /**
- * The core pillar sits at the barycentre; everything else lands on a
- * golden-angle spiral, so the group reads as one system rather than a ring —
- * and stays evenly distributed at any count.
+ * Points of light — companies without a logo — fill the gaps the logos leave,
+ * in companies.ts order. The first four are where the sketch drew its stars.
+ * A little depth each, so they read as a field around the logos.
+ */
+const LIGHTS: [number, number, number][] = [
+  [0.25, 0.8, 0.12],
+  [-0.92, 0.48, -0.1],
+  [-1.35, -0.25, 0.08],
+  [-0.95, -0.55, -0.12],
+  [-0.1, 0.4, 0.1],
+  [0.95, -0.85, -0.08],
+];
+
+/**
+ * The core pillar sits at the barycentre — the R&D pulse starts there. Placed
+ * logos and the points of light are above; a company that fits neither (a new
+ * one, before it is placed) goes on an outer ring, and test:camera will say
+ * whether that ring has room.
  */
 export function nodeCentres(): NodeCentre[] {
   const ordered = [
@@ -68,25 +95,21 @@ export function nodeCentres(): NodeCentre[] {
     ...COMPANIES.filter((c) => !c.isCorePillar),
   ];
   const golden = Math.PI * (3 - Math.sqrt(5));
-  const orbiting = Math.max(1, ordered.length - 1);
+  let light = 0;
+  let spare = 0;
 
-  return ordered.map((c, i) => {
+  return ordered.map((c) => {
     const hex = ACCENT_HEX[c.accent] ?? FALLBACK_ACCENT;
+    const at = (pos: [number, number, number]) => ({ slug: c.slug, pos, accent: c.accent, hex });
 
-    if (c.isCorePillar) {
-      return { slug: c.slug, pos: [0, 0, 0], accent: c.accent, hex };
-    }
+    if (c.isCorePillar) return at([0, 0, 0]);
 
-    const k = i - 1;
-    const t = (k + 0.5) / orbiting;
-    const r = 0.5 + Math.sqrt(t) * 1.28;
-    const a = k * golden + SPIRAL_TURN;
+    const placed = PLACED[c.slug];
+    if (placed) return at([placed[0], placed[1], 0]);
 
-    return {
-      slug: c.slug,
-      pos: [Math.cos(a) * r, Math.sin(a) * r * 0.66, Math.sin(a * 1.7) * 0.36],
-      accent: c.accent,
-      hex,
-    };
+    if (light < LIGHTS.length) return at(LIGHTS[light++]);
+
+    const a = spare++ * golden;
+    return at([Math.cos(a) * 1.6, Math.sin(a) * 1.05, 0]);
   });
 }

@@ -1,10 +1,11 @@
 import type { MetadataRoute } from "next";
+import { PROFILED } from "@/lib/companies";
 import { SITE } from "@/lib/site";
 
 /**
- * Pages with no content yet (news, careers, legal) are left out until there is
- * something worth indexing. Companies have no pages here — their cards open
- * their own websites.
+ * Generated from the data. Pages with no content yet (news, careers, legal)
+ * are left out until there is something worth indexing. Only companies with
+ * no website of their own have a profile here.
  */
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
@@ -17,5 +18,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${SITE.url}/contact`, changeFrequency: "yearly", priority: 0.7 },
   ];
 
-  return core.map((e) => ({ ...e, lastModified: now }));
+  const profiles: MetadataRoute.Sitemap = PROFILED.map((c) => ({
+    url: `${SITE.url}/companies/${c.slug}`,
+    changeFrequency: "monthly",
+    priority: 0.8,
+  }));
+
+  return [...core, ...profiles].map((e) => ({ ...e, lastModified: now }));
 }

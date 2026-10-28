@@ -849,6 +849,216 @@ export const COMPANY_CONTENT: Record<string, CompanyContent> = {
       "led-module-detail",
     ],
   },
+
+  /*
+    The companies below have no website of their own, so their card opens this
+    profile (owner decision, 2026-10-28). All from the master profile:
+    docs/00-source-of-truth.md, page numbers inline. PORT-L is from its pitch,
+    docs/11-portl.md. None has projects, clients or figures in its source, so
+    those sections stay hidden. Purpose lines go in the overview: the page has
+    no separate place for them.
+  */
+  "zarnex-real-estate": {
+    // p5 (Developers, Real Estate) and p8 (Focus).
+    overview:
+      "Zarnex Real Estate and Investment develops, acquires, finances and manages property: large-scale communities, smart mixed-use districts, hospitality and commercial assets, and innovative warehouse ecosystems, integrated with sustainable and smart-city technologies.",
+    services: [
+      {
+        group: "Developers",
+        items: [
+          "Property development",
+          "Acquisition of land and buildings",
+          "Project financing and investment",
+          "Residential and commercial development",
+        ],
+      },
+      {
+        group: "Real Estate",
+        items: [
+          "Leasing, selling and property brokerage",
+          "Asset management",
+          "Property rental income",
+          "Facility management",
+        ],
+      },
+      {
+        group: "Focus",
+        items: [
+          "Large-scale community development",
+          "Smart mixed-use real estate",
+          "Hospitality and commercial assets",
+          "Innovative warehouse ecosystems",
+          "Sustainable and smart-city technologies",
+        ],
+      },
+    ],
+    // Neptune plans and designs cities, BuildX builds, and ENERG's own profile
+    // lists sustainable energy for real estate (p23).
+    related: ["neptune-studios", "buildx", "energ"],
+    // Concept render from its own pages (p6). The "City that Breathes" render
+    // (p7) carries text and a row of logos; the boulevard (p8) a signature.
+    hero: "glass-towers-over-desert",
+  },
+
+  "neptune-studios": {
+    // p16 and p17.
+    overview:
+      "Neptune Studios is a future-forward design consultancy shaping tomorrow’s cities, across urban and master planning, architecture and interiors, public realm design, theme park and entertainment design, and sustainable, iconic structures.",
+    services: [
+      {
+        group: "Architectural Consultancy",
+        items: [
+          "Building design",
+          "Concept planning",
+          "Municipal submissions",
+          "Technical drawings",
+          "Value engineering",
+        ],
+      },
+      {
+        group: "Interior Design",
+        items: [
+          "Space planning",
+          "Moodboard creation",
+          "3D visualization",
+          "Material selection",
+          "Fit-out supervision",
+        ],
+      },
+      {
+        group: "Specialties",
+        items: [
+          "Urban and master planning",
+          "Architecture and interiors",
+          "Public realm design",
+          "Theme park and entertainment design",
+          "Sustainable and iconic structures",
+        ],
+      },
+    ],
+    // The developer it plans for, the contractor that builds, and the facades
+    // Lumen lights (Lumen's own related list names Neptune).
+    related: ["zarnex-real-estate", "buildx", "lumen-arabia"],
+    // Interior render from its own page (p17).
+    hero: "sculpted-black-interior",
+  },
+
+  "wr1-studios": {
+    // p19.
+    overview:
+      "VR-1 is a hybrid media-tech lab creating advanced visual content across media production, virtual production and emerging tech: luxury photography, video content, 3D and animation, film, TVCs and high-end video, and immersive content technologies.",
+    services: [
+      {
+        group: "Specialties",
+        items: [
+          "Luxury photography",
+          "Video content production",
+          "3D content and animation",
+          "Film, TVCs and high-end video",
+          "Immersive content technologies",
+        ],
+      },
+    ],
+  },
+
+  "hikma-comics": {
+    // p13 and p14.
+    overview:
+      "Hikma Comics is the imagination factory of the group, building original IPs that expand into comics, video games, animated series, theme parks and films.",
+    services: [
+      {
+        group: "Disciplines",
+        items: ["Comics", "World building", "Game development", "IP creation"],
+      },
+      {
+        group: "Specialties",
+        items: [
+          "Comic universes",
+          "Game design and development",
+          "Storytelling and character creation",
+          "Transmedia IP development",
+          "Entertainment franchise building",
+        ],
+      },
+    ],
+    // Where its IPs are said to go (p14): animated series and films (Glitch
+    // Morph, VR-1) and theme parks (Neptune's theme park design, p17).
+    related: ["glitch-morph", "wr1-studios", "neptune-studios"],
+    // Comic art from its own page (p13). The racing street (p14) is full of
+    // billboard brand names and stays out.
+    hero: "dragonfly-temple-comic-art",
+  },
+
+  graymatterz: {
+    // p20, including its stated purpose.
+    overview:
+      "Graymatterz is a next-generation café brand blending creativity, community, culture and productivity: a creative café, art space and co-working social hub. Its purpose is to be the artistic and community heart of Zarnex, connecting creators, thinkers and innovators.",
+    services: [
+      {
+        group: "Specialties",
+        items: [
+          "Premium café experience",
+          "Art exhibitions and creative events",
+          "Co-working and brainstorming spots",
+          "Workshops, talks, creator meet-ups",
+          "VR corners, comic corners, gaming pods",
+          "Merch and lifestyle products",
+        ],
+      },
+    ],
+  },
+
+  "astroper-aerospace": {
+    // p21, including its stated purpose. (p22 repeats that purpose under Real
+    // Intelligence, a copy-paste error in the PDF; it is Astroper's.)
+    overview:
+      "Astroper Aerospace is the aerospace and next-gen mobility division of Zarnex, shaping the future of air, space and planetary technologies. Its purpose: to establish Zarnex as a regional leader in applied aerospace research and future flight technologies.",
+    services: [
+      {
+        group: "Fields",
+        items: ["Aviation", "Space systems", "Future mobility"],
+      },
+      {
+        group: "Specialties",
+        items: [
+          "Small satellite systems and payload development",
+          "Drone and UAV platforms",
+          "Aerodynamics R&D",
+          "Space robotics and planetary mobility concepts",
+          "Future mobility vehicles",
+          "Aerospace-grade materials and simulation",
+          "UAV integration: events, mapping, industry",
+        ],
+      },
+    ],
+  },
+
+  "port-l": {
+    // Its start-up pitch, p2, p3 and p6. The pitch is mostly projection; only
+    // what it says PORT-L is appears here. See docs/11-portl.md.
+    overview:
+      "PORT-L is a premium, tech-enabled, sustainability-driven solution for repurposing dormant event assets into high-impact, revenue-generating rentals: a circular marketplace connecting the vendors who own idle items, the warehouses that store them and the organizers who rent them.",
+    services: [
+      {
+        group: "Core pillars",
+        items: [
+          "Asset acquisition and circular procurement",
+          "Asset management and maintenance",
+          "B2B rental marketplace",
+          "Refurbishment facility",
+          "Logistics and rapid deployment",
+          "Revenue sharing and monetization program",
+        ],
+      },
+      {
+        group: "What it rents",
+        items: ["Barriers", "Furniture", "Fencing", "Signage", "Other idle event materials"],
+      },
+    ],
+    // Editorial: event production and display are where event assets come
+    // from; IFMC shares its asset-management sector.
+    related: ["x-live", "lumen-arabia", "ifmc"],
+  },
 };
 
 export const getContent = (slug: string): CompanyContent | undefined =>

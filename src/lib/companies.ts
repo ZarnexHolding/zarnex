@@ -339,3 +339,18 @@ export const publishedCompanies = () =>
   COMPANIES.filter((c) => c.status === "active");
 
 export const accentVar = (accent: string) => `var(--color-accent-${accent})`;
+
+/**
+ * Where a company's card and name lead — the one rule, used everywhere a
+ * company is linked. Its own website when it has a live one (new tab);
+ * otherwise its profile on this site. The R&D division's profile is the
+ * Innovation page. Owner decision, 2026-10-28.
+ */
+export function companyLink(c: Company): { href: string; external: boolean } {
+  if (c.website) return { href: c.website, external: true };
+  if (c.isCorePillar) return { href: "/innovation", external: false };
+  return { href: `/companies/${c.slug}`, external: false };
+}
+
+/** Companies with a profile page here: no website of their own. */
+export const PROFILED: Company[] = COMPANIES.filter((c) => !c.website && !c.isCorePillar);

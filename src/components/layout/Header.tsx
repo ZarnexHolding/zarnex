@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { Wordmark } from "@/components/ui/Wordmark";
 import { Button } from "@/components/ui/Button";
 import { Menu, Close } from "@/components/ui/Icon";
-import { COMPANIES } from "@/lib/companies";
+import { COMPANIES, companyLink } from "@/lib/companies";
 import { cn } from "@/lib/cn";
 
 const NAV = [
@@ -154,18 +154,16 @@ export function Header() {
           <ul className="mt-5 grid grid-cols-2 gap-x-6 gap-y-2.5 max-[480px]:grid-cols-1">
             {COMPANIES.map((c) => (
               <li key={c.slug}>
-                {c.website ? (
-                  <a
-                    href={c.website}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="t-caption text-ink-70 transition-colors duration-[var(--dur-micro)] hover:text-ink"
-                  >
-                    {c.name}
-                  </a>
-                ) : (
-                  <span className="t-caption text-ink-65">{c.name}</span>
-                )}
+                {/* One element for both: Link renders an external URL as a
+                    plain anchor. This ships on every page, so it stays lean. */}
+                <Link
+                  href={companyLink(c).href}
+                  prefetch={false}
+                  {...(companyLink(c).external && { target: "_blank", rel: "noopener noreferrer" })}
+                  className="t-caption text-ink-70 transition-colors duration-[var(--dur-micro)] hover:text-ink"
+                >
+                  {c.name}
+                </Link>
               </li>
             ))}
           </ul>

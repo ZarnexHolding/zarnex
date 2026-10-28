@@ -9,9 +9,20 @@ import ts from "typescript";
  * clear of the headline at every desktop width.
  */
 const BASE = process.argv[2] ?? "http://localhost:3000";
-const ROUTES = ["/", "/companies", "/companies/x-live", "/companies/ifmc", "/companies/buildx",
-  "/companies/realintelligence", "/companies/lumen-arabia",
-  "/about", "/innovation", "/contact", "/careers"];
+/*
+  Profile pages are derived, not listed: only companies with no website have
+  one. A hard-coded "/companies/ifmc" outlived IFMC's page and, once that URL
+  forwarded to ifmc-global.com, this audit graded IFMC's own site. Loaded the
+  way test:camera loads it, through the TypeScript transpiler.
+*/
+const companiesJs = ts.transpileModule(readFileSync("src/lib/companies.ts", "utf8"), {
+  compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2020 },
+}).outputText;
+const companiesMod = { exports: {} };
+new Function("module", "exports", "require", companiesJs)(companiesMod, companiesMod.exports, () => ({}));
+const PROFILES = companiesMod.exports.PROFILED.map((c) => `/companies/${c.slug}`);
+
+const ROUTES = ["/", "/companies", ...PROFILES, "/about", "/innovation", "/contact", "/careers"];
 const SIZES = [[390, 844, "mobile"], [768, 1024, "tablet"], [1440, 900, "desktop"]];
 
 const b = await chromium.launch({ args: ["--enable-unsafe-swiftshader"] });
@@ -25,6 +36,12 @@ for (const [w, h, label] of SIZES) {
 
   for (const route of ROUTES) {
     await p.goto(BASE + route, { waitUntil: "load" });
+    // A route that leaves the site is a broken route list, not a page to grade.
+    if (new URL(p.url()).origin !== new URL(BASE).origin) {
+      problems++;
+      console.log(`  ${label.padEnd(8)} ${route.padEnd(22)} LEFT THE SITE -> ${p.url()}`);
+      continue;
+    }
     await p.waitForTimeout(900);
     await p.evaluate(async () => {
       const step = innerHeight * 0.9;

@@ -1,18 +1,18 @@
-import { ArrowDiagonal } from "@/components/ui/Icon";
-import type { Company } from "@/lib/companies";
+import Link from "next/link";
+import { ArrowDiagonal, ArrowRight } from "@/components/ui/Icon";
+import { companyLink, type Company } from "@/lib/companies";
 import { cn } from "@/lib/cn";
 import { pad2 } from "@/lib/format";
 
 /**
  * One company, on the index and in the homepage preview.
  *
- * The whole card opens the company's own website, in a new tab. The group
- * site carries no company profiles (owner decision, 2026-10-28); a company
- * without a live site says "Profile in preparation" and is not a link at all,
- * so it never looks clickable.
+ * The whole card is one link, to wherever companyLink() says: the company's
+ * own website in a new tab, or — when it has none — its profile here (owner
+ * decision, 2026-10-28).
  *
- * The accent appears only on hover, and only on a card that is a link — that
- * rationing is what stops a many-accent system becoming noise.
+ * The accent appears only on hover, and only here and on the company's own
+ * page — that rationing is what stops a many-accent system becoming noise.
  *
  * Logo art is optional: most companies have not supplied an SVG yet, so the
  * card falls back to the name set as type rather than an empty box.
@@ -33,13 +33,15 @@ export function CompanyCard({
    */
   headingLevel?: 2 | 3;
 }) {
-  const { name, industry, description, website } = company;
+  const { name, industry, description } = company;
+  const link = companyLink(company);
   const Heading = `h${headingLevel}` as "h2" | "h3";
+  // Covers the card so the whole cell is the hit area.
+  const cover = <span className="absolute inset-0" aria-hidden />;
 
   return (
     <article
       style={{ "--accent": `var(--color-accent-${company.accent})` } as React.CSSProperties}
-      data-linked={website ? "" : undefined}
       className={cn("company-card group/card relative flex flex-col", className)}
     >
       <div className="flex h-8 items-start justify-between gap-6">
@@ -84,22 +86,29 @@ export function CompanyCard({
       </div>
 
       <Heading className="t-title mt-6">
-        {website ? (
+        {link.external ? (
           <a
-            href={website}
+            href={link.href}
             target="_blank"
             rel="noopener noreferrer"
             data-cursor="node"
             data-cursor-label={name}
             className="company-card__link"
           >
-            {/* Covers the card so the whole cell is the hit area. */}
-            <span className="absolute inset-0" aria-hidden />
+            {cover}
             {name}
             <span className="sr-only">, website, opens in a new tab</span>
           </a>
         ) : (
-          name
+          <Link
+            href={link.href}
+            data-cursor="node"
+            data-cursor-label={name}
+            className="company-card__link"
+          >
+            {cover}
+            {name}
+          </Link>
         )}
       </Heading>
 
@@ -110,13 +119,16 @@ export function CompanyCard({
       <p className="t-meta mt-auto pt-10 text-ink-65">{industry}</p>
 
       <p className="t-meta mt-5 inline-flex items-center gap-2">
-        {website ? (
+        {link.external ? (
           <>
             Visit site
             <ArrowDiagonal className="size-3.5 transition-transform duration-[var(--dur-micro)] ease-[var(--ease-out)] group-hover/card:translate-x-0.5 group-hover/card:-translate-y-0.5" />
           </>
         ) : (
-          <span className="text-ink-65">Profile in preparation</span>
+          <>
+            View profile
+            <ArrowRight className="size-3.5 transition-transform duration-[var(--dur-micro)] ease-[var(--ease-out)] group-hover/card:translate-x-1" />
+          </>
         )}
       </p>
     </article>

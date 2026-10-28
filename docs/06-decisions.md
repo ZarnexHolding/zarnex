@@ -276,6 +276,32 @@ moved; PORT-L forms its logo in particles like the others.
 
 ---
 
+## Profiles for companies without a website; the owner's constellation — 2026-10-28
+
+**Profiles are back, for companies with no website of their own.** Cards
+with a website still open the site; the rest open a profile here: Zarnex Real
+Estate and Investment, PORT-L, Neptune Studios, VR-1, Hikma Comics,
+Graymatterz and Astroper Aerospace. The R&D Division's card opens the
+Innovation page, which is its profile. None of these companies had a profile
+before; each is written from the master profile (PORT-L from its pitch), with
+no invented projects, clients or figures.
+
+Hero images come from each company's own pages in the master profile, after
+full-size inspection: Real Estate and Investment, Hikma and Neptune. Left out:
+a Real Estate render with text and logos baked in, another with a signature,
+Hikma's street scene full of billboard brands, Astroper's photo of the
+International Space Station (not their work), Graymatterz's gallery of
+third-party art, and VR-1's photograph of an identifiable person whose source
+is unknown.
+
+**The constellation follows the owner's hand sketch.** Lumen across the top,
+Real Intelligence far left, BuildX upper right over IFMC, Glitch Morph bottom
+right, ENERG and PORT-L along the bottom, X Live left of centre; the points of
+light fill the gaps, four of them where the sketch drew stars, and R&D holds
+the centre.
+
+---
+
 ## Still outstanding
 
 1. `ener-g.sa` vs `energ.company` — which is live?

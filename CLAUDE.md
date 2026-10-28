@@ -86,19 +86,22 @@ rather than a screenshot pinning the pixels.
 | Module | Role |
 |---|---|
 | `companies.ts` | **The single source of truth for the ecosystem.** `ALL_COMPANIES` holds everything; the exported `COMPANIES` filters out `hidden`. Index, footer, constellation, routes, sector filters and every count derive from it. |
-| `company-content.ts` | **PARKED — imported by nothing.** Long-form profile content (overviews, projects, galleries), kept for a possible return of profile pages. See below. |
+| `company-content.ts` | Long-form profile content keyed by slug. **Only companies with no website have a page**, so only their entries render; the seven older entries (for companies that now link out) are kept but unused. No entry → the page renders an honest "profile in preparation". |
 
-**There are no company profile pages** — owner decision, 2026-10-28. A
-company card opens the company's own website in a new tab; a company with no
-live site shows "Profile in preparation" and is not a link at all, and its
-card has no hover state, so it never looks clickable. The footer, the mobile
-menu and the innovation page follow the same rule. `/companies/:slug`
-redirects to `/companies` — **temporary (307) on purpose**: profiles may come
-back, and a permanent redirect is cached by browsers indefinitely.
-`company-content.ts`, `media.ts` and `public/media` are parked, not deleted:
-restoring profiles is a revert of the commit that removed
-`src/app/companies/[slug]`. A `website` must actually resolve — check it
-before setting one; PORT-L's (`port-l.live`) does not exist yet.
+**Where a company link goes is one function: `companyLink()` in
+`companies.ts`** (owner decision, 2026-10-28). Its own website when it has a
+live one, in a new tab; otherwise its profile here; the R&D division's profile
+is the Innovation page. The card, footer, mobile menu, innovation page,
+sitemap and structured data all call it, so they cannot disagree.
+
+- **Profile pages exist only for companies with no website** — `PROFILED`,
+  which `generateStaticParams` builds. Give a company a `website` and its page
+  stops being built and its card links out; nothing else to change.
+- **Old profile links forward** to wherever the card goes — the page itself
+  calls `redirect(companyLink(...).href)` — so a shared `/companies/x-live`
+  lands on X Live's site, not a 404.
+- **A `website` must actually resolve** — check it before setting one. PORT-L's
+  pitch names `port-l.live`, which does not exist yet.
 
 **The homepage's six companies are an editorial pick** — `FEATURED` in
 `components/home/CompaniesPreview.tsx`, by slug, in display order. Change that
@@ -219,10 +222,10 @@ current tuning keeps the mark clear of the headline and on screen — using
 - **every company node stays on screen** in the ecosystem beat — at its full
   logo extent, at the scale the renderer actually draws. This loads the real
   `layout.ts`, `companies.ts` and `constellation.ts` through the TypeScript
-  transpiler rather than copying the spiral formula, so it tests the layout the
-  app ships.
-- **no two nodes touch.** Logo size is a dial and the spiral was laid out for
-  points of light; at a wider Lumen cap, Lumen ran into Real Intelligence.
+  transpiler rather than copying the layout, so it tests the layout the app
+  ships.
+- **no two nodes touch.** Logo size is a dial; at a wider Lumen cap, Lumen ran
+  into Real Intelligence.
 - **the fit never hides a bad tuning** — logos keep ≥70% of their size from
   tablet landscape up, and the fit is inert on 16:9.
 
@@ -260,13 +263,19 @@ Adding a logo: put the site's file in `public/logos/`, add a recipe, run
 `build:constellation`, then `test:camera` — a big or very wide mark may fail
 the clearance test, which is the point.
 
-⚠️ **Adding a company moves every node**, not just the new one: the spiral
-spreads its radii over the count. PORT-L's arrival put the outermost node hard
-right, where the off-centre field has no room, and every layout check failed
-for *any* company order. The fix is `SPIRAL_TURN` in `layout.ts`, the
-spiral's starting angle: swept in 1° steps through `test:camera`, 231–238°
-passes, 234° has the most clearance. Next company: re-sweep it the same way
-rather than nudging logo sizes.
+**The constellation is laid out by hand — the owner's.** `PLACED` in
+`layout.ts` puts each logo where his sketch did (Lumen across the top, RI far
+left, BuildX upper right over IFMC, Glitch Morph bottom right, ENERG and
+PORT-L along the bottom, X Live left of centre); `LIGHTS` are the gaps the
+points of light fill, in `companies.ts` order; R&D holds the centre, where the
+pulse starts. Tightest pair 0.070 apart, logos at 78% on a 4:3 tablet, full
+size on 16:9.
+
+It used to be a golden-angle spiral, which put whichever company came last
+wherever the angle fell — IFMC ended up crowning the group, and adding PORT-L
+pushed a node off the right edge for every possible company order. **A new
+company** with no slot goes on an outer ring until it is placed; give it a
+`PLACED` (logo) or `LIGHTS` (point of light) position and run `test:camera`.
 
 **`npm run test:fps`** — the guard must survive start-up, a stalled loop
 (backgrounded tab, `setPaused()`), a one-second hitch, and a browser capped at
@@ -452,17 +461,20 @@ architectural guarantee still holds.
 
 | | Budget | Measured |
 |---|---|---|
-| Shared app shell | ≤ 180kB gz | **179.4kB** ← tight |
+| Shared app shell | ≤ 180kB gz | **179.8kB** ← at the limit |
 | Calm route delta | ≤ 30kB gz | **0.0kB** |
-| Signature route delta (`/`, `/lab/scene`) | ≤ 120kB gz | 43.8kB / 3.7kB |
+| Signature route delta (`/`, `/lab/scene`) | ≤ 120kB gz | 43.8kB / 3.8kB |
 | LCP | ≤ 2000ms | 108–1156ms |
 | CLS | ≤ 0.02 | **0** |
 
 **The number that matters is 0.0kB on calm routes.** It proves GSAP and WebGL
 never leak off the homepage. If that moves, something regressed.
 
-The shell has ~0.6kB of headroom. **Check before adding a shared client
-component.** The V2 logo is a CSS mask over `/logos/zarnex-mark.svg` rather
+The shell has **~0.2kB of headroom** — the next shared addition needs a trim
+first. **Check before adding a shared client component.** The last 0.4kB went
+on `companyLink()` (shared layout chunk, via the header) and the constellation's
+`PLACED`/`LIGHTS` tables, which ride in the prefetched homepage chunk because
+the static fallback imports the node positions. The V2 logo is a CSS mask over `/logos/zarnex-mark.svg` rather
 than inline SVG precisely because its 2.1kB path would have breached this.
 
 ⚠️ **The budget never sees the WebGL renderer.** Headless Chromium is tier 0,
@@ -496,9 +508,9 @@ Three decisions this budget forced, all worth preserving:
 
 ## Images
 
-⚠️ **Parked with the profile pages (2026-10-28).** Nothing on the site uses
-`public/media` or `media.ts` now; `check:media` still keeps them consistent so
-a restore works first time. The rules below stand for when they return.
+Profile heroes now come from the master profile's own pages for companies
+without a website (Real Estate and Investment, Hikma, Neptune). The images of
+the seven companies that link out are unused but kept, still checked.
 
 `public/media/<slug>/*.webp` — extracted from the companies' own PDFs, WebP q80,
 each with an inline 20px blur placeholder (no second request, no layout shift).
@@ -548,10 +560,6 @@ Monochrome marks use a **CSS mask** so they inherit `currentColor` and pick up
 the accent on hover (`logo` field). Full-colour marks where the colour *is* the
 identity render as an `<img>` (`logoImage`) — masking ENERG's gradient or
 Lumen's rainbow bar would flatten them to a silhouette.
-
-(Company heroes left with the profile pages; `logoImageOnDark` now only
-records which file is the dark-ground version — the constellation's recipes
-point at those files.)
 
 **Cards are always on the light ground; company heroes always on the dark
 one.** A colour mark with black or white lettering therefore needs a file per
@@ -612,7 +620,8 @@ real inbox. It has never pretended to send.
 ```
 /                       Home — 7 sections, 3 acts (void → bone → void)
 /companies              Index, filterable by sector
-/companies/:slug        redirects (307) to /companies, no profile pages
+/companies/[slug]       profiles, only for companies with no website (SSG);
+                        any other slug forwards to where its card goes
 /about  /innovation     Group pages
 /contact                Working form (server action, no form library)
 /news  /careers         Honest empty states, noindex
@@ -645,7 +654,7 @@ real inbox. It has never pretended to send.
 7. Messier, Nu-Ron, Airwaves: held back (`hidden: true`), zero content.
 
 **Deferred by choice**
-8. ~~Flight transition (index → company hero)~~ — moot without profile pages.
+8. Flight transition (index → company hero, GSAP Flip) — profile pages only.
 9. Arabic locale — the brand is bilingual on its own cover; this is a second
    build, not a translation pass.
 10. Manual screen-reader pass (NVDA + VoiceOver).
