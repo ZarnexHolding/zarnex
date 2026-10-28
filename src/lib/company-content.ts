@@ -685,7 +685,8 @@ export const COMPANY_CONTENT: Record<string, CompanyContent> = {
     clients and no delivered projects, so there is no Projects section and no
     stats; the five named products appear as a service group. Hero only: the
     rest of its imagery is generated sci-fi panel art (Japanese signage, a
-    "SKYNET" label) and ERP flyers carrying an outdated +91 / .ai contact.
+    "SKYNET" label) and ERP flyers whose artwork carries a phone number — and
+    no operating company's phone number goes on the site (client, 2026-10-28).
   */
   realintelligence: {
     overview:

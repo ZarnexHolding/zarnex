@@ -583,3 +583,16 @@
     clip-path: none !important;
   }
 }
+
+/*
+  A void halo behind type that sits over the live scene. Below the
+  side-by-side breakpoint the field centres under the copy, and once the
+  companies form their logos the particles behind the words are dense enough
+  to cost the copy its contrast. The halo clears just the glyphs' surround.
+*/
+@utility text-halo {
+  text-shadow:
+    0 0 6px var(--color-void),
+    0 0 14px var(--color-void),
+    0 0 28px var(--color-void);
+}

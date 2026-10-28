@@ -19,7 +19,8 @@
     "check:mark": "node scripts/build-mark.mjs --check",
     "check:contrast": "node scripts/check-contrast.mjs",
     "build:media": "python scripts/build-media.py",
-    "check:media": "node scripts/check-media.mjs"
+    "check:media": "node scripts/check-media.mjs",
+    "build:constellation": "python scripts/build-constellation.py"
   },
   "dependencies": {
     "clsx": "^2.1.1",

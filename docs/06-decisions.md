@@ -176,6 +176,29 @@ went in. `npm run check:media` (Node-only) guards it in the build.
 
 ---
 
+## Company logos in the homepage constellation — 2026-10-28
+
+Owner request: when the hero mark disperses on scroll, companies form their
+own logos instead of plain points of light. Seven do — Real Intelligence,
+Lumen, X Live, BuildX, Glitch Morph, ENER-G, IFMC — every company we hold a
+logo file for. The rest stay points of light until their marks arrive (see
+outstanding item 2).
+
+Full logos, not icons: at ~150px in ~2,000 particles, BuildX's X icon and
+X Live's X are indistinguishable. The wordmarks read. Each is a particle
+rendition of the site's own logo file; two needed help to survive it:
+
+- **Glitch Morph** — drawn from a new on-dark variant, the white letter faces
+  only, keyed from the client's original. The black extrusion is invisible on
+  the dark ground and doubled every stroke in particles.
+- **IFMC** — strokes inset 2px so the gaps between its letter blocks stay open.
+  Without it the mark read as a solid green rectangle.
+
+On phones the field sits behind the section's copy, as the points of light
+always did; the copy now carries a dark halo so it keeps its contrast.
+
+---
+
 ## Still outstanding
 
 1. `ener-g.sa` vs `energ.company` — which is live?
@@ -184,8 +207,9 @@ went in. `npm run check:media` (Node-only) guards it in the build.
    images.
 2a. BuildX: original photos, a vector logo, confirmation of sector 1, and the
    Reliance overlap — `docs/08-buildx.md`.
-2b. Real Intelligence: confirm the name; who is behind realintelligence.ai and
-   the +91 number on the ERP flyers — `docs/09-realintelligence.md`.
+2b. Real Intelligence: confirm the name "Real Intelligence".
+   (Answered 2026-10-28: RI is Zarnex's own. **No phone number for any
+   operating company is ever published on the site** — client instruction.)
 2c. Lumen: real project references, client list with clearance, its own CR —
    `docs/10-lumen.md`.
 3. Client logo files + display clearance.

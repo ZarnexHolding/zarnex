@@ -17,7 +17,7 @@ export function EcosystemBeat() {
       className="relative flex min-h-[190svh] items-start py-[var(--spacing-section)]"
     >
       <div className="shell sticky top-[30svh]">
-        <div className="max-w-[38ch]">
+        <div className="max-w-[38ch] max-lg:text-halo">
           <Rule className="text-bone" />
           <Reveal index={1}>
             <p className="t-eyebrow mt-6 text-paper-55">The ecosystem</p>

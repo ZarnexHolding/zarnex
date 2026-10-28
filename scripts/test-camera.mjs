@@ -196,24 +196,84 @@ const { nodeCentres } = loadTs("src/components/scene/layout.ts", {
   "@/lib/companies": companies,
 });
 
-test("every company node stays on screen during the ecosystem beat", () => {
+const { constellationFit, nodeHalfExtent } = loadTs("src/components/scene/constellation.ts", {
+  "./constellationLogos": loadTs("src/components/scene/constellationLogos.ts"),
+  "./tuning": loadTs("src/components/scene/tuning.ts"),
+});
+const NODES = nodeCentres();
+const EXTENT = NODES.map((n) => ({ ...n, e: nodeHalfExtent(n.slug) }));
+const MIN_LEFT = Math.min(0, ...EXTENT.map((n) => n.pos[0] - n.e.x));
+const MAX_RIGHT = Math.max(0, ...EXTENT.map((n) => n.pos[0] + n.e.x));
+
+/** Desktop sizes where the field sits beside the copy, and narrow ones where it centres. */
+const SIDE_BY_SIDE = [[1024, 768], [1180, 820], [1280, 800], [1440, 900], [1440, 1000], [1920, 1080], [2560, 1440]];
+const CENTRED = [[390, 844], [430, 932], [768, 1024]];
+
+/** The scale the renderer draws the finished constellation at. */
+function constellationScale(w, h, offsetX) {
+  return constellationFit(renderedScale(w, h), MIN_LEFT, MAX_RIGHT, offsetX, HALF_HEIGHT * (w / h));
+}
+
+test("every company node stays on screen during the ecosystem beat — logos at full size", () => {
   // Raising TUNING.scale to 1.2 once pushed the outermost node clean off the
-  // right edge at every desktop width — one company just vanished from the
-  // "one light per company" beat. The logo has its own dial (markScale) now;
-  // this holds the line if someone reaches for the wrong one.
-  const nodes = nodeCentres();
-  for (const [w, h] of [[1280, 800], [1440, 900], [1920, 1080], [2560, 1440]]) {
-    const aspect = w / h;
-    const span = HALF_HEIGHT * aspect;
-    const offsetX = worldXAtFraction(TUNING.markX, aspect);
-    const s = renderedScale(w, h);
-    for (const n of nodes) {
-      const x = offsetX + n.pos[0] * s;
-      const y = n.pos[1] * s;
+  // right edge at every desktop width. Then logos made nodes bigger, and at
+  // 4:3 — an iPad in landscape — a node sat off-screen before they even did,
+  // which the old centres-only check at 16:10+ never saw. Now: every node at
+  // its full logo extent, at the scale the renderer actually uses.
+  const cases = [
+    // Beside the copy: the real offset is at most markX (the headline rule
+    // only ever moves it left), so check the ceiling and a wide-screen value.
+    ...SIDE_BY_SIDE.flatMap(([w, h]) => [TUNING.markX, 0.66].map((f) => [w, h, worldXAtFraction(f, w / h)])),
+    ...CENTRED.map(([w, h]) => [w, h, 0]),
+  ];
+  for (const [w, h, offsetX] of cases) {
+    const span = HALF_HEIGHT * (w / h);
+    const s = constellationScale(w, h, offsetX);
+    for (const n of EXTENT) {
+      const left = offsetX + (n.pos[0] - n.e.x) * s;
+      const right = offsetX + (n.pos[0] + n.e.x) * s;
+      const top = Math.abs(n.pos[1]) * s + n.e.y * s;
       assert.ok(
-        Math.abs(x) <= span && Math.abs(y) <= HALF_HEIGHT,
-        `at ${w}x${h}, ${n.slug} sits at ` +
-          `${(((x / span + 1) / 2) * 100).toFixed(0)}% across — off screen`,
+        left >= -span && right <= span && top <= HALF_HEIGHT,
+        `at ${w}x${h}, ${n.slug} spans ${(((left / span + 1) / 2) * 100).toFixed(0)}%–` +
+          `${(((right / span + 1) / 2) * 100).toFixed(0)}% across — off screen`,
+      );
+    }
+  }
+});
+
+test("logos keep at least 70% of their size from tablet landscape up", () => {
+  // The fit above can always make things fit by shrinking. This stops it
+  // hiding a bad tuning by shrinking logos into illegibility.
+  for (const [w, h] of SIDE_BY_SIDE) {
+    const s = constellationScale(w, h, worldXAtFraction(TUNING.markX, w / h));
+    assert.ok(s >= 0.7, `at ${w}x${h} the constellation draws at ${(s * 100).toFixed(0)}%`);
+  }
+});
+
+test("on a 16:9 desktop the constellation is not shrunk at all", () => {
+  // The fit exists for narrow screens. On the common case it must be inert.
+  for (const [w, h, f] of [[1920, 1080, 0.719], [1920, 912, 0.694], [2560, 1440, 0.703]]) {
+    const s = constellationScale(w, h, worldXAtFraction(f, w / h));
+    assert.equal(s, renderedScale(w, h), `at ${w}x${h} the fit shrank it to ${s.toFixed(2)}`);
+  }
+});
+
+test("no two companies' nodes touch in the constellation", () => {
+  // Logo size is a dial, and the spiral was laid out for points of light. At
+  // logoNodeMaxW 1.0, Lumen's wordmark ran into Real Intelligence's mark.
+  // Everything scales together, so this is the same at every viewport —
+  // checked once, in model space. 0.06 is ~15px at 1080p.
+  const GAP = 0.06;
+  for (let i = 0; i < EXTENT.length; i++) {
+    for (let j = i + 1; j < EXTENT.length; j++) {
+      const a = EXTENT[i];
+      const b = EXTENT[j];
+      const clearX = Math.abs(a.pos[0] - b.pos[0]) - a.e.x - b.e.x;
+      const clearY = Math.abs(a.pos[1] - b.pos[1]) - a.e.y - b.e.y;
+      assert.ok(
+        Math.max(clearX, clearY) >= GAP,
+        `${a.slug} and ${b.slug} are ${Math.max(clearX, clearY).toFixed(3)} apart (need ${GAP})`,
       );
     }
   }

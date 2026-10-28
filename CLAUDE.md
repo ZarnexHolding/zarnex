@@ -43,6 +43,9 @@ Corollaries already enforced in code:
   clearance** arrive.
 - X Live's leadership is not published: the PDF's name and role columns don't
   align reliably, and a wrong job title against a real person is unacceptable.
+- **No phone number for any operating company appears on the site** — client
+  instruction, 2026-10-28. Company profiles carry them; they never ship. The
+  group's own number in `site.ts` is the only one.
 - The legal pages contain **no legal text**. Privacy/terms/cookies must satisfy
   Saudi PDPL and need counsel. They exist so the footer resolves, and say so.
 
@@ -128,15 +131,18 @@ library on the critical path, and reduced-motion is handled entirely in CSS.
 
 One scene, one `drawArrays` call, on the homepage and nowhere else. It says one
 thing: *many become one, one becomes many.* Dust converges into the Zarnex
-orbit mark, the mark disperses into one point of light per company, then an
-R&D pulse travels the network.
+orbit mark, the mark disperses into the companies — each forms its own logo in
+particles where we have one, a point of light where we don't — then an R&D
+pulse travels the network.
 
 **Raw WebGL, deliberately — not Three.js.** Three brought 129kB gz of scene
 graph, materials, loaders and raycasting to serve a single static vertex buffer.
 `renderer.ts` is ~4kB doing exactly that behind the same `SceneHandle` interface,
 so Three can return if a future scene ever needs it. `detect-gpu` went too — it
 fetches a benchmark DB from a CDN at runtime, and the FPS guard is the real
-safety net. **The whole signature moment costs ~3.6kB gz.**
+safety net. **The whole signature moment is one lazy chunk of ~8kB gz**
+(measured 2026-10-28; the constellation logos added ~1.7kB of it), plus ~46kB
+of logo PNGs fetched only once that chunk is running. Tier 0 loads neither.
 
 ### Which file owns what
 
@@ -147,7 +153,9 @@ safety net. **The whole signature moment costs ~3.6kB gz.**
 | `mark.ts` | **GENERATED.** The orbit mark's contours — read by the sampler. |
 | `markBounds.ts` | **GENERATED.** The mark's true size — read by placement, the renderer and the tests. Separate so the size never drags the contours along. |
 | `layout.ts` | Company node positions **and** the accent hexes, shared with the static fallback. |
-| `geometry.ts` | Bakes the three position buffers (dust / mark / nodes). |
+| `constellationLogos.ts` | **GENERATED** by `scripts/build-constellation.py`. Which companies draw a logo, from which PNG, at what size. |
+| `constellation.ts` | Logo sizing, the constellation's fit-to-screen, and decoding the PNGs. Lazy-only — never import it from `HomeScene`. |
+| `geometry.ts` | Bakes the three position buffers (dust / mark / nodes), then rewrites the logo companies' particles once their PNGs decode. |
 | `shaders.ts` | The one vertex+fragment pair. Tuning values are interpolated in as compile-time constants. |
 | `quality.ts` | Tier detection and the FPS guard. |
 | `renderer.ts` | Context, program, uniforms, the frame loop. |
@@ -177,9 +185,49 @@ current tuning keeps the mark clear of the headline and on screen — using
 - **the mark fits a phone.** Below `sideBySideMinWidth` the field centres, and
   `fitScale()` in `camera.ts` caps the scale so the mark never exceeds ~90% of
   the screen width. Even the original size overflowed a 390px phone by 1%.
-- **every company node stays on screen** in the ecosystem beat. This loads the
-  real `layout.ts` and `companies.ts` through the TypeScript transpiler rather
-  than copying the spiral formula, so it tests the layout the app ships.
+- **every company node stays on screen** in the ecosystem beat — at its full
+  logo extent, at the scale the renderer actually draws. This loads the real
+  `layout.ts`, `companies.ts` and `constellation.ts` through the TypeScript
+  transpiler rather than copying the spiral formula, so it tests the layout the
+  app ships.
+- **no two nodes touch.** Logo size is a dial and the spiral was laid out for
+  points of light; at a wider Lumen cap, Lumen ran into Real Intelligence.
+- **the fit never hides a bad tuning** — logos keep ≥70% of their size from
+  tablet landscape up, and the fit is inert on 16:9.
+
+### Company logos in the constellation
+
+When the mark disperses, every company in `constellationLogos.ts` forms its
+logo in particles; the rest stay points of light. An owner request. Which logos,
+and from which file, is `RECIPES` in `scripts/build-constellation.py` —
+`npm run build:constellation` regenerates the PNGs and the manifest, and
+`check:media` fails the build if they drift.
+
+- **Sources are dark-ground variants** where one exists — the scene is on void.
+  `glitch-morph-on-dark.png` is the white letter faces only: the logo's black
+  extrusion is invisible on void anyway, and in particles it doubled every stroke.
+- **IFMC is inset 2px** (`INSET` in the script). It is ~80% ink with ~2px gaps
+  on screen, so drawn in particles it was a solid green block. A particle
+  rendition only; the site's IFMC logo is untouched. Never inset a thin mark.
+- **Sampling is stratified along a Hilbert curve**, not random. Random draws
+  clump and leave holes, and at ~2,000 particles over 3px strokes that noise is
+  the difference between reading a word and not.
+- **Settled logos drop the mark's motion** (`aLogo` in the shader): no cloud,
+  no embers, no wave, 12% of the drift, smaller sprites, glow given back. All
+  of it is tuned for a 500px mark and is blur on 3px lettering.
+- **Weighted particle shares** — a logo gets `logoNodeWeight`× a dot's.
+- **The constellation shrinks to fit** narrow screens (`constellationFit`).
+  Before logos, a node already sat off-screen at 4:3; nothing checked it.
+- **If a PNG fails to load, that company stays a point of light.** Proven by
+  blocking the files in a headless run.
+- **Phones:** below the side-by-side breakpoint the field centres behind the
+  beat's copy, so the copy carries `text-halo` — a void glow that clears the
+  particles directly behind the words. `max-lg` there is the same 1024px as
+  `TUNING.sideBySideMinWidth`.
+
+Adding a logo: put the site's file in `public/logos/`, add a recipe, run
+`build:constellation`, then `test:camera` — a big or very wide mark may fail
+the clearance test, which is the point.
 
 **`npm run test:fps`** — the guard must survive start-up, a stalled loop
 (backgrounded tab, `setPaused()`), and a one-second hitch, while still
@@ -307,6 +355,7 @@ step **and** fails if anyone moves them back.
 npm run dev          # dev server
 npm run build:mark   # regenerate mark.ts + icon.svg from the master SVG
 npm run build:media  # variants + media.ts from public/media originals (Pillow)
+npm run build:constellation  # constellation logo PNGs + manifest (Pillow, PyMuPDF)
 npm run build        # all guards + tests, then next build
 npm run check        # counts · accents · mark · media · contrast · fps · camera
 npm run test:fps     # FPS guard logic, synthetic clocks
@@ -334,18 +383,23 @@ architectural guarantee still holds.
 
 | | Budget | Measured |
 |---|---|---|
-| Shared app shell | ≤ 180kB gz | **179.3kB** ← tight |
+| Shared app shell | ≤ 180kB gz | **179.4kB** ← tight |
 | Calm route delta | ≤ 30kB gz | **0.0kB** |
-| Signature route delta (`/`, `/lab/scene`) | ≤ 120kB gz | 43.8kB / 3.6kB |
+| Signature route delta (`/`, `/lab/scene`) | ≤ 120kB gz | 43.8kB / 3.7kB |
 | LCP | ≤ 2000ms | 108–1156ms |
 | CLS | ≤ 0.02 | **0** |
 
 **The number that matters is 0.0kB on calm routes.** It proves GSAP and WebGL
 never leak off the homepage. If that moves, something regressed.
 
-The shell has ~0.7kB of headroom. **Check before adding a shared client
+The shell has ~0.6kB of headroom. **Check before adding a shared client
 component.** The V2 logo is a CSS mask over `/logos/zarnex-mark.svg` rather
 than inline SVG precisely because its 2.1kB path would have breached this.
+
+⚠️ **The budget never sees the WebGL renderer.** Headless Chromium is tier 0,
+so the lazy renderer chunk and the constellation PNGs are not in the `/`
+number. Measure that chunk by hand after scene work: build, then gzip the chunk
+in `.next/static/chunks` that contains `drawArrays`.
 
 ⚠️ **The shell includes prefetched routes.** `budget.mjs` counts every script
 loaded in the first 2.5s, and Next prefetches the routes behind visible links.

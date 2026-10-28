@@ -24,7 +24,10 @@ slug stays `realintelligence` so no URL changes. Client to confirm.
 - *"REAL INTELLIGENCE, a brand of Zarnex Holding Company"*
 - **Taglines:** *Future through intelligence* · *AI | Software | Automation | Innovation*
 - **Website:** www.real-intelligence.live — returns 200 as of 2026-10-28
-- **Email:** hello@real-intelligence.live · **Phone:** +966 53 970 2578 (B, text overlay)
+- **Email:** hello@real-intelligence.live
+- **Phone:** the sources carry numbers; **none is published on the site, by
+  client instruction (2026-10-28)**. They are deliberately not recorded here
+  either, so nobody copies one across.
 
 ## Who we are — A p2, verbatim
 
@@ -96,10 +99,11 @@ invent references to fill the space.
   - **Sci-fi panel art** (A p2–p10, 887×1774): generated imagery with Japanese
     signage ("東京 TOKYO", "エネルギーコア") and one panel labelled
     **"SKYNET"**. Neither belongs on the page.
-  - **ERP flyers** (B, all five): the embedded images carry an **outdated
-    contact — +91 7736957101 and realintelligence.ai**. The PDF covers them with
-    the current +966 / real-intelligence.live as text overlays, but the images
-    themselves would publish the old ones.
+  - **ERP flyers** (B, all five): the embedded images carry an **older contact
+    — a phone number and realintelligence.ai** — that the PDF covers with text
+    overlays. The images would publish them. (realintelligence.ai is the
+    company's own — confirmed by the client — but no phone number goes on the
+    site, so the flyers stay out regardless.)
 
 ## Logo
 
@@ -123,7 +127,6 @@ The WhatsApp JPEG is lossy. **A p1 embeds the same mark losslessly** (xref 399,
 ## Open questions
 
 1. **Name** — confirm "Real Intelligence".
-2. **realintelligence.ai and +91 7736957101** on the ERP flyers — is that an old
-   domain, a partner, or a development vendor? Worth knowing before anyone
-   republishes those flyers.
+2. ~~Who is behind realintelligence.ai?~~ ✅ The client confirmed 2026-10-28:
+   Real Intelligence is Zarnex's own, part of the group.
 3. **Named clients or deployments** — needed for a Projects section.

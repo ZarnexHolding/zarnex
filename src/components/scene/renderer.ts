@@ -1,7 +1,8 @@
-import { buildBuffers } from "./geometry";
+import { buildBuffers, applyLogos } from "./geometry";
 import { VERT, FRAG } from "./shaders";
 import { createFpsGuard, TIER_PARTICLES, type Tier } from "./quality";
 import { CAMERA_Z, FOV_DEG, HALF_HEIGHT, fitScale } from "./camera";
+import { constellationFit, loadLogoPixels, nodeHalfExtent } from "./constellation";
 import { MARK_BOUNDS } from "./markBounds";
 import { TUNING } from "./tuning";
 
@@ -107,20 +108,53 @@ export function createScene(
   const buffers: WebGLBuffer[] = [];
   const bind = (name: string, src: Float32Array, size: number) => {
     const loc = gl.getAttribLocation(program, name);
-    if (loc < 0) return;
+    if (loc < 0) return null;
     const buf = gl.createBuffer()!;
     buffers.push(buf);
     gl.bindBuffer(gl.ARRAY_BUFFER, buf);
     gl.bufferData(gl.ARRAY_BUFFER, src, gl.STATIC_DRAW);
     gl.enableVertexAttribArray(loc);
     gl.vertexAttribPointer(loc, size, gl.FLOAT, false, 0, 0);
+    return buf;
   };
 
   bind("aDust", data.dust, 3);
   bind("aMark", data.mark, 3);
-  bind("aNode", data.nodes, 3);
-  bind("aColor", data.color, 3);
+  const nodeBuf = bind("aNode", data.nodes, 3);
+  const colorBuf = bind("aColor", data.color, 3);
   bind("aSeed", data.seed, 1);
+  const logoBuf = bind("aLogo", data.logo, 1);
+
+  /*
+    Company logos for the constellation. Fetched once the scene is already
+    drawing — they are only seen after the visitor scrolls to the ecosystem
+    beat — and swapped in by rewriting three buffers. A logo that fails to
+    load leaves its company a point of light.
+  */
+  loadLogoPixels().then((pixels) => {
+    if (disposed || !Object.keys(pixels).length) return;
+    applyLogos(data, pixels);
+    for (const [buf, src] of [
+      [nodeBuf, data.nodes],
+      [colorBuf, data.color],
+      [logoBuf, data.logo],
+    ] as const) {
+      if (!buf) continue;
+      gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+      gl.bufferSubData(gl.ARRAY_BUFFER, 0, src);
+    }
+  });
+
+  // The constellation's horizontal extent, with every node at its full logo
+  // size. Known up front from the manifest, so the fit is right before the
+  // logo images themselves have loaded.
+  let minLeft = 0;
+  let maxRight = 0;
+  for (const r of data.ranges) {
+    const e = nodeHalfExtent(r.slug);
+    minLeft = Math.min(minLeft, r.pos[0] - e.x);
+    maxRight = Math.max(maxRight, r.pos[0] + e.x);
+  }
 
   const u = {
     proj: gl.getUniformLocation(program, "projectionMatrix"),
@@ -139,12 +173,16 @@ export function createScene(
     A point p lands at (scale * p + offset), so the pointer conversion below
     has to divide by scale as well as subtracting the offset.
 
-    Not a constant: resize() caps it with fitScale() so the mark never runs
-    off a narrow screen. On desktop it is exactly TUNING.scale.
+    Not a constant. `fieldScale` is set on resize, capped by fitScale() so the
+    mark never runs off a narrow screen; on desktop it is TUNING.scale.
+    `scale` is recomputed every frame: it eases from fieldScale toward
+    constellationFit() as the mark disperses, so the wider constellation fits
+    too. At the mark it is exactly fieldScale.
   */
   // The mark is baked at markScale in geometry.ts, so its half-width is too.
   const MARK_HALF_W =
     Math.max(-MARK_BOUNDS.minX, MARK_BOUNDS.maxX) * TUNING.markScale;
+  let fieldScale: number = TUNING.scale;
   let scale: number = TUNING.scale;
   const modelView = new Float32Array([
     scale, 0, 0, 0,
@@ -196,8 +234,7 @@ export function createScene(
     perspective(projection, FOV_DEG, w / h);
     gl.uniformMatrix4fv(u.proj, false, projection);
 
-    scale = fitScale(TUNING.scale, MARK_HALF_W, w / h);
-    modelView[0] = modelView[5] = modelView[10] = scale;
+    fieldScale = fitScale(TUNING.scale, MARK_HALF_W, w / h);
     gl.uniform1f(u.scale, dpr * Math.min(1, w / 1280));
   };
 
@@ -211,6 +248,15 @@ export function createScene(
     offset.x += (offset.tx - offset.x) * 0.06;
     offset.y += (offset.ty - offset.y) * 0.06;
 
+    const aspect = canvas.width / canvas.height;
+
+    // Ease exactly as the shader eases the morph (expo.out on phase - 1), so
+    // the constellation's size and its positions arrive together.
+    const k = phase <= 1 ? 0 : phase >= 2 ? 1 : 1 - Math.pow(2, -10 * (phase - 1));
+    const fitted = constellationFit(fieldScale, minLeft, maxRight, offset.x, HALF_HEIGHT * aspect);
+    scale = fieldScale + (fitted - fieldScale) * k;
+
+    modelView[0] = modelView[5] = modelView[10] = scale;
     modelView[12] = offset.x;
     modelView[13] = offset.y;
     gl.uniformMatrix4fv(u.mv, false, modelView);
@@ -221,7 +267,6 @@ export function createScene(
       field offset has to come back off here. Done per frame rather than on
       pointermove so it stays correct while the offset is still lerping.
     */
-    const aspect = canvas.width / canvas.height;
     gl.uniform2f(
       u.pointer,
       (pointer.ndcX * HALF_HEIGHT * aspect - offset.x) / scale,

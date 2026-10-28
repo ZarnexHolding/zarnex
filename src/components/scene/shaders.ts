@@ -23,6 +23,8 @@ export const VERT = /* glsl */ `
   attribute vec3 aNode;
   attribute vec3 aColor;
   attribute float aSeed;
+  // 1 where the particle forms a company logo in the constellation.
+  attribute float aLogo;
 
   uniform float uPhase;
   uniform float uTime;
@@ -86,14 +88,24 @@ export const VERT = /* glsl */ `
       sin(uTime * 0.29 + w * 2.3)      + 0.5 * sin(uTime * 0.83 + w * 1.9)
     );
 
+    /*
+      Settle. Once the field is the constellation, a particle that forms a
+      company logo drops the mark's motion — the cloud role, the embers, the
+      wave, most of the drift. All of it is tuned for a ~500px mark; on ~5px
+      lettering it is blur. Points of light (aLogo = 0) are untouched.
+    */
+    float settle = t2 * aLogo;
+    float atmo = isAtmos * t1 * (1.0 - settle);
+
     float amp = mix(${TUNING.driftDust.toFixed(3)}, ${TUNING.driftMark.toFixed(3)}, t1);
     // The cloud is free to wander further than the letterform can afford to.
-    amp = mix(amp, amp * 2.4, isAtmos * t1);
+    amp = mix(amp, amp * 2.4, atmo);
 
     // Embers: a few particles wander further and come back, like sparks.
     float ember = step(${(1 - TUNING.emberShare).toFixed(3)}, aSeed);
-    amp += ember * 0.075 * (0.5 + 0.5 * sin(uTime * 0.5 + w)) * t1;
+    amp += ember * 0.075 * (0.5 + 0.5 * sin(uTime * 0.5 + w)) * t1 * (1.0 - settle);
 
+    amp *= mix(1.0, ${TUNING.logoDrift.toFixed(2)}, settle);
     pos += drift * amp;
 
     /*
@@ -104,7 +116,7 @@ export const VERT = /* glsl */ `
     float wavePhase = (pos.x + pos.y * 0.6) * ${TUNING.waveScale.toFixed(2)}
       - uTime * ${TUNING.waveSpeed.toFixed(2)};
     float wave = sin(wavePhase) * ${TUNING.waveAmount.toFixed(3)} * t1
-      * (1.0 - isAtmos);
+      * (1.0 - isAtmos) * (1.0 - settle);
     pos.z += wave;
     pos.y += wave * 0.35;
 
@@ -142,7 +154,7 @@ export const VERT = /* glsl */ `
     // A few of the cloud read as distinct bright motes rather than dust —
     // the lights drifting around the mark.
     float mote = step(${(1 - TUNING.moteShare).toFixed(3)}, fract(s2 * 37.1));
-    float cloudGlow = mix(1.0, 0.38 + mote * 1.9, isAtmos * t1);
+    float cloudGlow = mix(1.0, 0.38 + mote * 1.9, atmo);
 
     /*
       Thin the cloud on the side the headline sits on. Judged on the swirled
@@ -154,11 +166,14 @@ export const VERT = /* glsl */ `
       -${(TUNING.typeSideFade * 0.25).toFixed(2)},
       pos.x
     );
-    cloudGlow *= mix(1.0, typeSide, isAtmos * t1);
+    cloudGlow *= mix(1.0, typeSide, atmo);
 
     // Node clusters are far denser than the mark, so additive stacking would
     // blow every core to white. Damp the glow as the accents take over.
+    // A logo spreads its particles over lettering rather than one hot core,
+    // so it gets back some of that damping or it reads dimmer than a dot.
     vGlow = (0.45 + 0.85 * t1) * mix(1.0, 0.34, t2) * twinkle * cloudGlow
+      * mix(1.0, ${TUNING.logoGlow.toFixed(2)}, settle)
       + ring * 1.3;
 
     vec4 mv = modelViewMatrix * vec4(pos, 1.0);
@@ -169,7 +184,10 @@ export const VERT = /* glsl */ `
     // Size shimmers with the twinkle too — brightness alone reads flat.
     // Cloud particles are larger and softer, so they read as depth of field
     // rather than as a second, competing letterform.
-    float sizeMul = mix(1.0, 1.7 + mote * 1.5, isAtmos * t1);
+    float sizeMul = mix(1.0, 1.7 + mote * 1.5, atmo);
+    // Finer grain once a logo has settled — a 3px sprite fills the counters
+    // and gaps of lettering that is only ~120px across.
+    sizeMul *= mix(1.0, ${TUNING.logoParticleSize.toFixed(2)}, settle);
     gl_PointSize = clamp(
       uSize * uScale * (1.0 + ring * 1.2) * (0.82 + 0.30 * twinkle) * sizeMul
         / -mv.z,

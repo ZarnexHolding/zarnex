@@ -224,4 +224,60 @@ export const TUNING = {
    *   12 = very tight, a small dent right under the pointer
    */
   hoverFalloff: 6.0,
+
+  /**
+   * ---- COMPANY LOGOS IN THE CONSTELLATION ---------------------------------
+   *
+   * When the mark disperses, companies with a logo form that logo instead of
+   * a point of light. Which companies, and from which file, is decided by
+   * scripts/build-constellation.py — see scene/constellationLogos.ts.
+   *
+   * Size of each logo, as an area in world units. A wide wordmark and a square
+   * icon get the same visual weight rather than the same width.
+   *   0.18 = Glitch Morph's two lines of lettering blur together
+   *   0.22 = current, ~140-230px wide at 1080p
+   *   0.26 = X Live runs into its neighbour (test:camera fails)
+   */
+  logoNodeArea: 0.22,
+  /**
+   * Caps, so a very wide wordmark (Lumen, ~8.6:1) stays inside its lane.
+   * At 1.0 Lumen touches Real Intelligence; test:camera checks the clearance.
+   */
+  logoNodeMaxW: 0.9,
+  logoNodeMaxH: 0.42,
+
+  /**
+   * Particles a logo gets, relative to a plain point of light. Lettering
+   * needs far more to stay legible; a point of light reads with fewer.
+   *   1   = equal shares
+   *   2.0 = current
+   */
+  logoNodeWeight: 2.0,
+
+  /**
+   * How much of the mark's drift a logo particle keeps once it has settled.
+   * The hero's drift is ~12px — right for a 500px mark, but logo strokes are
+   * 2-4px, and every particle wandering off its stroke is blur.
+   *   0    = frozen
+   *   0.12 = current, ~1.5px — a shimmer the lettering survives
+   *   0.3  = ~3.5px, the strokes smear
+   */
+  logoDrift: 0.12,
+
+  /**
+   * Sprite size of a settled logo particle, relative to the mark's. Smaller
+   * is crisper lettering; too small and the logo thins to a dotted outline.
+   *   1    = same as the mark, counters fill in
+   *   0.65 = current
+   */
+  logoParticleSize: 0.65,
+
+  /**
+   * Brightness of a settled logo, relative to a point of light's particles.
+   * The constellation damps glow so dense dot cores don't blow out to white;
+   * a logo spreads thinner and needs some of it back.
+   *   1   = same as a dot's particles, logos read dim
+   *   1.8 = current
+   */
+  logoGlow: 1.8,
 } as const;

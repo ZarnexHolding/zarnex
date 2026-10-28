@@ -37,10 +37,35 @@ for (const src of referenced) {
   if (!existsSync(join("public", src))) problems.push(`${src} is in media.ts but missing on disk`);
 }
 
+/*
+  The constellation logos too: every file the scene manifest lists must exist,
+  at exactly the recorded size — the renderer and test:camera size each node
+  from those numbers before the image has loaded, so drift misplaces logos.
+  PNG width/height are big-endian at bytes 16-23 of the IHDR chunk.
+*/
+const scene = readFileSync("src/components/scene/constellationLogos.ts", "utf8");
+let logos = 0;
+for (const [, src, w, h] of scene.matchAll(/"src": "([^"]+)", "w": (\d+), "h": (\d+)/g)) {
+  logos++;
+  const file = join("public", src);
+  if (!existsSync(file)) {
+    problems.push(`${src} is in constellationLogos.ts but missing on disk`);
+    continue;
+  }
+  const head = readFileSync(file).subarray(16, 24);
+  const fw = head.readUInt32BE(0);
+  const fh = head.readUInt32BE(4);
+  if (fw !== +w || fh !== +h) {
+    problems.push(`${src} is ${fw}x${fh} on disk, ${w}x${h} in constellationLogos.ts`);
+  }
+}
+
 if (problems.length) {
   console.error("\ncheck:media — manifest and files disagree:\n");
   for (const p of problems) console.error("  " + p);
-  console.error("\n  run: python scripts/build-media.py\n");
+  console.error("\n  run: python scripts/build-media.py  (or build-constellation.py)\n");
   process.exit(1);
 }
-console.log(`check:media — ${inManifest.size} images, ${referenced.size} files, in step`);
+console.log(
+  `check:media — ${inManifest.size} images, ${referenced.size} files, ${logos} constellation logos, in step`,
+);
