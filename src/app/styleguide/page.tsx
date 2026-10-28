@@ -3,7 +3,7 @@ import { Section } from "@/components/layout/Section";
 import { Reveal } from "@/components/motion/Reveal";
 import { Rule } from "@/components/ui/Rule";
 import { Button } from "@/components/ui/Button";
-import { BrandMark } from "@/components/ui/Wordmark";
+import { BrandMark, Wordmark } from "@/components/ui/Wordmark";
 import { ICONS } from "@/components/ui/Icon";
 import { COMPANIES, SECTORS } from "@/lib/companies";
 import { SITE, STATEMENTS } from "@/lib/site";
@@ -162,8 +162,8 @@ export default function StyleguidePage() {
         <Reveal index={1} className="mt-6 measure">
           <p className="t-body text-ink-70">
             Poppins throughout: Semibold for headlines, Light for sub text,
-            per the V2 brand deck. The logotype face (Nebula Bold) is licensed
-            and not in the build; the wordmark is standing in. Display type is
+            per the V2 brand deck. The logotype is Nebula Bold, drawn from the
+            outlined artwork the designer supplied rather than a font file. Display type is
             tracked tight, the clearest single signal of a designed site.
           </p>
         </Reveal>
@@ -306,8 +306,17 @@ export default function StyleguidePage() {
               <BrandMark className="size-10" />
               <BrandMark className="size-6" />
             </div>
+            <div className="mt-8 flex flex-wrap items-center gap-6">
+              <span className="p-6 text-ink">
+                <Wordmark href={null} className="h-10" />
+              </span>
+              <span className="ground-void p-6 text-bone">
+                <Wordmark href={null} className="h-10" />
+              </span>
+            </div>
             <p className="t-caption mt-6 measure text-ink-70">
-              Placeholder geometry, awaiting the master SVG from the client.
+              The master artwork from the designer. The hero particles, the
+              favicon and every lockup are generated from the same file.
             </p>
           </Row>
 

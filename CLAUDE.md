@@ -256,19 +256,42 @@ Every case in that file is a regression of something that actually happened.
 
 ---
 
-## The brand mark — one master, three derivatives
+## The brand mark — one master, every derivative
 
-`public/logos/zarnex-mark.svg` **is the master artwork.** All of these are
-generated from it by `npm run build:mark`, and `npm run check:mark` fails the
-build if any drifts:
+`public/logos/zarnex-logo.svg` **is the master artwork** — the designer's
+full-colour lockup (symbol + ZARNEX wordmark), copied in verbatim from the
+`ZARNEX logo` delivery on 2026-10-28. All of these are generated from it by
+`npm run build:mark`, and `npm run check:mark` fails the build if any drifts:
 
+- `public/logos/zarnex-mark.svg` — the symbol alone, tight; the `BrandMark` mask
+- `public/logos/zarnex-logo-mark.svg` + `zarnex-logo-word.svg` — the lockup's
+  two layers, both cut to the lockup's own viewBox
+- `src/components/ui/lockup.ts` — the lockup's aspect ratio, nothing else
 - `src/components/scene/mark.ts` — contours for the particle sampler
 - `src/components/scene/markBounds.ts` — the mark's size, on its own
 - `src/app/icon.svg` — the favicon
 
+**The header and footer lockup is two CSS masks stacked in one box** — the
+symbol in bronze, the wordmark in `currentColor` — so the designer's spacing
+holds exactly and the letters follow the ground: near-black on bone, white on
+void (the deck's "full colour" and "inverse white" lockups). Masks, not inline
+SVG: the paths are several kB and the header is in every page's shell.
+
+**ZARNEX is Nebula as outlined vectors, never the font.** The Nebula files we
+were sent (`nebula_2`) are the free version, licensed for personal use only —
+a company website is commercial use. The designer's outlined wordmark makes
+the font unnecessary, so it is not in the repo and must not be added. Nebula is
+the logotype only; all other type stays Poppins.
+
+⚠️ **The logo files and the deck disagree on colour.** The files fill the
+symbol `#BB9A65` and the letters `#2D2D2C`; the deck's palette slide says
+bronze `#B28E5E` and dark `#272727`, which the site uses. Masks draw the logo
+in the site's tokens, so the lockup matches the palette. Which is right is the
+designer's call — see `docs/07-brand-direction-one.md` §6.
+
 ⚠️ **Import `MARK_BOUNDS` from `markBounds.ts`, never from `mark.ts`.** The
 homepage scene wrapper needs the size, and the header logo prefetches that
-wrapper on every route. Importing the bounds from `mark.ts` pulled all 170
+wrapper on every route. Importing the bounds from `mark.ts` pulled all the
 contour points into it — +1.5kB gz on every page, over the shell budget —
 because the bundler does not drop unused exports from a module it already has
 to load. The contour coordinates were found in the prefetched chunk; the
@@ -276,12 +299,17 @@ tree-shaking had been assumed.
 
 The mark used to live in two places: artwork in one file, hand-typed
 coordinates in another. That is the failure mode above, so now it does not.
+Then it was traced from a deck render; now it is the designer's file, and the
+contours match the artwork at 98.8% IoU (the difference is edge
+anti-aliasing).
 
 Two things about the shape itself:
 
 - **It is strokes, not a solid letterform.** Fill is even-odd — the star is
   carved OUT of the stroke, and there are four more interior holes. Use
-  `insideMark()`, never `insidePolygon()` on one contour.
+  `insideMark()`, never `insidePolygon()` on one contour. The artwork's own
+  fill is nonzero; rendered both ways it is pixel-identical, so even-odd is
+  safe. Check that again if the artwork is ever replaced.
 - **It is near-square and symmetric (±1.0)** where the old Z leaned right
   (−0.78 to 1.19), so it needs more left clearance.
 
@@ -320,9 +348,11 @@ real font, real headline, real layout. `test:camera` proves the arithmetic; the
 audit proves the arithmetic is fed the right numbers. The tightest case is
 1024px, at 37px clear.
 
-If the designer ever supplies a real master SVG, replace the artwork and
-re-run `build:mark` — nothing else should need touching. The parser accepts
-absolute `M`/`L`/`Z` only and will tell you if the new file has curves.
+If the designer sends a new export, replace `zarnex-logo.svg` and re-run
+`build:mark` — nothing else should need touching. The parser takes every path
+command but arcs, flattens curves adaptively, then simplifies (Ramer–Douglas–
+Peucker) to ~260 points so the sampler stays fast. It finds the symbol by its
+CSS class (`st0` in the designer's export) and fails loudly if that changes.
 
 ---
 

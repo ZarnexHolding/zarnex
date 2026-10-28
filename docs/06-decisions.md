@@ -234,6 +234,27 @@ longer counts, and the check now catches any number.
 
 ---
 
+## The designer's logo files and the Nebula font — 2026-10-28
+
+The owner supplied the full `ZARNEX logo` set (symbol, wordmark and lockup in
+five colourways, as SVG/PDF/EPS/PNG) and the Nebula font.
+
+- **The lockup is now the master.** `public/logos/zarnex-logo.svg` is the
+  designer's full-colour file, verbatim. The header and footer logo, the hero
+  particle symbol, the static fallback and the favicon are all generated from
+  it, replacing the symbol traced from the deck render.
+- **ZARNEX in the header and footer is now Nebula**, from the designer's
+  outlined wordmark: white on dark grounds, near-black on light, with the
+  bronze symbol (the "inverse white" and "full colour" lockups).
+- **The font itself is not used.** The files sent are the free version,
+  licensed for personal use only; a company website is commercial use. The
+  outlined wordmark needs no font, and Nebula appears nowhere else.
+- **Open:** the logo files' bronze (`#BB9A65`) differs from the deck
+  palette's (`#B28E5E`). The site keeps the palette's until the designer says
+  otherwise — `07-brand-direction-one.md` §6.
+
+---
+
 ## Still outstanding
 
 1. `ener-g.sa` vs `energ.company` — which is live?

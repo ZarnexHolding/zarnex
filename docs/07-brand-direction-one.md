@@ -66,11 +66,16 @@ this — see §6.
 
 Poppins is on Google Fonts — no licensing issue.
 
-**Nebula is licensed and we do not have the file.** It is used only for the
-`ZARNEX` logotype, so it should be delivered as *vector artwork*, not as a
-webfont — that avoids the licence question entirely and is better practice for a
-wordmark. Until the vector arrives the logotype is set in a stand-in and must
-not be treated as final.
+**Resolved 2026-10-28: the logotype is the designer's outlined vector, not the
+font.** The `ZARNEX logo` delivery includes the wordmark as outlined paths (no
+text, no font reference), which is what this section asked for. The site draws
+it from that artwork.
+
+The Nebula font files that arrived alongside (`nebula_2`: Regular and Hollow)
+are the **free version, licensed for personal use only** — their own note says
+so and points to a paid licence. A company website is commercial use, so the
+font is not in the build and must not be added. With the outlined wordmark it
+is not needed: Nebula is used for this one word and nothing else.
 
 ---
 
@@ -117,15 +122,22 @@ appears), shot with a lot of sky. Portraits are warm-toned and aspirational.
 
 These block a complete rollout. None should be guessed at.
 
+0. **Logo colour vs palette (new, 2026-10-28).** The delivered logo files fill
+   the symbol `#BB9A65` and the letters `#2D2D2C`. §2's palette slide says
+   bronze `#B28E5E` and dark `#272727`. The site draws the logo from masks in
+   the palette's tokens, so it currently matches §2. If the files are right,
+   it is one token change (`--color-bronze`) plus a contrast re-check.
+
 1. **Subsidiary accents.** Does the per-company accent system survive, collapse
    to bronze, or get redesigned? The deck does not mention subsidiaries at all.
 2. **Does the investor-facing copy replace the site copy,** or is the deck
    paragraph boilerplate for the mockups?
-3. **Nebula Bold** — vector artwork for the logotype (preferred), or the font
-   file plus a webfont licence.
-4. **Master vector of the symbol.** Currently traced from the deck render; a
-   real SVG from the designer would be better.
-5. **Reversed/white lockup** — implied by the applications, not formally given.
+3. ~~**Nebula Bold**~~ ✅ Outlined wordmark delivered 2026-10-28 (see §3).
+4. ~~**Master vector of the symbol.**~~ ✅ Delivered 2026-10-28 in the `ZARNEX
+   logo` set; it is now the master every site file is generated from.
+5. ~~**Reversed/white lockup**~~ ✅ Delivered: "inverse white" (bronze symbol,
+   white wordmark) and all-white, plus black and inverse black. The site uses
+   full colour on light grounds and inverse white on dark.
 6. The three subsidiary logos already in the build (IFMC, X Live, ENER-G) are
    untouched by this deck and keep their own identities.
 
