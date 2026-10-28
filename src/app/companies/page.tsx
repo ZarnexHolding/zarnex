@@ -36,9 +36,8 @@ function structuredData() {
     subOrganization: COMPANIES.map((c) => ({
       "@type": "Organization",
       name: c.name,
-      url: `${SITE.url}/companies/${c.slug}`,
+      ...(c.website ? { url: c.website } : {}),
       ...(c.description ? { description: c.description } : {}),
-      ...(c.website ? { sameAs: [c.website] } : {}),
       parentOrganization: { "@id": `${SITE.url}#organization` },
     })),
   };

@@ -255,6 +255,27 @@ five colourways, as SVG/PDF/EPS/PNG) and the Nebula font.
 
 ---
 
+## No company profiles; PORT-L joins — 2026-10-28
+
+**Profiles removed, by the owner.** A company card now opens the company's own
+website in a new tab. A company without a live site shows "Profile in
+preparation" and is not clickable. All seven sites were checked and respond.
+The footer, mobile menu and innovation page follow the same rule. Old profile
+links redirect (temporarily) to the companies page. The profile content and
+images are parked in the repo, not deleted, in case profiles return.
+
+**PORT-L added** (`docs/11-portl.md`). Its card describes the business as its
+start-up pitch does; no figures, clients or plans are presented as fact. The
+domain in its pitch, www.port-l.live, does not exist yet, so its card reads
+"Profile in preparation". Its sectors (5 and 3) are our assignment.
+
+**The constellation was re-laid out.** A fifteenth node landed at the far
+right edge whatever the company order, so the whole spiral is now rotated
+(234°, chosen by sweeping every angle through the layout tests). Every company
+moved; PORT-L forms its logo in particles like the others.
+
+---
+
 ## Still outstanding
 
 1. `ener-g.sa` vs `energ.company` — which is live?

@@ -65,18 +65,20 @@ export function Footer() {
             <ul className="mt-6 grid grid-cols-2 gap-x-8 gap-y-3 md:grid-cols-3">
               {COMPANIES.map((c) => (
                 <li key={c.slug}>
-                  <Link
-                    href={`/companies/${c.slug}`}
-                    // A directory on every page. Prefetching all of it costs an
-                    // RSC payload per link for navigation that rarely happens;
-                    // Next still prefetches on hover, which is the real intent
-                    // signal.
-                    prefetch={false}
-                    data-cursor="link"
-                    className="t-caption text-paper-70 transition-colors duration-[var(--dur-micro)] hover:text-bone"
-                  >
-                    {c.name}
-                  </Link>
+                  {/* Each company's own site; no site, no link. */}
+                  {c.website ? (
+                    <a
+                      href={c.website}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      data-cursor="link"
+                      className="t-caption text-paper-70 transition-colors duration-[var(--dur-micro)] hover:text-bone"
+                    >
+                      {c.name}
+                    </a>
+                  ) : (
+                    <span className="t-caption text-paper-55">{c.name}</span>
+                  )}
                 </li>
               ))}
             </ul>

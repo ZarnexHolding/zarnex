@@ -29,6 +29,7 @@ export const ACCENT_HEX: Record<string, string> = {
   energ: "#3fb565",
   rnd: "#faf9f6",
   ifmc: "#c1ff00",
+  portl: "#0dff44",
   messier: "#b8a88f",
   nuron: "#d8cfc4",
   airwaves: "#4fb8c9",
@@ -42,6 +43,19 @@ export type NodeCentre = {
   accent: string;
   hex: string;
 };
+
+/**
+ * Where the spiral starts. Not cosmetic: the field sits right of centre, so
+ * there is far less room on the right than the left, and which side the
+ * outermost node lands on decides whether the constellation fits.
+ *
+ * Adding a company moves every node. Adding PORT-L put the fifteenth node at
+ * ~347°, hard right, and at 0° every test:camera layout check failed for any
+ * company order. Swept in 1° steps: 231–238° passes everything; 234° has the
+ * most clearance (0.078) and keeps logos at ≥74% from tablet landscape up.
+ * When test:camera fails after the next company, re-sweep this.
+ */
+const SPIRAL_TURN = (234 * Math.PI) / 180;
 
 /**
  * The core pillar sits at the barycentre; everything else lands on a
@@ -66,7 +80,7 @@ export function nodeCentres(): NodeCentre[] {
     const k = i - 1;
     const t = (k + 0.5) / orbiting;
     const r = 0.5 + Math.sqrt(t) * 1.28;
-    const a = k * golden;
+    const a = k * golden + SPIRAL_TURN;
 
     return {
       slug: c.slug,

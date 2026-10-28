@@ -154,13 +154,18 @@ export function Header() {
           <ul className="mt-5 grid grid-cols-2 gap-x-6 gap-y-2.5 max-[480px]:grid-cols-1">
             {COMPANIES.map((c) => (
               <li key={c.slug}>
-                <Link
-                  href={`/companies/${c.slug}`}
-                  prefetch={false}
-                  className="t-caption text-ink-70 transition-colors duration-[var(--dur-micro)] hover:text-ink"
-                >
-                  {c.name}
-                </Link>
+                {c.website ? (
+                  <a
+                    href={c.website}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="t-caption text-ink-70 transition-colors duration-[var(--dur-micro)] hover:text-ink"
+                  >
+                    {c.name}
+                  </a>
+                ) : (
+                  <span className="t-caption text-ink-65">{c.name}</span>
+                )}
               </li>
             ))}
           </ul>

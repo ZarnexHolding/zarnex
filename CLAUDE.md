@@ -19,7 +19,7 @@ modules under `src/lib`.
 |---|---|
 | [`docs/00-source-of-truth.md`](docs/00-source-of-truth.md) | Everything extracted from the master profile PDF, verbatim. **Nothing on the site may contradict it.** Also the open-questions register. |
 | [`docs/01-design-principles.md`](docs/01-design-principles.md) | The design constitution — motion budget, content caps, performance gates. Rules, not suggestions. |
-| [`docs/02-ifmc.md`](docs/02-ifmc.md) · [`03-glitch-morph`](docs/03-glitch-morph.md) · [`04-xlive`](docs/04-xlive.md) · [`05-energ`](docs/05-energ.md) · [`08-buildx`](docs/08-buildx.md) · [`09-realintelligence`](docs/09-realintelligence.md) · [`10-lumen`](docs/10-lumen.md) | Per-company source data, one file per profile PDF received |
+| [`docs/02-ifmc.md`](docs/02-ifmc.md) · [`03-glitch-morph`](docs/03-glitch-morph.md) · [`04-xlive`](docs/04-xlive.md) · [`05-energ`](docs/05-energ.md) · [`08-buildx`](docs/08-buildx.md) · [`09-realintelligence`](docs/09-realintelligence.md) · [`10-lumen`](docs/10-lumen.md) · [`11-portl`](docs/11-portl.md) | Per-company source data, one file per profile PDF received |
 | [`docs/06-decisions.md`](docs/06-decisions.md) | Client answers and what changed as a result |
 | [`docs/07-brand-direction-one.md`](docs/07-brand-direction-one.md) | **Brand Identity V2, Direction One** — the current identity. Palette, type, the mark, and what is still missing. |
 
@@ -86,7 +86,19 @@ rather than a screenshot pinning the pixels.
 | Module | Role |
 |---|---|
 | `companies.ts` | **The single source of truth for the ecosystem.** `ALL_COMPANIES` holds everything; the exported `COMPANIES` filters out `hidden`. Index, footer, constellation, routes, sector filters and every count derive from it. |
-| `company-content.ts` | Long-form page content keyed by slug. Split out so the index and WebGL scene never pull page copy into their bundles. No entry → the page renders an honest "profile in preparation". |
+| `company-content.ts` | **PARKED — imported by nothing.** Long-form profile content (overviews, projects, galleries), kept for a possible return of profile pages. See below. |
+
+**There are no company profile pages** — owner decision, 2026-10-28. A
+company card opens the company's own website in a new tab; a company with no
+live site shows "Profile in preparation" and is not a link at all, and its
+card has no hover state, so it never looks clickable. The footer, the mobile
+menu and the innovation page follow the same rule. `/companies/:slug`
+redirects to `/companies` — **temporary (307) on purpose**: profiles may come
+back, and a permanent redirect is cached by browsers indefinitely.
+`company-content.ts`, `media.ts` and `public/media` are parked, not deleted:
+restoring profiles is a revert of the commit that removed
+`src/app/companies/[slug]`. A `website` must actually resolve — check it
+before setting one; PORT-L's (`port-l.live`) does not exist yet.
 
 **The homepage's six companies are an editorial pick** — `FEATURED` in
 `components/home/CompaniesPreview.tsx`, by slug, in display order. Change that
@@ -133,7 +145,7 @@ Animation is finite and spent deliberately. **Four signature moments, no more.**
 | Tier | What | Where |
 |---|---|---|
 | **T1** | The WebGL scene — 3 beats, 1 scene | Home only |
-| **T2** | Pinned / scrubbed / horizontal | Home ×2, company hero, projects |
+| **T2** | Pinned / scrubbed / horizontal | Home ×2 |
 | **T3** | Rise · Mask · Draw · Cross · Shift | Everywhere |
 
 T3 is CSS + IntersectionObserver (`components/motion/Reveal.tsx`) — no animation
@@ -247,6 +259,14 @@ and from which file, is `RECIPES` in `scripts/build-constellation.py` —
 Adding a logo: put the site's file in `public/logos/`, add a recipe, run
 `build:constellation`, then `test:camera` — a big or very wide mark may fail
 the clearance test, which is the point.
+
+⚠️ **Adding a company moves every node**, not just the new one: the spiral
+spreads its radii over the count. PORT-L's arrival put the outermost node hard
+right, where the off-centre field has no room, and every layout check failed
+for *any* company order. The fix is `SPIRAL_TURN` in `layout.ts`, the
+spiral's starting angle: swept in 1° steps through `test:camera`, 231–238°
+passes, 234° has the most clearance. Next company: re-sweep it the same way
+rather than nudging logo sizes.
 
 **`npm run test:fps`** — the guard must survive start-up, a stalled loop
 (backgrounded tab, `setPaused()`), a one-second hitch, and a browser capped at
@@ -476,6 +496,10 @@ Three decisions this budget forced, all worth preserving:
 
 ## Images
 
+⚠️ **Parked with the profile pages (2026-10-28).** Nothing on the site uses
+`public/media` or `media.ts` now; `check:media` still keeps them consistent so
+a restore works first time. The rules below stand for when they return.
+
 `public/media/<slug>/*.webp` — extracted from the companies' own PDFs, WebP q80,
 each with an inline 20px blur placeholder (no second request, no layout shift).
 
@@ -524,6 +548,10 @@ Monochrome marks use a **CSS mask** so they inherit `currentColor` and pick up
 the accent on hover (`logo` field). Full-colour marks where the colour *is* the
 identity render as an `<img>` (`logoImage`) — masking ENERG's gradient or
 Lumen's rainbow bar would flatten them to a silhouette.
+
+(Company heroes left with the profile pages; `logoImageOnDark` now only
+records which file is the dark-ground version — the constellation's recipes
+point at those files.)
 
 **Cards are always on the light ground; company heroes always on the dark
 one.** A colour mark with black or white lettering therefore needs a file per
@@ -584,7 +612,7 @@ real inbox. It has never pretended to send.
 ```
 /                       Home — 7 sections, 3 acts (void → bone → void)
 /companies              Index, filterable by sector
-/companies/[slug]       one page per company, one template, SSG
+/companies/:slug        redirects (307) to /companies, no profile pages
 /about  /innovation     Group pages
 /contact                Working form (server action, no form library)
 /news  /careers         Honest empty states, noindex
@@ -617,7 +645,7 @@ real inbox. It has never pretended to send.
 7. Messier, Nu-Ron, Airwaves: held back (`hidden: true`), zero content.
 
 **Deferred by choice**
-8. Flight transition (index → company hero, GSAP Flip).
+8. ~~Flight transition (index → company hero)~~ — moot without profile pages.
 9. Arabic locale — the brand is bilingual on its own cover; this is a second
    build, not a translation pass.
 10. Manual screen-reader pass (NVDA + VoiceOver).

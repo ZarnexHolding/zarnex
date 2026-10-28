@@ -43,6 +43,7 @@ RECIPES = {
     "glitch-morph": "logos/glitch-morph-on-dark.png",
     "energ": "logos/energ.png",
     "ifmc": "logos/ifmc.svg",
+    "port-l": "logos/port-l-on-dark.png",
 }
 
 # Pixels to erode from a heavy mark's strokes, in output pixels. IFMC is ~80%

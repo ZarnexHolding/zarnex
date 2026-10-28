@@ -253,6 +253,24 @@ const ALL_COMPANIES: Company[] = [
     status: "active",
   },
   {
+    // Not in the master profile — it postdates it. Source: docs/11-portl.md,
+    // from its start-up pitch. Sectors 5 and 3 are our assignment, not the
+    // client's. Its pitch names www.port-l.live, which does not resolve
+    // (2026-10-28), so there is no website to link yet.
+    slug: "port-l",
+    name: "PORT-L",
+    accent: "portl",
+    industry: "Event Asset Revival",
+    sectors: [5, 3],
+    positioning: "Revive. Reuse. Reignite.",
+    description:
+      "A tech-enabled circular marketplace that refurbishes dormant event assets and rents them out: barriers, furniture, fencing and signage.",
+    website: null,
+    logo: "/logos/port-l.png",
+    logoImageOnDark: "/logos/port-l-on-dark.png",
+    status: "active",
+  },
+  {
     slug: "rnd",
     name: "R&D Division",
     accent: "rnd",

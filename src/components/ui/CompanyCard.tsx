@@ -1,5 +1,4 @@
-import Link from "next/link";
-import { ArrowRight, ArrowDiagonal } from "@/components/ui/Icon";
+import { ArrowDiagonal } from "@/components/ui/Icon";
 import type { Company } from "@/lib/companies";
 import { cn } from "@/lib/cn";
 import { pad2 } from "@/lib/format";
@@ -7,8 +6,13 @@ import { pad2 } from "@/lib/format";
 /**
  * One company, on the index and in the homepage preview.
  *
- * The accent appears only on hover, and only here and on the company's own
- * page — that rationing is what stops a many-accent system becoming noise.
+ * The whole card opens the company's own website, in a new tab. The group
+ * site carries no company profiles (owner decision, 2026-10-28); a company
+ * without a live site says "Profile in preparation" and is not a link at all,
+ * so it never looks clickable.
+ *
+ * The accent appears only on hover, and only on a card that is a link — that
+ * rationing is what stops a many-accent system becoming noise.
  *
  * Logo art is optional: most companies have not supplied an SVG yet, so the
  * card falls back to the name set as type rather than an empty box.
@@ -29,13 +33,13 @@ export function CompanyCard({
    */
   headingLevel?: 2 | 3;
 }) {
-  const { slug, name, industry, description, website, status } = company;
-  const pending = status === "pending-content";
+  const { name, industry, description, website } = company;
   const Heading = `h${headingLevel}` as "h2" | "h3";
 
   return (
     <article
       style={{ "--accent": `var(--color-accent-${company.accent})` } as React.CSSProperties}
+      data-linked={website ? "" : undefined}
       className={cn("company-card group/card relative flex flex-col", className)}
     >
       <div className="flex h-8 items-start justify-between gap-6">
@@ -80,46 +84,41 @@ export function CompanyCard({
       </div>
 
       <Heading className="t-title mt-6">
-        <Link
-          href={`/companies/${slug}`}
-          data-cursor="node"
-          data-cursor-label={name}
-          className="company-card__link"
-        >
-          {/* Covers the card so the whole cell is the hit area. */}
-          <span className="absolute inset-0" aria-hidden />
-          {name}
-        </Link>
-      </Heading>
-
-      {description ? (
-        <p className="t-caption mt-4 max-w-[34ch] text-ink-70">{description}</p>
-      ) : (
-        <p className="t-caption mt-4 text-ink-65">Profile in preparation.</p>
-      )}
-
-      <p className="t-meta mt-auto pt-10 text-ink-65">{industry}</p>
-
-      <div className="mt-5 flex items-center gap-6">
-        <span className="t-meta inline-flex items-center gap-2">
-          {pending ? "Overview" : "Learn more"}
-          <ArrowRight className="size-3.5 transition-transform duration-[var(--dur-micro)] ease-[var(--ease-out)] group-hover/card:translate-x-1" />
-        </span>
-
         {website ? (
           <a
             href={website}
             target="_blank"
             rel="noopener noreferrer"
-            data-cursor="link"
-            // Above the card-wide overlay link, so it stays independently clickable.
-            className="t-meta relative z-10 inline-flex items-center gap-2 text-ink-65 transition-colors duration-[var(--dur-micro)] hover:text-ink"
+            data-cursor="node"
+            data-cursor-label={name}
+            className="company-card__link"
           >
-            Visit site
-            <ArrowDiagonal className="size-3.5" />
+            {/* Covers the card so the whole cell is the hit area. */}
+            <span className="absolute inset-0" aria-hidden />
+            {name}
+            <span className="sr-only">, website, opens in a new tab</span>
           </a>
-        ) : null}
-      </div>
+        ) : (
+          name
+        )}
+      </Heading>
+
+      {description ? (
+        <p className="t-caption mt-4 max-w-[34ch] text-ink-70">{description}</p>
+      ) : null}
+
+      <p className="t-meta mt-auto pt-10 text-ink-65">{industry}</p>
+
+      <p className="t-meta mt-5 inline-flex items-center gap-2">
+        {website ? (
+          <>
+            Visit site
+            <ArrowDiagonal className="size-3.5 transition-transform duration-[var(--dur-micro)] ease-[var(--ease-out)] group-hover/card:translate-x-0.5 group-hover/card:-translate-y-0.5" />
+          </>
+        ) : (
+          <span className="text-ink-65">Profile in preparation</span>
+        )}
+      </p>
     </article>
   );
 }

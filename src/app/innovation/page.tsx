@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { PageHero } from "@/components/layout/PageHero";
 import { Reveal } from "@/components/motion/Reveal";
 import { Rule } from "@/components/ui/Rule";
@@ -100,17 +99,24 @@ export default function InnovationPage() {
                   <span className="t-meta text-ink-65">{pad2(i + 1)}</span>
                   <h3 className="t-title max-w-[20ch]">{d.name}</h3>
                   <div className="flex flex-wrap items-baseline gap-x-6 gap-y-2">
-                    {companies.map((c) => (
-                      <Link
-                        key={c!.slug}
-                        href={`/companies/${c!.slug}`}
-                        prefetch={false}
-                        data-cursor="link"
-                        className="t-caption text-ink-65 underline-offset-4 transition-colors duration-[var(--dur-micro)] hover:text-ink hover:underline"
-                      >
-                        {c!.name}
-                      </Link>
-                    ))}
+                    {companies.map((c) =>
+                      c!.website ? (
+                        <a
+                          key={c!.slug}
+                          href={c!.website}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          data-cursor="link"
+                          className="t-caption text-ink-65 underline-offset-4 transition-colors duration-[var(--dur-micro)] hover:text-ink hover:underline"
+                        >
+                          {c!.name}
+                        </a>
+                      ) : (
+                        <span key={c!.slug} className="t-caption text-ink-65">
+                          {c!.name}
+                        </span>
+                      ),
+                    )}
                   </div>
                 </Reveal>
               );

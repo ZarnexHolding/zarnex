@@ -1,11 +1,10 @@
 import type { MetadataRoute } from "next";
-import { COMPANIES } from "@/lib/companies";
 import { SITE } from "@/lib/site";
 
 /**
- * Generated from the data, so a company added or held back changes the sitemap
- * with no edit here. Pages with no content yet (news, careers, legal) are left
- * out until there is something worth indexing.
+ * Pages with no content yet (news, careers, legal) are left out until there is
+ * something worth indexing. Companies have no pages here — their cards open
+ * their own websites.
  */
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
@@ -18,11 +17,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${SITE.url}/contact`, changeFrequency: "yearly", priority: 0.7 },
   ];
 
-  const companies: MetadataRoute.Sitemap = COMPANIES.map((c) => ({
-    url: `${SITE.url}/companies/${c.slug}`,
-    changeFrequency: "monthly",
-    priority: 0.8,
-  }));
-
-  return [...core, ...companies].map((e) => ({ ...e, lastModified: now }));
+  return core.map((e) => ({ ...e, lastModified: now }));
 }

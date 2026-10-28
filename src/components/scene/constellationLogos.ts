@@ -21,6 +21,7 @@ export const CONSTELLATION_LOGOS: Record<string, ConstellationLogo> = {
   "glitch-morph": {"src": "/logos/constellation/glitch-morph.png", "w": 298, "h": 134, "colour": false},
   "ifmc": {"src": "/logos/constellation/ifmc.png", "w": 242, "h": 165, "colour": false},
   "lumen-arabia": {"src": "/logos/constellation/lumen-arabia.png", "w": 320, "h": 37, "colour": true},
+  "port-l": {"src": "/logos/constellation/port-l.png", "w": 263, "h": 152, "colour": true},
   "realintelligence": {"src": "/logos/constellation/realintelligence.png", "w": 224, "h": 179, "colour": true},
   "x-live": {"src": "/logos/constellation/x-live.png", "w": 320, "h": 109, "colour": false},
 };
