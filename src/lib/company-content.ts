@@ -372,14 +372,14 @@ export const COMPANY_CONTENT: Record<string, CompanyContent> = {
 
   "glitch-morph": {
     overview:
-      "A next-generation creative studio bridging classic storytelling with the technologies of tomorrow. Concept, 3D, virtual production and post — engineered to inspire a world yet to come.",
+      "A next-generation creative studio bridging classic storytelling with the technologies of tomorrow. Concept, 3D, virtual production and post, engineered to inspire a world yet to come.",
     stats: [
       { value: "200+", label: "Projects delivered" },
       { value: "50+", label: "Clients" },
       { value: "6", label: "Studio divisions" },
     ],
     vision:
-      "To reengineer the creative landscape — blending human artistry with machine precision, tradition with technology, Earth with digital universes.",
+      "To reengineer the creative landscape, blending human artistry with machine precision, tradition with technology, Earth with digital universes.",
     services: [
       {
         group: "Concept Development",
@@ -477,7 +477,7 @@ export const COMPANY_CONTENT: Record<string, CompanyContent> = {
 
   energ: {
     overview:
-      "A solar EPC delivering turnkey renewable energy across residential, commercial, industrial and agricultural sectors in Saudi Arabia and the GCC — from feasibility and design through installation, commissioning and long-term maintenance.",
+      "A solar EPC delivering turnkey renewable energy across residential, commercial, industrial and agricultural sectors in Saudi Arabia and the GCC, from feasibility and design through installation, commissioning and long-term maintenance.",
     stats: [
       { value: "80%", label: "Reduction in electricity and fuel costs" },
       { value: "25+ yr", label: "System lifespan" },
@@ -578,7 +578,7 @@ export const COMPANY_CONTENT: Record<string, CompanyContent> = {
   */
   buildx: {
     overview:
-      "Founded in 2019, BuildX Engineering is a technical services and contracting provider in Saudi Arabia, delivering civil, structural, electrical and mechanical works for government entities and leading corporations — from foundations and power distribution to roads, infrastructure and premium interior fit-outs.",
+      "Founded in 2019, BuildX Engineering is a technical services and contracting provider in Saudi Arabia, delivering civil, structural, electrical and mechanical works for government entities and leading corporations, from foundations and power distribution to roads, infrastructure and premium interior fit-outs.",
     stats: [
       { value: "2019", label: "Founded" },
       { value: "7.5 MWp", label: "Solar plant delivered for Almarai" },
@@ -645,25 +645,25 @@ export const COMPANY_CONTENT: Record<string, CompanyContent> = {
           "Supply and installation of fence works for the port authority's site office facility. SAR 2.7M.",
       },
       {
-        name: "Bank Al Rajhi — Taif",
+        name: "Bank Al Rajhi, Taif",
         client: "Contractor: UTC",
         year: "2022–24",
         scope:
-          "Turnkey MEP — fire alarm, power, CCTV, lighting, firefighting, HVAC, water and drainage — plus aluminium cladding, across showroom and bank building. SAR 8.25M.",
+          "Turnkey MEP (fire alarm, power, CCTV, lighting, firefighting, HVAC, water and drainage) plus aluminium cladding, across showroom and bank building. SAR 8.25M.",
       },
       {
         name: "NWC water pipeline, Khobar",
         client: "Contractor: Khorayef",
         year: "2021–23",
         scope:
-          "Main water distribution pipeline — excavation, ductile-iron pipe installation, welding, alignment and shoring, then staged backfill. SAR 15.35M.",
+          "Main water distribution pipeline: excavation, ductile-iron pipe installation, welding, alignment and shoring, then staged backfill. SAR 15.35M.",
       },
       {
         name: "Almarai Solar Power Plant",
         client: "Almarai",
         year: "2019–20",
         scope:
-          "Supply and installation of a 7.5 MWp solar energy system — Trina 400 Wp panels with Huawei on-grid inverters.",
+          "Supply and installation of a 7.5 MWp solar energy system: Trina 400 Wp panels with Huawei on-grid inverters.",
       },
     ],
     // Editorial adjacency — who develops, designs and runs what BuildX builds.
@@ -690,7 +690,7 @@ export const COMPANY_CONTENT: Record<string, CompanyContent> = {
   */
   realintelligence: {
     overview:
-      "Real Intelligence is the digital brain of Zarnex — building intelligent systems, platforms and next-gen applications for organizations ready to operate faster, smarter and with more control, from AI agents and automation to enterprise platforms, smart-city systems and digital twins.",
+      "Real Intelligence is the digital brain of Zarnex, building intelligent systems, platforms and next-gen applications for organizations ready to operate faster, smarter and with more control, from AI agents and automation to enterprise platforms, smart-city systems and digital twins.",
     vision:
       "Become a trusted regional technology partner for organizations moving toward automated, data-driven operations.",
     mission:
@@ -763,7 +763,7 @@ export const COMPANY_CONTENT: Record<string, CompanyContent> = {
   */
   "lumen-arabia": {
     overview:
-      "Lumen Arabia delivers architectural lighting, digital display and smart technology solutions — media facades, DOOH networks, event technology and immersive installations — working with architects, developers, businesses and public-sector organizations across Saudi Arabia, the UAE and China.",
+      "Lumen Arabia delivers architectural lighting, digital display and smart technology solutions (media facades, DOOH networks, event technology and immersive installations), working with architects, developers, businesses and public-sector organizations across Saudi Arabia, the UAE and China.",
     stats: [
       { value: "10,000 nits", label: "Peak display brightness" },
       { value: "1.9–16 mm", label: "Pixel pitch, indoor to outdoor" },
@@ -788,7 +788,7 @@ export const COMPANY_CONTENT: Record<string, CompanyContent> = {
           "Façade lighting design and consultancy",
           "Supply and installation",
           "Dynamic media façade systems",
-          "Smart control — DMX, DALI, IoT",
+          "Smart control: DMX, DALI, IoT",
           "3D visualisation and light simulation",
         ],
       },

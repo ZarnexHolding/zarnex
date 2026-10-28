@@ -30,7 +30,7 @@ export async function submitContact(
 ): Promise<ContactState> {
   // Honeypot: a field no human sees. Silent success starves the bot of signal.
   if (clean(formData.get("website"), 200)) {
-    return { ok: true, message: "Thank you — we will be in touch." };
+    return { ok: true, message: "Thank you. We will be in touch." };
   }
 
   const name = clean(formData.get("name"), MAX.name);
@@ -77,7 +77,7 @@ export async function submitContact(
         from,
         to,
         reply_to: email,
-        subject: `Website enquiry — ${name}${company ? ` (${company})` : ""}`,
+        subject: `Website enquiry: ${name}${company ? ` (${company})` : ""}`,
         text: [
           `Name: ${name}`,
           `Email: ${email}`,
@@ -99,5 +99,5 @@ export async function submitContact(
     };
   }
 
-  return { ok: true, message: "Thank you — we will be in touch." };
+  return { ok: true, message: "Thank you. We will be in touch." };
 }

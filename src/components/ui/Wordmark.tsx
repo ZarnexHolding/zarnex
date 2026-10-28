@@ -78,7 +78,7 @@ export function Wordmark({
   return (
     <Link
       href={href}
-      aria-label="Zarnex Holding — home"
+      aria-label="Zarnex Holding, home"
       data-cursor="link"
       className="inline-flex transition-opacity duration-[var(--dur-micro)] hover:opacity-70"
     >

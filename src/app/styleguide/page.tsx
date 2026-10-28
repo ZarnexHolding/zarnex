@@ -82,7 +82,7 @@ export default function StyleguidePage() {
       </Section>
 
       {/* ---- Colour ---- */}
-      <Section eyebrow="01 — Colour">
+      <Section eyebrow="01 · Colour">
         <Reveal>
           <h2 className="t-display-2 measure-tight">
             The holding company has no colour. The subsidiaries do.
@@ -92,7 +92,7 @@ export default function StyleguidePage() {
           <p className="t-body text-ink-70">
             Light, dark and one flat bronze. That is the parent. Each company
             owns a single accent, rationed to three uses on its own page and the
-            index — never anywhere else.
+            index, never anywhere else.
           </p>
         </Reveal>
 
@@ -113,7 +113,7 @@ export default function StyleguidePage() {
             </div>
           </Row>
 
-          <Row label="Bronze — the brand colour">
+          <Row label="Bronze, the brand colour">
             <div
               className="mb-5 h-24 w-full"
               style={{
@@ -155,16 +155,16 @@ export default function StyleguidePage() {
       </Section>
 
       {/* ---- Type ---- */}
-      <Section eyebrow="02 — Typography">
+      <Section eyebrow="02 · Typography">
         <Reveal>
           <h2 className="t-display-2 measure-tight">Seven steps. One face.</h2>
         </Reveal>
         <Reveal index={1} className="mt-6 measure">
           <p className="t-body text-ink-70">
-            Poppins throughout — Semibold for headlines, Light for sub text,
+            Poppins throughout: Semibold for headlines, Light for sub text,
             per the V2 brand deck. The logotype face (Nebula Bold) is licensed
             and not in the build; the wordmark is standing in. Display type is
-            tracked tight — the clearest single signal of a designed site.
+            tracked tight, the clearest single signal of a designed site.
           </p>
         </Reveal>
 
@@ -181,7 +181,7 @@ export default function StyleguidePage() {
       </Section>
 
       {/* ---- Space & grid ---- */}
-      <Section eyebrow="03 — Space & grid">
+      <Section eyebrow="03 · Space & grid">
         <Reveal>
           <h2 className="t-display-2 measure-tight">Whitespace is the design.</h2>
         </Reveal>
@@ -209,7 +209,7 @@ export default function StyleguidePage() {
       </Section>
 
       {/* ---- Motion ---- */}
-      <Section eyebrow="04 — Motion" ground="void">
+      <Section eyebrow="04 · Motion" ground="void">
         <Reveal>
           <h2 className="t-display-2 measure-tight">
             Five primitives. Four signature moments. Nothing else.
@@ -256,13 +256,13 @@ export default function StyleguidePage() {
       </Section>
 
       {/* ---- Components ---- */}
-      <Section eyebrow="05 — Components">
+      <Section eyebrow="05 · Components">
         <Reveal>
           <h2 className="t-display-2 measure-tight">Hard edges. No shadows.</h2>
         </Reveal>
         <Reveal index={1} className="mt-6 measure">
           <p className="t-body text-ink-70">
-            Zero radius throughout — the source document contains no rounded
+            Zero radius throughout: the source document contains no rounded
             corner across twenty-six pages. Depth comes from hairlines and
             ground inversion, never from drop shadows.
           </p>
@@ -307,7 +307,7 @@ export default function StyleguidePage() {
               <BrandMark className="size-6" />
             </div>
             <p className="t-caption mt-6 measure text-ink-70">
-              Placeholder geometry — awaiting the master SVG from the client.
+              Placeholder geometry, awaiting the master SVG from the client.
             </p>
           </Row>
 
@@ -336,7 +336,7 @@ export default function StyleguidePage() {
       </Section>
 
       {/* ---- Content caps ---- */}
-      <Section eyebrow="06 — Content discipline" size="sm" className="bg-bone-soft">
+      <Section eyebrow="06 · Content discipline" size="sm" className="bg-bone-soft">
         <Reveal>
           <h2 className="t-display-2 measure-tight">
             The caps are what buy the motion.
@@ -366,14 +366,14 @@ export default function StyleguidePage() {
       </Section>
 
       {/* ---- Data ---- */}
-      <Section eyebrow="07 — Source data">
+      <Section eyebrow="07 · Source data">
         <Reveal>
           <h2 className="t-display-2 measure-tight">The ecosystem.</h2>
         </Reveal>
         <Reveal index={1} className="mt-6 measure">
           <p className="t-body text-ink-70">
             Every string traces to the profile document. Fields the source does
-            not contain are null — the interface hides them rather than inventing
+            not contain are null; the interface hides them rather than inventing
             copy. Counts are always derived, never written down.
           </p>
         </Reveal>
@@ -444,7 +444,7 @@ export default function StyleguidePage() {
         </Reveal>
         <Reveal index={1} className="mt-6">
           <h2 className="t-display-2 measure-tight">
-            Stage 2 — the WebGL scene, built and profiled in isolation.
+            Stage 2: the WebGL scene, built and profiled in isolation.
           </h2>
         </Reveal>
         <Reveal index={2} className="mt-10">

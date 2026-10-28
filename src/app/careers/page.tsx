@@ -17,11 +17,11 @@ export default function CareersPage() {
       <PageHero
         eyebrow="Careers"
         title="Build at the frontier of the region."
-        lead="Architects, engineers, producers, researchers and creators — across fourteen companies and ten sectors."
+        lead="Architects, engineers, producers, researchers and creators, working across ten sectors."
       />
       <Pending
         headline="Open roles are being prepared."
-        body="Positions across the group will be listed here. If your work belongs somewhere in this ecosystem, write to us — we would rather hear from you early than not at all."
+        body="Positions across the group will be listed here. If your work belongs somewhere in this ecosystem, write to us. We would rather hear from you early than not at all."
         cta={{ href: "/companies", label: "Explore the companies" }}
       />
     </>

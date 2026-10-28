@@ -10,7 +10,7 @@ import { pad2 } from "@/lib/format";
 export const metadata: Metadata = {
   title: "Innovation",
   description:
-    "The R&D division at the heart of Zarnex Holding — research across robotics, aerospace, smart cities, autonomous systems and materials, feeding every company in the group.",
+    "The R&D division at the heart of Zarnex Holding: research across robotics, aerospace, smart cities, autonomous systems and materials, feeding every company in the group.",
   alternates: { canonical: "/innovation" },
 };
 

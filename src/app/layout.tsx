@@ -28,8 +28,8 @@ const poppins = Poppins({
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),
   title: {
-    default: `${SITE.name} — ${SITE.headline}`,
-    template: `%s — ${SITE.name}`,
+    default: `${SITE.name} | ${SITE.headline}`,
+    template: `%s | ${SITE.name}`,
   },
   description: SITE.tagline,
   openGraph: {

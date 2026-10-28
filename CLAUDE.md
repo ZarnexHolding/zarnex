@@ -46,6 +46,13 @@ Corollaries already enforced in code:
 - **No phone number for any operating company appears on the site** — client
   instruction, 2026-10-28. Company profiles carry them; they never ship. The
   group's own number in `site.ts` is the only one.
+- **No em dash (—) in anything the site renders** — client instruction,
+  2026-10-28. Copy pasted from a profile PDF usually brings some. Rewrite with
+  a comma, colon, full stop or brackets; titles use `|`, styleguide eyebrows
+  `·`. Verbatim statements keep their words, not their dashes. `npm run
+  check:dashes` walks every string and JSX text node with the TypeScript parser
+  (so comments, where dashes are fine, are never flagged) and fails the build.
+  En dashes in number ranges ("2022–24") are correct and stay.
 - The legal pages contain **no legal text**. Privacy/terms/cookies must satisfy
   Saudi PDPL and need counsel. They exist so the footer resolves, and say so.
 
@@ -98,7 +105,9 @@ company's older profile can present partner companies' work as its own.
 
 **Never hard-code a company count.** Not in copy, not in a comment, not in a
 fallback array. The group will grow. `npm run check:counts` fails the build if
-one reappears. Publishing a held-back company is a single `hidden` flag flip.
+one reappears — any number, spelled out or not. (It used to match only 17, so
+"fourteen companies" sat on the careers page unnoticed after Laniakea left.)
+Publishing a held-back company is a single `hidden` flag flip.
 
 ### Content caps (from the design constitution)
 
@@ -357,7 +366,7 @@ npm run build:mark   # regenerate mark.ts + icon.svg from the master SVG
 npm run build:media  # variants + media.ts from public/media originals (Pillow)
 npm run build:constellation  # constellation logo PNGs + manifest (Pillow, PyMuPDF)
 npm run build        # all guards + tests, then next build
-npm run check        # counts · accents · mark · media · contrast · fps · camera
+npm run check        # counts · dashes · accents · mark · media · contrast · fps · camera
 npm run test:fps     # FPS guard logic, synthetic clocks
 npm run test:camera  # pointer-to-particle mapping, exact round trip
 npm run budget       # per-route perf gate — needs a running server

@@ -199,6 +199,21 @@ always did; the copy now carries a dark halo so it keeps its contrast.
 
 ---
 
+## No em dashes on the site — 2026-10-28
+
+Client instruction, after spotting one in a page title. Every em dash in
+rendered copy is rewritten: page titles now read "About | Zarnex Holding", and
+in company copy each became a comma, colon or brackets. Words are unchanged —
+including in Glitch Morph's verbatim statements, which differ from their PDF
+in punctuation only. En dashes in number ranges ("2022–24") stay; that is
+their correct use. `npm run check:dashes` fails the build if one returns.
+
+While rewriting the careers page, its "across fourteen companies" turned out to
+be a stale hard-coded count that `check:counts` could not see. The line no
+longer counts, and the check now catches any number.
+
+---
+
 ## Still outstanding
 
 1. `ener-g.sa` vs `energ.company` — which is live?

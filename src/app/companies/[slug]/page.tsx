@@ -28,7 +28,7 @@ export async function generateMetadata({
 
   return {
     title: company.name,
-    description: company.description ?? `${company.name} — part of ${SITE.name}.`,
+    description: company.description ?? `${company.name}, part of ${SITE.name}.`,
     alternates: { canonical: `/companies/${slug}` },
   };
 }
@@ -297,7 +297,7 @@ export default async function CompanyPage({
                               src={shot.src}
                               srcSet={shot.srcset}
                               sizes="(min-width: 1024px) 26vw, (min-width: 768px) 45vw, 90vw"
-                              alt={`${p.name} — ${p.client ?? company.name}`}
+                              alt={`${p.name}, ${p.client ?? company.name}`}
                               width={shot.w}
                               height={shot.h}
                               loading="lazy"

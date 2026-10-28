@@ -8,7 +8,7 @@ import { SITE } from "@/lib/site";
 export const metadata: Metadata = {
   title: "Companies",
   description:
-    "The Zarnex ecosystem — companies across real estate, media, events, creative, facility management, aerospace, energy and technology.",
+    "The Zarnex ecosystem: companies across real estate, media, events, creative, facility management, aerospace, energy and technology.",
   alternates: { canonical: "/companies" },
 };
 

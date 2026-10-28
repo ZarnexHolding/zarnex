@@ -18,10 +18,16 @@ const ALLOW = [
   "src/lib/companies.ts",
 ];
 
-// Spelled-out or numeric counts that would go stale as the group grows.
+// Spelled-out or numeric counts that would go stale as the group grows. Any
+// number, not just the one the group had last time: these used to match 17
+// only, and "fourteen companies" sat on the careers page after Laniakea left.
+const NUMBER =
+  // 1-3 digits, so a year ("the 2027 company profile") is not a count.
+  "(?:\\d{1,3}|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|thirteen|" +
+  "fourteen|fifteen|sixteen|seventeen|eighteen|nineteen|twenty(?:[- ]\\w+)?|thirty)";
 const PATTERNS = [
   /\bseventeen\b/i,
-  /\b17\s*(?:\+\s*)?(?:compan|subsidiar|entit|node|brand)/i,
+  new RegExp(`\\b${NUMBER}\\s*(?:\\+\\s*)?(?:operating\\s+)?(?:compan|subsidiar|entit|node|brand)`, "i"),
   /\b(?:compan|subsidiar|entit|node|brand)\w*\s*(?:count\s*[:=]\s*)?\b17\b/i,
 ];
 

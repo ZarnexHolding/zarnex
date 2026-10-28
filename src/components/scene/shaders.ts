@@ -42,7 +42,7 @@ export const VERT = /* glsl */ `
   const vec3 BRONZE_CORE = vec3(0.445, 0.270, 0.112);  // #B28E5E
   const vec3 BRONZE_SPEC = vec3(0.745, 0.644, 0.509);  // #E0D2BD
 
-  // expo.out — matches --ease-out so the scene and the DOM feel like one system
+  // expo.out: matches --ease-out so the scene and the DOM feel like one system
   float easeOut(float t) {
     return t >= 1.0 ? 1.0 : 1.0 - pow(2.0, -10.0 * t);
   }
@@ -78,7 +78,7 @@ export const VERT = /* glsl */ `
       Idle life.
 
       Two frequencies per axis, seeded per particle, so the field never reads
-      as one uniform wobble — which is exactly how it looked when each particle
+      as one uniform wobble, which is exactly how it looked when each particle
       followed a single sine at 3px of travel.
     */
     float w = aSeed * 6.2831853;
@@ -90,7 +90,7 @@ export const VERT = /* glsl */ `
 
     /*
       Settle. Once the field is the constellation, a particle that forms a
-      company logo drops the mark's motion — the cloud role, the embers, the
+      company logo drops the mark's motion: the cloud role, the embers, the
       wave, most of the drift. All of it is tuned for a ~500px mark; on ~5px
       lettering it is blur. Points of light (aLogo = 0) are untouched.
     */
@@ -110,7 +110,7 @@ export const VERT = /* glsl */ `
 
     /*
       A ripple travelling diagonally across the letterform. Mostly in depth, a
-      little vertically — displacing sideways would shear the mark out of shape.
+      little vertically; displacing sideways would shear the mark out of shape.
       The mark only; the cloud already has its own swirl.
     */
     float wavePhase = (pos.x + pos.y * 0.6) * ${TUNING.waveScale.toFixed(2)}
@@ -123,7 +123,7 @@ export const VERT = /* glsl */ `
     // A slow swell, felt more than seen. Only while the mark is held.
     pos *= 1.0 + ${TUNING.breathe.toFixed(3)} * sin(uTime * 0.55) * t1;
 
-    // Pointer repulsion. A holding company is a thing that exerts pull —
+    // Pointer repulsion. A holding company is a thing that exerts pull;
     // here the visitor gets to exert it back.
     // Tight falloff (~0.6 world units, roughly a 120px radius) so the effect
     // reads as happening under the cursor rather than as a vague area glow.
@@ -144,14 +144,14 @@ export const VERT = /* glsl */ `
     vColor = mix(mix(bronze * 0.55, bronze, t1), aColor, t2);
 
     /*
-      Twinkle. This is the thing that actually reads as alive — bronze dust
+      Twinkle. This is the thing that actually reads as alive: bronze dust
       catching the light rather than a frozen render. Seeded per particle at a
       high multiplier so neighbours are never in phase with each other.
     */
     float twinkle = 1.0 - ${TUNING.twinkle.toFixed(2)}
       * (0.5 + 0.5 * sin(uTime * ${TUNING.twinkleSpeed.toFixed(2)} + aSeed * 53.0));
 
-    // A few of the cloud read as distinct bright motes rather than dust —
+    // A few of the cloud read as distinct bright motes rather than dust:
     // the lights drifting around the mark.
     float mote = step(${(1 - TUNING.moteShare).toFixed(3)}, fract(s2 * 37.1));
     float cloudGlow = mix(1.0, 0.38 + mote * 1.9, atmo);
@@ -159,7 +159,7 @@ export const VERT = /* glsl */ `
     /*
       Thin the cloud on the side the headline sits on. Judged on the swirled
       position, so particles dim as they orbit into the type and lift again as
-      they leave — the type keeps its contrast without the field looking cut.
+      they leave, so the type keeps its contrast without the field looking cut.
     */
     float typeSide = smoothstep(
       -${TUNING.typeSideFade.toFixed(2)},
@@ -181,11 +181,11 @@ export const VERT = /* glsl */ `
 
     // uSize is tuned so a particle is ~3 CSS px at the resting camera
     // distance; uScale carries device pixel ratio and viewport width.
-    // Size shimmers with the twinkle too — brightness alone reads flat.
+    // Size shimmers with the twinkle too; brightness alone reads flat.
     // Cloud particles are larger and softer, so they read as depth of field
     // rather than as a second, competing letterform.
     float sizeMul = mix(1.0, 1.7 + mote * 1.5, atmo);
-    // Finer grain once a logo has settled — a 3px sprite fills the counters
+    // Finer grain once a logo has settled: a 3px sprite fills the counters
     // and gaps of lettering that is only ~120px across.
     sizeMul *= mix(1.0, ${TUNING.logoParticleSize.toFixed(2)}, settle);
     gl_PointSize = clamp(
@@ -204,12 +204,12 @@ export const FRAG = /* glsl */ `
   varying float vGlow;
 
   void main() {
-    // Soft round sprite — cheaper and sharper than a texture lookup.
+    // Soft round sprite: cheaper and sharper than a texture lookup.
     vec2 uv = gl_PointCoord - 0.5;
     float d = dot(uv, uv);
     if (d > 0.25) discard;
 
-    // Additive blending over 24k sprites saturates fast — keep each one faint
+    // Additive blending over 24k sprites saturates fast, so keep each one faint
     // and let density, not opacity, build the form.
     float alpha = smoothstep(0.25, 0.0, d);
     gl_FragColor = vec4(vColor * vGlow, alpha * 0.7);
