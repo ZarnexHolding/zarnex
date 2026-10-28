@@ -18,7 +18,6 @@ const body = src
   .slice(start)
   .replace(/export function/g, "function")
   .replace(/: \(\) => void/g, "")
-  .replace(/, floor = 45\)/g, ", floor = 45)")
   .replace(/: number/g, "")
   .replace(/: boolean/g, "");
 const createFpsGuard = new Function(`${body}; return createFpsGuard;`)();
@@ -67,6 +66,34 @@ test("a genuinely slow device is downgraded", () => {
   let downgraded = false;
   const guard = createFpsGuard(() => (downgraded = true));
   run(guard, { fps: 15, seconds: 8 });
+  assert.equal(downgraded, true);
+});
+
+test("a browser capped at 30fps on battery keeps the scene (the MacBook bug)", () => {
+  // Safari's Low Power Mode and Chrome's Energy Saver hold every page to 30fps.
+  // With a floor of 45 this tore the scene down ~5s after every load on a
+  // MacBook running on battery, while the same site was fine plugged in.
+  let downgraded = false;
+  const guard = createFpsGuard(() => (downgraded = true));
+  run(guard, { fps: 30, seconds: 15 });
+  assert.equal(downgraded, false, "a power-saving 30fps cap counted as a slow device");
+});
+
+test("a capped browser survives a hitch too", () => {
+  let downgraded = false;
+  const guard = createFpsGuard(() => (downgraded = true));
+  let t = run(guard, { fps: 30, seconds: 4 });
+  t = run(guard, { fps: 12, seconds: 1.1, t0: t });
+  run(guard, { fps: 30, seconds: 6, t0: t });
+  assert.equal(downgraded, false, "a hitch under the 30fps cap killed the scene");
+});
+
+test("sustained 20fps is still a slow device", () => {
+  // The other side of the floor: lowering it for capped browsers must not
+  // keep a device that genuinely struggles on the full scene.
+  let downgraded = false;
+  const guard = createFpsGuard(() => (downgraded = true));
+  run(guard, { fps: 20, seconds: 8 });
   assert.equal(downgraded, true);
 });
 

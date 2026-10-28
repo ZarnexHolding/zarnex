@@ -175,6 +175,11 @@ Three tiers (currently 30k / 10k / 0 particles, from `tuning.ts`), chosen from t
 GL renderer string plus device signals. A rolling FPS guard downgrades once and
 never oscillates. **Tier 0 is a designed state**, reviewed like any other.
 
+⚠️ **The guard's floor is 24fps, not 45, and must stay under 30.** Safari's Low
+Power Mode and Chrome's Energy Saver hold every page to 30fps on battery. At 45
+the guard read that as a slow device and swapped the scene for the static logo
+~5s after every load: fine on a plugged-in laptop, gone on the owner's MacBook.
+
 - `?tier=0|1|2` forces a tier in dev.
 - `?guard=off` stands the FPS guard down.
 - **Deliberately separate switches.** They used to be one, so every review
@@ -239,8 +244,8 @@ Adding a logo: put the site's file in `public/logos/`, add a recipe, run
 the clearance test, which is the point.
 
 **`npm run test:fps`** — the guard must survive start-up, a stalled loop
-(backgrounded tab, `setPaused()`), and a one-second hitch, while still
-downgrading a genuinely slow device. A hitch costs *two* windows, not one, since
+(backgrounded tab, `setPaused()`), a one-second hitch, and a browser capped at
+30fps on battery, while still downgrading a genuinely slow device (20fps). A hitch costs *two* windows, not one, since
 the windows either side of it both straddle the stall — hence three strikes.
 Every case in that file is a regression of something that actually happened.
 
@@ -600,3 +605,10 @@ real inbox. It has never pretended to send.
   capture at scroll positions instead.
 - Measuring a visual effect by pixel-diffing the scene mostly measures its idle
   drift. Subtract a control, or test the invariant instead.
+- **To reproduce a capped frame rate**, replace `requestAnimationFrame` in the
+  page's main world (Playwright `addInitScript`, not a devtools/extension
+  context) with one native loop that runs *every* queued callback together,
+  N times a second. Rationing per callback instead starves the page's several
+  loops (Lenis, GSAP, the scene) and measures nothing real.
+- **The in-app browser pane delivers no animation frames while it is hidden.**
+  A scene stuck on its first dust frame there is the pane, not the site.

@@ -102,10 +102,21 @@ const STALL_MS = 250;
 const STRIKES = 3;
 
 /**
+ * Sustained frame rate below which the device genuinely cannot carry the scene.
+ *
+ * It was 45, and a MacBook on battery lost the scene five seconds after every
+ * load. Safari's Low Power Mode and Chrome's Energy Saver hold the whole page
+ * to 30fps — the browser saving power, not the device failing — and the scene
+ * reads fine at 30. 24 sits clear below that cap, at the rate below which
+ * motion stops reading as motion.
+ */
+const FLOOR_FPS = 24;
+
+/**
  * Watches the rolling frame rate and downgrades once if it genuinely sags.
  * Never upgrades: oscillating between tiers is worse than a steady lower one.
  *
- * Three things it must not mistake for slowness, each of which cost us a
+ * Four things it must not mistake for slowness, each of which cost us a
  * false downgrade at some point:
  *
  *  1. Start-up. Shader compile and buffer upload land in the first frames, and
@@ -117,8 +128,10 @@ const STRIKES = 3;
  *  3. A single hitch. GC, a route change or scroll jank can lose a second
  *     without the device being incapable — and it costs two windows, not one,
  *     since the windows either side of it both straddle the stall.
+ *  4. A capped frame rate. Power-saving modes hold every page to 30fps on
+ *     battery — see FLOOR_FPS.
  */
-export function createFpsGuard(onDowngrade: () => void, floor = 45) {
+export function createFpsGuard(onDowngrade: () => void, floor = FLOOR_FPS) {
   let frames = 0;
   let windowStart = 0;
   let warmupUntil = 0;
