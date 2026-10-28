@@ -192,12 +192,24 @@ export default async function CompanyPage({
             </Reveal>
           ) : null}
 
-          <Reveal index={3} className="mt-10">
-            <h1 className="t-display-1 max-w-[14ch]">{company.name}</h1>
-          </Reveal>
+          {/* The company's own site sits opposite its name — the first thing a
+              visitor can act on, not something found after the last section.
+              Bottom-aligned, so a two-line name keeps it on the name's last line. */}
+          <div className="mt-10 flex flex-wrap items-end justify-between gap-x-12 gap-y-8">
+            <Reveal index={3}>
+              <h1 className="t-display-1 max-w-[14ch]">{company.name}</h1>
+            </Reveal>
+            {company.website ? (
+              <Reveal index={4} className="lg:mb-4">
+                <Button variant="primary" href={company.website} external>
+                  {company.website.replace(/^https?:\/\/(www\.)?/, "")}
+                </Button>
+              </Reveal>
+            ) : null}
+          </div>
 
           {company.positioning ? (
-            <Reveal index={4} className="mt-8">
+            <Reveal index={5} className="mt-8">
               <p className="t-body-lg measure text-paper-70">{company.positioning}</p>
             </Reveal>
           ) : null}
@@ -423,28 +435,7 @@ export default async function CompanyPage({
         </section>
       )}
 
-      {/* ---- 06 WEBSITE ------------------------------------------------- */}
-      {company.website ? (
-        <section data-ground="void" className="ground-void py-[var(--spacing-section-sm)]">
-          <div className="shell flex flex-wrap items-end justify-between gap-10">
-            <div>
-              <span
-                aria-hidden
-                className="block h-0.5 w-24"
-                style={{ background: accent }}
-              />
-              <p className="t-display-2 mt-8 max-w-[16ch]">
-                {company.name} online.
-              </p>
-            </div>
-            <Button variant="primary" href={company.website} external>
-              {company.website.replace(/^https?:\/\/(www\.)?/, "")}
-            </Button>
-          </div>
-        </section>
-      ) : null}
-
-      {/* ---- 07 CONTACT CTA — identical on every company page ------------ */}
+      {/* ---- 06 CONTACT CTA — identical on every company page ------------ */}
       <section className="ground-bone py-[var(--spacing-section)]">
         <div className="shell">
           <Rule />
