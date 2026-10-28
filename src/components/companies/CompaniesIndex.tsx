@@ -17,6 +17,32 @@ import { cn } from "@/lib/cn";
  * history entry per click.
  */
 
+/**
+ * The index's order — the owner's, not `companies.ts`'s, which also drives the
+ * footer and the constellation's layout. These lead, in this order; everyone
+ * else follows with companies that have a logo before those without, so the
+ * top of the page is never a run of blank corners. Within each group,
+ * `companies.ts` order. A slug that is missing or held back drops out.
+ */
+const LEAD = [
+  "zarnex-real-estate",
+  "lumen-arabia",
+  "x-live",
+  "energ",
+  "buildx",
+  "realintelligence",
+];
+
+const hasLogo = (c: Company) => Boolean(c.logo || c.logoImage);
+
+const ORDERED: Company[] = [
+  ...LEAD.map((slug) => COMPANIES.find((c) => c.slug === slug)).filter(
+    (c): c is Company => Boolean(c),
+  ),
+  ...COMPANIES.filter((c) => !LEAD.includes(c.slug) && hasLogo(c)),
+  ...COMPANIES.filter((c) => !LEAD.includes(c.slug) && !hasLogo(c)),
+];
+
 /** Only sectors that actually contain a company — derived, never listed. */
 const ACTIVE_SECTORS = SECTORS.filter((s) =>
   COMPANIES.some((c) => c.sectors.includes(s.n)),
@@ -31,7 +57,7 @@ export function CompaniesIndex({ initialSector }: { initialSector: number | null
   const [sector, setSector] = useState<number | null>(initialSector);
 
   const visible = useMemo<Company[]>(
-    () => (sector === null ? COMPANIES : COMPANIES.filter((c) => c.sectors.includes(sector))),
+    () => (sector === null ? ORDERED : ORDERED.filter((c) => c.sectors.includes(sector))),
     [sector],
   );
 
@@ -79,7 +105,7 @@ export function CompaniesIndex({ initialSector }: { initialSector: number | null
             <div key={c.slug} className="bg-bone">
               <CompanyCard
                 company={c}
-                index={COMPANIES.indexOf(c)}
+                index={ORDERED.indexOf(c)}
                 headingLevel={2}
               />
             </div>

@@ -214,6 +214,26 @@ longer counts, and the check now catches any number.
 
 ---
 
+## Names and order, from the owner — 2026-10-28
+
+- **ENERG**, not ENER-G, everywhere on the site. Its profile PDF and older
+  material use the hyphen; the owner's spelling wins. Its domain question
+  (`ener-g.sa` vs `energ.company`, below) is separate and still open.
+- **Zarnex Real Estate and Investment**, not Zarnex Real Estate. The master
+  profile already lists project financing & investment among its services
+  (p5), so the name adds no claim the source does not make. The slug stays
+  `zarnex-real-estate`, so no URL changes.
+- **Homepage, "The group":** Zarnex Real Estate and Investment returns at 01;
+  Glitch Morph leaves the six. Now: Real Estate and Investment, Real
+  Intelligence, Lumen, X Live, BuildX, ENERG.
+- **Companies page:** Real Estate and Investment, Lumen, X Live / ENERG,
+  BuildX, Real Intelligence, then every other company with a logo, then those
+  without. Real Estate and Investment has no logo yet but leads by the
+  owner's choice. The rule is in code, so a company that gains a logo moves up
+  on its own.
+
+---
+
 ## Still outstanding
 
 1. `ener-g.sa` vs `energ.company` — which is live?

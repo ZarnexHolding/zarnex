@@ -47,7 +47,7 @@ export type Company = {
    * Cards are always on the light ground, so a mark whose lettering is black
    * or white needs a file per ground: Lumen pairs this with `logoImage`;
    * RealIntelligence pairs it with a `logo` silhouette for the card. Marks
-   * that work on either ground (ENER-G) leave this unset.
+   * that work on either ground (ENERG) leave this unset.
    *
    * Hero order: logoImageOnDark → logo → logoImage. Card order: logo → logoImage.
    */
@@ -79,7 +79,7 @@ export const SECTORS = [
 const ALL_COMPANIES: Company[] = [
   {
     slug: "zarnex-real-estate",
-    name: "Zarnex Real Estate",
+    name: "Zarnex Real Estate and Investment",
     accent: "zarnex-re",
     industry: "Real Estate",
     sectors: [1],
@@ -228,7 +228,7 @@ const ALL_COMPANIES: Company[] = [
   },
   {
     slug: "energ",
-    name: "ENER-G",
+    name: "ENERG",
     accent: "energ",
     industry: "Solar Energy",
     sectors: [10],

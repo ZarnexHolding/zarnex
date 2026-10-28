@@ -90,8 +90,13 @@ rather than a screenshot pinning the pixels.
 
 **The homepage's six companies are an editorial pick** — `FEATURED` in
 `components/home/CompaniesPreview.tsx`, by slug, in display order. Change that
-list, not the order of `companies.ts`, which would also reorder the index, the
-footer and the constellation. A slug that is missing or held back drops out.
+list, not the order of `companies.ts`, which would also reorder the footer and
+the constellation's layout. A slug that is missing or held back drops out.
+
+**The companies index has its own order too** — `LEAD` in
+`components/companies/CompaniesIndex.tsx` (the owner's pick), then everyone
+else with a logo, then those without, each group in `companies.ts` order. A new
+company with a logo therefore lands above the logo-less ones on its own.
 
 **Adding a company that is not in the master profile** (BuildX was the first):
 its own `docs/NN-<slug>.md` source doc, an accent in *both* `globals.css` and
@@ -487,7 +492,7 @@ intent signal. Prefetch stays on for the nav and the company cards.
 
 Monochrome marks use a **CSS mask** so they inherit `currentColor` and pick up
 the accent on hover (`logo` field). Full-colour marks where the colour *is* the
-identity render as an `<img>` (`logoImage`) — masking ENER-G's gradient or
+identity render as an `<img>` (`logoImage`) — masking ENERG's gradient or
 Lumen's rainbow bar would flatten them to a silhouette.
 
 **Cards are always on the light ground; company heroes always on the dark
@@ -499,7 +504,7 @@ ground: `logoImageOnDark` is the hero's. Hero order: `logoImageOnDark` → `logo
 |---|---|---|
 | Lumen | `logoImage` — black type | `logoImageOnDark` — white type |
 | Real Intelligence | `logo` silhouette | `logoImageOnDark` — chrome and red |
-| ENER-G | `logoImage` | same |
+| ENERG | `logoImage` | same |
 | IFMC · X Live · BuildX · Glitch Morph | `logo` | `logo`, in the accent |
 
 Card marks sit in a 96px slot (`max-w-24` for images, `w-24` for masks) — Lumen
@@ -569,7 +574,7 @@ real inbox. It has never pretended to send.
 
 **Content**
 3. `ener-g.sa` (its PDF) vs `energ.company` (the registrar) — which is live?
-4. SVG logos: only IFMC has a vector mark. X Live, ENER-G, BuildX, Lumen,
+4. SVG logos: only IFMC has a vector mark. X Live, ENERG, BuildX, Lumen,
    Glitch Morph and Real Intelligence are raster (BuildX's artwork is just
    350×96px; Glitch Morph and RI came as WhatsApp images). Zarnex Real Estate,
    Neptune, VR-1, Hikma, Graymatterz, Astroper and R&D have no mark at all.

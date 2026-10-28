@@ -548,7 +548,7 @@ export const COMPANY_CONTENT: Record<string, CompanyContent> = {
         ],
       },
     ],
-    // What ENER-G powers, and who plans it.
+    // What ENERG powers, and who plans it.
     related: ["ifmc", "zarnex-real-estate", "neptune-studios"],
     hero: "array-desert-dawn",
     gallery: [
@@ -746,7 +746,7 @@ export const COMPANY_CONTENT: Record<string, CompanyContent> = {
       },
     ],
     // Editorial adjacency — research, the cities its twins model, and the
-    // displays its platforms drive. Its sector-mates are Hikma and ENER-G.
+    // displays its platforms drive. Its sector-mates are Hikma and ENERG.
     related: ["rnd", "zarnex-real-estate", "lumen-arabia"],
     hero: "red-eye-chrome-shards",
   },
